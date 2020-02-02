@@ -1,0 +1,66 @@
+{
+    FinalLoc:{
+        "name": "Harrison",
+        "GPSLoc":[50.737806, -3.532618],
+        "LecturerAndRooms":[]
+    }
+    
+    "Locations":[
+        {
+            "name": "The Ram Bar",
+            "GPSLoc":[50.735372, -3.534208],
+            "Question":"What is the Cheapest pint at the ram?",
+            "Answer":"Carlsberg",
+            "QRNum":
+        },
+        {
+            "name": "The Innovation Centre",
+            "GPSLoc":[50.738162, -3.530157],
+            "Question":"Which Computer Room is named after a famous female computer Scientist?",
+            "Answer":"Lovelace",
+            "QRNum":
+        },
+        {
+            "name": "Newman Purple",
+            "GPSLoc":[50.736417, -3.535468],
+            "Question":"How many Chairs are there in Newman Purple?",
+            "Answer":"",
+            "QRNum":
+        },
+        {
+            "name": "Queens LT2",
+            "GPSLoc":[50.734160, -3.534642],
+            "Question":"What is the price of a komeda wrap?",
+            "Answer":"£3.60",
+            "QRNum":
+        },
+        {
+            "name": "Old Libary",
+            "GPSLoc":[50.733356, -3.533522],
+            "Question":"How do you say Computer science in Dr enrico malizia native language",
+            "Answer":"Informatica",
+            "QRNum":
+        },
+        {
+            "name": "Forum Libary",
+            "GPSLoc":[50.735588, -3.532745],
+            "Question":"In what counry did Ronaldo Menezes get his BSc?",
+            "Answer":"Brazil",
+            "QRNum":
+        },
+        {
+            "name": "Sports Park",
+            "GPSLoc":[50.738062, -3.536865],
+            "Question":"What position was computer science at exeter university of exeter rated by the Times?",
+            "Answer":"6",
+            "QRNum":
+        },
+        {
+            "name": "Amory",
+            "GPSLoc":[50.736656, -3.530984],
+            "Question":"Who is the head for Computer science at the university of exeter?",
+            "Answer":"Ronaldo Menezes",
+            "QRNum":
+        }           
+    ]
+}
