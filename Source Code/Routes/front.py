@@ -1,24 +1,25 @@
 from flask import Blueprint,request,json
 from flask import render_template
-from Controllers.home import homecontroller
-from Controllers.dashboard import dashboardcontroller
+from Controllers.auth import authController
+from Controllers.dashboard import dashboardController
 
-#Any for the front end
+# Author - Ben Constable
+# MVC Router for handling all front end routes
 
 front = Blueprint("front", __name__)
 
 @front.route('/', methods=['GET'])
 def home():
-    return homecontroller.index()
+    return authController.index()
 
 @front.route('/register', methods=['POST'])
 def registerTeam():
-    return homecontroller.registerTeam()
+    return authController.registerTeam()
 
 @front.route('/login', methods=['POST'])
 def loginTeam():
-    return homecontroller.loginTeam()
+    return authController.loginTeam()
 
 @front.route('/dashboard', methods=['GET'])
 def fetchDash():
-    return dashboardcontroller.index()
+    return dashboardController.index()

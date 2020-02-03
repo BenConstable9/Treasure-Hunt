@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- Author - Ben Constable -->
+<!-- Render the home pages -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,16 +10,21 @@
 </head>
 <body>
     <h1>Welcome</h1>
+    {% if status == "0" %}
+        <div class="error"><p>{{ message }}</p></div>
+    {% endif %}
     <form action="/register" method="post">
+        <label for="TeamName">Team Name</label>
         <input type="text" name="TeamName">
-        <select name="Subject">
-            <option value="CS">Computer Science</option>
-        </select>
+        <label for="GamePin">Game Pin</label>
+        <input type="text" name="GamePin">
         <input type="submit" name="SignUp" value="Sign Up">
     </form>
     <form action="/login" method="post">
+        <label for="TeamName">Team Name</label>
         <input type="text" name="TeamName">
-        <input type="password" name="Password">
+        <label for="GamePin">Game Pin</label>
+        <input type="text" name="GamePin">
         <input type="submit" name="Login" value="Login">
     </form>
 </body>
