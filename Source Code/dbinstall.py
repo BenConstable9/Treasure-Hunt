@@ -1,7 +1,7 @@
-import sqlite3
+import sqlite3 as sql
 import datetime
 
-conn = sqlite3.connect('treasure.db')
+conn = sql.connect('treasure.db')
 print ("Opened database successfully");
 
 conn.execute('CREATE TABLE IF NOT EXISTS Users (UserID integer PRIMARY KEY, TeamID int not null, Name string not null, FOREIGN KEY (TeamID) REFERENCES Teams (TeamID))')
