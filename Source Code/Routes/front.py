@@ -8,6 +8,7 @@ from Controllers.dashboard import dashboardController
 
 front = Blueprint("front", __name__)
 
+# Define all of the routes to be handled on the front end
 @front.route('/', methods=['GET'])
 def home():
     return authController.index()
