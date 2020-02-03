@@ -13,6 +13,6 @@ print ("Table created successfully");
 conn.execute('CREATE TABLE IF NOT EXISTS Results (ResultID integer PRIMARY KEY AUTOINCREMENT, ClueID integer not null, TeamID integer not null, Result string not null, TimeTaken datetime not null, FOREIGN KEY (ClueID) REFERENCES Clue (ClueID), FOREIGN KEY (TeamID) REFERENCES Teams (TeamID))')
 print ("Table created successfully");
 
-conn.execute('CREATE TABLE IF NOT EXISTS Clues (ClueID integer PRIMARY KEY AUTOINCREMENT, Subject string not null, Question string not null, Hinteger string not null, Answer string not null)')
+conn.execute('CREATE TABLE IF NOT EXISTS Clues (ClueID integer PRIMARY KEY AUTOINCREMENT, Subject string not null, Question string not null, Hint integer string not null, Answer string not null)')
 print ("Table created successfully");
 conn.close()
