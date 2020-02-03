@@ -5,17 +5,6 @@ class TeamModel():
     def __init__(self):
         pass
 
-    def getUser(_id):
-        users = mongo.db.users.find({'_id': _id})
-        x = []
-        for user in users:
-            x.append(user)
-        return user
-
-    def getAllUser(_id):
-        users = mongo.db.users.find()
-        return toDictionaryArray(users)
-
     def registerTeam(self, TeamName, Password, Subject):
         #insert them
         try:
@@ -31,12 +20,37 @@ class TeamModel():
 
                 response = {'Status':'1', 'Message':'Team Registration Successfull', 'ID': lastID}
 
-                print(response)
         except:
             con.rollback()
             response = {'Status':'0', 'Message':'Team Registration Unsuccessfull', 'ID': '0'}
 
-            print(response)
+        finally:
+            return response
+
+            con.close()
+
+    def loginTeam(self, teamName, password):
+        #insert them
+        try:
+            #when are we meant to open it
+            with sql.connect("treasure.db") as con:
+                cur = con.cursor()
+                cur.row_factory = sql.Row
+
+                cur.execute("SELECT * FROM Teams WHERE TeamName=?", (teamName,))
+
+                team = cur.fetchone()
+
+                #todo handle hashing
+                if (password == team["Password"]):
+
+                    response = {'Status':'1', 'Message':'Team Logged In Successfully', 'ID': team["TeamID"]}
+
+                else:
+                    response = {'Status':'0', 'Message':'Team Logging In Unsuccessfull - Invalid Password', 'ID': '0'}
+
+        except:
+            response = {'Status':'0', 'Message':'Team Logging In Unsuccessfull', 'ID': '0'}
 
         finally:
             return response

@@ -36,6 +36,21 @@ class HomeController():
             return render_template('home.html')
 
     def loginTeam(self):
-        return sendResponse(authmodel.registerUser(_firstname,_lastname,_email,_password))
+        TeamName = request.form.get('TeamName')
+        Password = request.form.get('Password')
+
+        response = teamModel.loginTeam(TeamName, Password)
+
+        if response["Status"] == "1":
+            session["LoggedIn"] = "True"
+            session["TeamID"] = response["ID"]
+            return redirect("/dashboard", code=302)
+        else:
+            #handle the error
+            print("broken")
+
+            #should output the error
+
+            return render_template('home.html')
 
 homecontroller=HomeController()
