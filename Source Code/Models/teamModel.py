@@ -16,26 +16,26 @@ class TeamModel():
         # Try the SQL
         try:
             # Open the database
-            with sql.connect("treasure.db") as con:
+            with sql.connect("Models/treasure.sqlite") as con:
+                #map the columns to rows
+                con.row_factory = sql.Row
                 cur = con.cursor()
 
-                # Map the column names
-                cur.row_factory = sql.Row
-
                 # See if the game pin is valid
-                cur.execute("SELECT * FROM Games WHERE GamePin=? AND Active=1", (gamePin,))
+                cur.execute("SELECT * FROM Games WHERE GamePin=? AND Active=?", (int(gamePin),1))
+                print(cur)
 
                 game = cur.fetchone()
 
                 if (gamePin == game["GamePin"]):
 
                     # See if the team name has already been taken for that game
-                    cur.execute("SELECT * FROM Teams WHERE GamePin=? AND TeamName=1", (gamePin,teamName))
+                    cur.execute("SELECT * FROM Teams WHERE GamePin=? AND TeamName=?", (gamePin,teamName))
 
                     otherTeam = cur.fetchall()
 
                     #now check the team name and pin combo by checking the length of the return
-                    if (otherTeam.length == 0):
+                    if (len(otherTeam) == 0):
                         subject = game["Subject"]
 
                         # Insert the team data
@@ -54,8 +54,8 @@ class TeamModel():
                 else:
                     response = {'status':'0', 'message':'Team Registration Unsuccessful - Game Pin Invalid', 'ID': '0'}
 
-        except:
-            # If a fail then rollback the transaction
+        except sql.Error as error:
+            print("Error while connecting to sqlite", error)
 
             con.rollback()
 
@@ -75,7 +75,7 @@ class TeamModel():
         # Try the SQL
         try:
             # Open the DB
-            with sql.connect("treasure.db") as con:
+            with sql.connect("Models/treasure.sqlite") as con:
                 cur = con.cursor()
                 cur.row_factory = sql.Row
 
