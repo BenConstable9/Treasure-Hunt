@@ -49,17 +49,17 @@ class TeamModel():
                         response = {'status':'1', 'message':'Team Registration Successfull', 'ID': lastID, 'subject': subject, 'gamePin': gamePin}
 
                     else:
-                        response = {'status':'0', 'message':'Team Registration Unsuccessfull - Team Name Already Taken', 'ID': '0'}
+                        response = {'status':'0', 'message':'Team Registration Unsuccessful - Team Name Already Taken', 'ID': '0'}
 
                 else:
-                    response = {'status':'0', 'message':'Team Registration Unsuccessfull - Game Pin Invalid', 'ID': '0'}
+                    response = {'status':'0', 'message':'Team Registration Unsuccessful - Game Pin Invalid', 'ID': '0'}
 
         except:
             # If a fail then rollback the transaction
 
             con.rollback()
 
-            response = {'status':'0', 'message':'Team Registration Unsuccessfull', 'ID': '0'}
+            response = {'status':'0', 'message':'Team Registration Unsuccessful', 'ID': '0'}
 
         finally:
             return response
@@ -91,10 +91,10 @@ class TeamModel():
                     response = {'status':'1', 'message':'Team Logged In Successfully', 'ID': team["TeamID"], 'subject': team["Subject"], 'gamePin': team["GamePin"]}
 
                 else:
-                    response = {'status':'0', 'message':'Team Logging In Unsuccessfull - Invalid Game Pin', 'ID': '0'}
+                    response = {'status':'0', 'message':'Team Logging In Unsuccessful - Invalid Game Pin', 'ID': '0'}
 
         except:
-            response = {'status':'0', 'message':'Team Logging In Unsuccessfull', 'ID': '0'}
+            response = {'status':'0', 'message':'Team Logging In Unsuccessful', 'ID': '0'}
 
         finally:
 

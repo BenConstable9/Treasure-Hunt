@@ -28,4 +28,9 @@ print ("Table created successfully");
 #Questions Table
 conn.execute('CREATE TABLE IF NOT EXISTS Questions (QuestionID integer PRIMARY KEY AUTOINCREMENT, Subject text not null, Location text not null, QRLocation text not null, QRtext text not null, Question text not null, Answer text not null, GPS text not null, Letter text not null)')
 print ("Table created successfully");
+
+conn.execute("INSERT INTO Keepers VALUES(null,'Ravi','RaviUsername','Test','Salt') ")
+conn.execute("INSERT INTO Games VALUES(null,'Computer Science','123', 1, 1) ")
+
+
 conn.close()
