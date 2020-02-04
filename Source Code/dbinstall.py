@@ -14,7 +14,7 @@ print ("Table created successfully");
 
 #Games Table
     #For active, as sqlite3 does not have a boolean data type - 1 will be true and 0 will be false
-conn.execute('CREATE TABLE IF NOT EXISTS Games (GameID integer PRIMARY KEY AUTOINCREMENT, Subject text not null, GamePin integer not null, Issuer integer not null, Active integer not null)')
+conn.execute('CREATE TABLE IF NOT EXISTS Games (GameID integer PRIMARY KEY AUTOINCREMENT, Subject text not null, GamePin integer not null, KeeperID integer not null, Active integer not null, FOREIGN KEY (KeeperID) REFERENCES Keepers (KeeperID))')
 print ("Table created successfully");
 
 #Teams Table
