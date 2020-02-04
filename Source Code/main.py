@@ -1,10 +1,11 @@
 from flask import Flask,request
 from Routes.front import front
+from Routes.admin import admin
 import secrets
 #from routes.back import back
 app = Flask(__name__, template_folder='Views')
 app.register_blueprint(front)
-#app.register_blueprint(back)
+app.register_blueprint(admin)
 
 # Author - Ben Constable
 # MVC Entry point for handling the site
