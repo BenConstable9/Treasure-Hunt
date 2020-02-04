@@ -66,7 +66,7 @@ class TeamModel():
 
             con.close()
 
-    """Handling the registering of the teams.
+    """Handling the logging in of the teams.
     :param: teamName - the name submitted in the form
     :param: gamePin - the supplied game Pin
 
