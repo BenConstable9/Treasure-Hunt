@@ -1,3 +1,6 @@
+# Author - Ravi Gohel
+# Database creation and tables creation
+
 import sqlite3 as sql
 import datetime
 
@@ -36,23 +39,6 @@ cur = con.cursor()
 cur.execute("INSERT INTO Keepers VALUES(null,'Ravi','RaviUsername','Test','Salt') ")
 cur.execute("INSERT INTO Games VALUES(null,'Computer Science','123', 1, 1) ")
 
-cur.execute("SELECT * FROM Games")
-
-game = cur.fetchall()
-
-print("test 1")
-
-print(game)
-
-cur.execute("SELECT * FROM Keepers")
-
-game = cur.fetchall()
-
-print("test 1")
-
-print(game)
-
 con.commit()
-
 
 cur.close()

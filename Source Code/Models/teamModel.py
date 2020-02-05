@@ -1,7 +1,7 @@
 from flask import request,json
 import sqlite3 as sql
 
-# Author - Ben Constable
+# Author - Ben Constable, Debugged with - Ravi Gohel
 # MVC Model for handling team related data
 class TeamModel():
     def __init__(self):
