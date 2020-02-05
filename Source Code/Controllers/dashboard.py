@@ -12,6 +12,8 @@ class DashboardController():
         if not session.get('loggedIn'):
             return redirect("/", code=302)
         else:
+			teamID = session.get('teamID') #pass this to a model
+			gamePin = session.get('gamePin')
             return render_template('dashboard.html')
 
 dashboardController=DashboardController()
