@@ -22,7 +22,7 @@ cur.execute('CREATE TABLE IF NOT EXISTS Keepers (KeeperID integer PRIMARY KEY AU
 print ("(2) Keepers Table created successfully");
 
 #Games Table
-    #For 'active', as sqlite3 does not have a boolean data type - 1 will be true and 0 will be false
+#For 'active', as sqlite3 does not have a boolean data type - 1 will be true and 0 will be false
 cur.execute('CREATE TABLE IF NOT EXISTS Games (GameID integer PRIMARY KEY AUTOINCREMENT, SubjectID int not null, GamePin text not null, KeeperID integer not null, Active integer not null, FOREIGN KEY (KeeperID) REFERENCES Keepers (KeeperID), FOREIGN KEY (SubjectID) REFERENCES Subject(SubjectID))')
 print ("(3) Games Table created successfully");
 
