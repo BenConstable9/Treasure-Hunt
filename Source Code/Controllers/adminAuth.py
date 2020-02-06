@@ -4,8 +4,8 @@ from Models.adminModel import adminModel
 from Helpers.utility import escapeInput
 
 # Author - Ben Constable
-# MVC Controller for handling user sign up
-class AuthController():
+# MVC Controller for handling admin sign up
+class AdminAuthController():
 
     def __init__(self):
         pass
@@ -23,13 +23,13 @@ class AuthController():
     """Handle the form for the logging on
 
     :return: A redirect or a template. """
-    def loginAdmin(self):
+    def adminLogin(self):
         # Get the values from the request
         username = request.form.get('Username')
         givenPassword = request.form.get('Password')
 
         # Get the response from the model
-        response = adminModel.loginTeam(escapeInput(username), escapeInput(givenPassword))
+        response = adminModel.adminLogin(escapeInput(username), escapeInput(givenPassword))
 
         if response["status"] == "1":
             # Set the session varaibles
@@ -42,4 +42,4 @@ class AuthController():
             #should output the error
             return render_template('admin.html', status=response["status"], message=response["message"])
 
-authController=AuthController()
+adminAuthController=AdminAuthController()

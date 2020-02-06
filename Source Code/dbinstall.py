@@ -1,5 +1,6 @@
 import sqlite3 as sql
 import datetime
+from Models.adminModel import adminModel
 
 con = sql.connect('Models/treasure.sqlite')
 print ("Opened database successfully");
@@ -15,7 +16,7 @@ cur.execute('CREATE TABLE IF NOT EXISTS Keepers (KeeperID integer PRIMARY KEY AU
 print ("Table created successfully");
 
 #Games Table
-    #For active, as sqlite3 does not have a boolean data type - 1 will be true and 0 will be false
+#For active, as sqlite3 does not have a boolean data type - 1 will be true and 0 will be false
 cur.execute('CREATE TABLE IF NOT EXISTS Games (GameID integer PRIMARY KEY AUTOINCREMENT, Subject text not null, GamePin text not null, KeeperID integer not null, Active integer not null, FOREIGN KEY (KeeperID) REFERENCES Keepers (KeeperID))')
 print ("Table created successfully");
 
@@ -33,24 +34,9 @@ print ("Table created successfully");
 
 cur = con.cursor()
 
-cur.execute("INSERT INTO Keepers VALUES(null,'Ravi','RaviUsername','Test','Salt') ")
+adminModel.adminRegister("Test Game", "admin", "admin")
+
 cur.execute("INSERT INTO Games VALUES(null,'Computer Science','123', 1, 1) ")
-
-cur.execute("SELECT * FROM Games")
-
-game = cur.fetchall()
-
-print("test 1")
-
-print(game)
-
-cur.execute("SELECT * FROM Keepers")
-
-game = cur.fetchall()
-
-print("test 1")
-
-print(game)
 
 con.commit()
 
