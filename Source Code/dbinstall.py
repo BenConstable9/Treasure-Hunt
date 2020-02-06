@@ -11,7 +11,7 @@ print ("Opened database successfully");
 cur = con.cursor()
 
 #Tutors Table
-cur.execute('CREATE TABLE IF NOT EXISTS Tutors (TutorID integer PRIMARY KEY AUTOINCREMENT, SubjectID int not null, Name text not null, Room int not null, FOREIGN KEY (SubjectID) REFERENCES Subject(SubjectID))')
+cur.execute('CREATE TABLE IF NOT EXISTS Tutors (TutorID integer PRIMARY KEY AUTOINCREMENT, SubjectID int not null, Name text not null, Room text not null, FOREIGN KEY (SubjectID) REFERENCES Subject(SubjectID))')
 print ("(1) Tutors Table created successfully");
 
 #Subjects Table

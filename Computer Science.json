@@ -1,10 +1,39 @@
 {
-    "Author": "Zach Lavender, Modified by Ben Constable",
+    "Author": "Zach Lavender, Modified by Ben Constable and Ravi Gohel",
     "Subject": "Computer Science",
     "FinalLoc":{
         "Building": "Harrison",
         "GPS":[50.737806, -3.532618]
     },
+    "Tutors":[
+        {
+          "Name":"Ronaldo Menezes",
+          "Room":"170"
+        },
+        {
+          "Name":"Richard Everson",
+          "Room":"004"
+        },
+        {
+          "Name":"Matthew Collison",
+          "Room":"101"
+        },
+        {
+          "Name":"David Wakeling",
+          "Room":"102"
+        },
+        {
+          "Name":"Hugo Barbosa"
+          "Room":"103"
+        },
+        {
+          "Name":"Ke Li"
+          "Room":"107"
+        },
+        {
+          "Name":""
+        }
+    ],
     "Locations":[
         {
             "Building": "The Ram Bar",
@@ -16,7 +45,7 @@
         {
             "Building": "The Innovation Centre",
             "GPS":[50.738162, -3.530157],
-            "Question":"Which computer room is Locationd after a famous female computer scientist?",
+            "Question":"Which Computer Room in Innovation Centre named after a famous female Computer Scientist?",
             "Answer":"Lovelace",
             "QRLocation":""
         },
@@ -30,16 +59,16 @@
         {
             "Building": "Queens LT2",
             "GPS":[50.734160, -3.534642],
-            "Question":"What is the price of a komeda wrap?",
+            "Question":"",
             "Answer":"£3.60",
             "QRLocation":"Outside Lecture Theatre"
         },
         {
-            "Building": "Old Libary",
-            "GPS":[50.733356, -3.533522],
-            "Question":"How do you say Computer Science in Prof Ronaldo Menezes native language?",
+            "Building": "Business School",
+            "GPS":[50.735668, -3.530043],
+            "Question":"How do you say Computer Science in Prof Ronaldo Menezes' native language?",
             "Answer":"Ciência da Computaçāo",
-            "QRLocation":
+            "QRLocation":"In the Cafe"
         },
         {
             "Building": "Forum Libary",
@@ -51,8 +80,8 @@
         {
             "Building": "Sports Park",
             "GPS":[50.738062, -3.536865],
-            "Question":"What position was Computer Science, at University of Exeter, rated by the Times?",
-            "Answer":"6",
+            "Question":"What is the price of the Health & Fitness Membership for a year?",
+            "Answer":"£460",
             "QRLocation": "Inside Gym Reception"
         },
         {
