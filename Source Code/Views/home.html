@@ -4,17 +4,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="Source Code/CSS/common.css" rel='stylesheet' type='text/css'/>
+    <link href="../CSS/common.css" rel='stylesheet' type='text/css'/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
 </head>
 <body>
     <h1>Welcome</h1>
+    <h3> To the University of Exeter Freshers Treasure Hunt </h3>
     <!-- If an error is returned then output it -->
+
     {% if status == "0" %}
         <div class="error"><p>{{ message }}</p></div>
     {% endif %}
+
+    <h2> Register your Team</h2>
     <form action="/register" method="post">
         <label for="TeamName">Team Name</label>
         <input type="text" name="TeamName">
@@ -22,6 +26,7 @@
         <input type="text" name="GamePin">
         <input type="submit" name="SignUp" value="Sign Up">
     </form>
+    <h2> Log Back into your Game </h2>
     <form action="/login" method="post">
         <label for="TeamName">Team Name</label>
         <input type="text" name="TeamName">
