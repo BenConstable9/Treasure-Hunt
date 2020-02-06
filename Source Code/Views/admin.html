@@ -4,12 +4,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="../CSS/common.css" rel='stylesheet' type='text/css'/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Treasure Hunt Admin</title>
 </head>
 <body>
-    <h1>Welcome to admin</h1>
+    <h1>Welcome to Game Keeper Login</h1>
     <!-- If an error is returned then output it -->
     {% if status == "0" %}
         <div class="error"><p>{{ message }}</p></div>
@@ -19,7 +20,7 @@
         <input type="text" name="Username">
         <label for="Password">Password</label>
         <input type="text" name="Password">
-        <input type="submit" name="Login" value="Login">
+        <input type="submit" name="Login" value="Login as Admin">
     </form>
 </body>
 </html>
