@@ -82,12 +82,12 @@ class AdminModel():
                 # Get the team name
                 cur.execute("SELECT * FROM Keepers WHERE Username=?", (username,))
 
-                admin = cur.fetchone()
+                keeper = cur.fetchone()
 
                 givenPassword = hashlib.pbkdf2_hmac(
                     'sha256',
                     givenPassword.encode('utf-8'), # Convert the password to bytes
-                    admin["Salt"],
+                    keeper["Salt"],
                     100000,
                     dklen=128
                 )
@@ -95,10 +95,10 @@ class AdminModel():
                 print(givenPassword)
 
                 # Check the game pin
-                if (givenPassword == admin["Password"]):
+                if (givenPassword == keeper["Password"]):
 
                     # Formulate the response
-                    response = {'status':'1', 'message':'Game Keeper Logged In Successfully', 'ID': admin["KeeperID"]}
+                    response = {'status':'1', 'message':'Game Keeper Logged In Successfully', 'ID': keeper["KeeperID"]}
 
                 else:
                     response = {'status':'0', 'message':'Game Keeper Logging In Unsuccessfull - Invalid Username or Password', 'ID': '0'}
