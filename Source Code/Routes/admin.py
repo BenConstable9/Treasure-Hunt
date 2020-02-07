@@ -9,14 +9,14 @@ from Controllers.game import gameController
 admin = Blueprint("admin", __name__)
 
 # Define all of the routes to be handled on the front end
-@front.route('/admin', methods=['GET'])
-def home():
+@admin.route('/admin', methods=['GET'])
+def adminHome():
     return adminAuthController.index()
 
-@front.route('/admin/login', methods=['POST'])
-def loginTeam():
-    return adminAuthController.loginAdmin()
+@admin.route('/admin/login', methods=['POST'])
+def loginAdmin():
+    return adminAuthController.adminLogin()
 
-@front.route('/admin/login', methods=['POST'])
-def loginTeam():
+@admin.route('/admin/game', methods=['GET'])
+def gameAdmin():
     return gameController.index()
