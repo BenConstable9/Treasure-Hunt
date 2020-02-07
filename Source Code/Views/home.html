@@ -10,6 +10,9 @@
     <title>Home</title>
 </head>
 <body>
+<form>
+  <button type = "button" onclick = "admin.html" name = "adminLogin">Login as Admin</button>
+</form>
     <h1>Welcome</h1>
     <h3> To the University of Exeter Freshers Treasure Hunt </h3>
     <!-- If an error is returned then output it -->
@@ -26,6 +29,7 @@
         <input type="text" name="GamePin">
         <input type="submit" name="SignUp" value="Sign Up">
     </form>
+
     <h2> Log Back into your Game </h2>
     <form action="/login" method="post">
         <label for="TeamName">Team Name</label>
