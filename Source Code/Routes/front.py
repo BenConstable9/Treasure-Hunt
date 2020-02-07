@@ -18,8 +18,16 @@ def registerTeam():
     return authController.registerTeam()
 
 @front.route('/login', methods=['POST'])
-def loginTeam():
+def loginTeamPost():
     return authController.loginTeam()
+
+@front.route('/register', methods=['GET'])
+def registerTeamGet():
+    return authController.index()
+
+@front.route('/login', methods=['GET'])
+def loginTeamGet():
+    return authController.index()
 
 @front.route('/dashboard', methods=['GET'])
 def fetchDash():

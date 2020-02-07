@@ -4,12 +4,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="../CSS/common.css" rel='stylesheet' type='text/css'/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Manage Game</title>
 </head>
 <body>
     <h1>Admin Dashboard</h1>
+    <button>Create Game</button>
+    <input type="text">
+    <button>Print QR Codes</button>
+    <button>Manage Exisiting Games</button>
+    <div>
+        <h2>Leaderboard</h2>
+    </div>
+
+    <div class="modal">
+        <div class="modalHeader">
+            <h2>Manage Existing Configs</h2>
+            <ul>
+                <li>Game 1</li>
+            </ul>
+            <form action="/admin/upload">
+                <input type="file" accept="application/JSON">
+                <input type="submit" value="Upload Config">
+            </form>
+        </div>
+    </div>
 </body>
 </html>

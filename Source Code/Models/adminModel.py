@@ -5,7 +5,7 @@ import hashlib
 
 # Author - Ben Constable
 # MVC Model for handling admin related data
-class TeamModel():
+class AdminModel():
     def __init__(self):
         pass
 
@@ -15,11 +15,11 @@ class TeamModel():
     :param: password - the supplied game Pin
 
     :return: A JSON array with the status. """
-    def registerAdmin(self, name, username, password):
+    def adminRegister(self, name, username, password):
         # Try the SQL
         try:
             # Open the database
-            with sql.connect("treasure.db") as con:
+            with sql.connect("Models/treasure.sqlite") as con:
                 cur = con.cursor()
 
                 # See if the username exists
@@ -28,7 +28,7 @@ class TeamModel():
                 otherKeepers = cur.fetchall()
 
                 #now check the username is not already taken
-                if (otherKeepers.length == 0):
+                if (len(otherKeepers) == 0):
 
                     salt = os.urandom(32)
 
@@ -42,7 +42,7 @@ class TeamModel():
                     )
 
                     # Insert the team data
-                    cur.execute("INSERT INTO Keepers (Name,Username,Password,Salt) VALUES (?,?,?)",(name,username,storedPassword,salt) )
+                    cur.execute("INSERT INTO Keepers (Name,Username,Password,Salt) VALUES (?,?,?,?)",(name,username,storedPassword,salt) )
 
                     con.commit()
 
@@ -71,31 +71,34 @@ class TeamModel():
     :param: gamePin - the supplied game Pin
 
     :return: A JSON array with the status. """
-    def loginAdmin(self, username, givenPassword):
+    def adminLogin(self, username, givenPassword):
         # Try the SQL
         try:
             # Open the DB
-            with sql.connect("treasure.db") as con:
+            with sql.connect("Models/treasure.sqlite") as con:
+                con.row_factory = sql.Row
                 cur = con.cursor()
-                cur.row_factory = sql.Row
 
                 # Get the team name
                 cur.execute("SELECT * FROM Keepers WHERE Username=?", (username,))
 
-                admin = cur.fetchone()
+                keeper = cur.fetchone()
 
                 givenPassword = hashlib.pbkdf2_hmac(
                     'sha256',
                     givenPassword.encode('utf-8'), # Convert the password to bytes
-                    admin["Salt"],
-                    100000
+                    keeper["Salt"],
+                    100000,
+                    dklen=128
                 )
 
+                print(givenPassword)
+
                 # Check the game pin
-                if (givenPassword == admin["Password"]):
+                if (givenPassword == keeper["Password"]):
 
                     # Formulate the response
-                    response = {'status':'1', 'message':'Game Keeper Logged In Successfully', 'ID': admin["KeeperID"]}
+                    response = {'status':'1', 'message':'Game Keeper Logged In Successfully', 'ID': keeper["KeeperID"]}
 
                 else:
                     response = {'status':'0', 'message':'Game Keeper Logging In Unsuccessfull - Invalid Username or Password', 'ID': '0'}
