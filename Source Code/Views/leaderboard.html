@@ -10,35 +10,16 @@
     <title>Leaderboard</title>
 </head>
 
-  <body>
-    <div class="outer">
-      <div class="logo"></div>
-      <h1 class="title">Leaderboard</h1>
-      <div class="subtitle">Select a scientist to give them points</div>
-      {{> leaderboard}}
-    </div>
+<body>
+  <button type = "button" onclick = "home.html" name = "backFromLeaderboard">Back</button>
+
+  <h1> Leaderboard </h1>
+
+  <table id="leaderboardTable" align="center">
+    <tr id = "titleRow">
+      <th>Rank</th>
+      <th>Team Name</th>
+      <th>Number of Letters Collected</th>
+    </tr>
+  </table>
   </body>
-
-  <template name="leaderboard">
-    <ol class="leaderboard">
-      {{#each players}}
-        {{> player}}
-      {{/each}}
-    </ol>
-
-    {{#if selectedName}}
-      <div class="details">
-        <div class="name">{{selectedName}}</div>
-        <button class="inc">Add 5 points</button>
-      </div>
-    {{else}}
-      <div class="message">Click a player to select</div>
-    {{/if}}
-  </template>
-
-  <template name="player">
-    <li class="player {{selected}}">
-      <span class="name">{{name}}</span>
-      <span class="score">{{score}}</span>
-    </li>
-  </template>
