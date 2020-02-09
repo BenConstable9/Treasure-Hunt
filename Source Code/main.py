@@ -3,7 +3,7 @@ from Routes.front import front
 from Routes.admin import admin
 import secrets
 #from routes.back import back
-app = Flask(__name__, template_folder='Views')
+app = Flask(__name__, template_folder='Views', static_folder='Static')
 app.register_blueprint(front)
 app.register_blueprint(admin)
 
