@@ -5,10 +5,8 @@ body {
 }
 
 h1,h2,h3 {
-  align-items: center
+  text-align: center;
   font-size: 30;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 input[type=text], select {
@@ -33,10 +31,20 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-  background-color: #6666FF;
+  background-color: #424287;
+}
+
+button {
+  background-color: #666699;
+  color: white;
+  padding: 4px 8px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 div {
   color: red;
-
+size: 22;
 }
