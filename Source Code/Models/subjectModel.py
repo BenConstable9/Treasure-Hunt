@@ -19,6 +19,7 @@ class SubjectModel():
             with sql.connect("Models/treasure.sqlite") as con:
                 cur = con.cursor()
                 cur.row_factory = sql.Row
+                print ("Gamepin: ", gamePin)
 
                 # Get the team name
                 cur.execute("SELECT * FROM Subject WHERE GamePin=?", (gamePin,))
