@@ -1,5 +1,6 @@
 from flask import request, session, redirect
 from flask import render_template
+from Models.subjectModel import subjectModel
 from Models.teamModel import teamModel
 from Helpers.utility import escapeInput
 
@@ -67,5 +68,29 @@ class AuthController():
         else:
             #should output the error
             return render_template('home.html', status=response["status"], message=response["message"])
+
+
+    """Handle the form for checking the gamepin
+
+    :return: A redirect or a template. """
+    def verifyPin(self):
+        # Get the values from the request
+        gamePin = request.args.get('pin')
+        print (gamePin)
+        # Get the response from the model
+        response = subjectModel.verifyPin(escapeInput(gamePin))
+
+        if response["status"] == "1":
+            # Set the session varaibles
+            session["gamePin"] = response["gamePin"]
+
+            # Redirect
+            return redirect("/dashboard", code=302)
+        # else:
+        #     #should output the error
+        #     return render_template('home.html', status=response["status"], message=response["message"])
+
+
+
 
 authController=AuthController()
