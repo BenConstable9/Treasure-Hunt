@@ -75,7 +75,7 @@ class AuthController():
     :return: A redirect or a template. """
     def verifyPin(self):
         # Get the values from the request
-        gamePin = request.args.get('pin')
+        gamePin = request.args.get('Pin')
         print (gamePin)
         # Get the response from the model
         response = subjectModel.verifyPin(escapeInput(gamePin))
