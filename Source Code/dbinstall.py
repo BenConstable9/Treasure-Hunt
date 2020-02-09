@@ -15,7 +15,7 @@ cur.execute('CREATE TABLE IF NOT EXISTS Tutors (TutorID integer PRIMARY KEY AUTO
 print ("(1) Tutors Table created successfully");
 
 #Subjects Table
-cur.execute('CREATE TABLE IF NOT EXISTS Subjects (SubjectID integer PRIMARY KEY AUTOINCREMENT, SubjectName text not null, Building text not null, GPS text not null)')
+cur.execute('CREATE TABLE IF NOT EXISTS Subjects (SubjectID integer PRIMARY KEY AUTOINCREMENT, SubjectName text not null, Building text not null, Latitude text not null, Longitude text not null)')
 
 #Keepers Table
 cur.execute('CREATE TABLE IF NOT EXISTS Keepers (KeeperID integer PRIMARY KEY AUTOINCREMENT, Name text not null, Username text not null UNIQUE, Password text not null, Salt text not null)')
@@ -35,7 +35,7 @@ cur.execute('CREATE TABLE IF NOT EXISTS Results (ResultID integer PRIMARY KEY AU
 print ("(5) Results Table created successfully");
 
 #Questions Table
-cur.execute('CREATE TABLE IF NOT EXISTS Questions (QuestionID integer PRIMARY KEY AUTOINCREMENT, SubjectID int not null, Building text not null, QRLocation text not null, QRText text not null, Question text not null, Answer text not null, GPS text not null, Letter text not null, FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID))')
+cur.execute('CREATE TABLE IF NOT EXISTS Questions (QuestionID integer PRIMARY KEY AUTOINCREMENT, SubjectID int not null, Building text not null, QRLocation text not null, QRText text not null, Question text not null, Answer text not null, Latitude text not null, Longitude text not null, Letter text not null, FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID))')
 print ("(6) Questions Table created successfully");
 
 cur = con.cursor()

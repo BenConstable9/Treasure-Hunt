@@ -20,3 +20,11 @@ def loginAdmin():
 @admin.route('/admin/game', methods=['GET'])
 def gameAdmin():
     return gameController.index()
+
+@admin.route('/admin/game/create', methods=['POST'])
+def gameCreate():
+    return gameController.createGame()
+
+@admin.route('/admin/upload', methods=['POST'])
+def uploadFile():
+    return gameController.uploadFile()

@@ -4,14 +4,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Manage Game</title>
+
+    <script type="text/javascript" src="{{ url_for('static',filename='JS/ajax.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='JS/game.js') }}"></script>
 </head>
 <body>
     <h1>Admin Dashboard</h1>
-    <button>Create Game</button>
-    <input type="text">
+    <input id="GamePin" type="text" disabled>
     <button>Print QR Codes</button>
     <button>Manage Exisiting Games</button>
     <div>
@@ -21,12 +26,34 @@
     <div class="modal">
         <div class="modalHeader">
             <h2>Manage Existing Configs</h2>
-            <ul>
-                <li>Game 1</li>
-            </ul>
-            <form action="/admin/upload">
-                <input type="file" accept="application/JSON">
-                <input type="submit" value="Upload Config">
+        </div>
+        <div class="modelBody">
+            {% if length == "0" %}
+                <p class="error">No subjects added.</p>
+            {% else %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SubjectID</th>
+                            <th>Name</th>
+                            <th>Final Building</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for subject in data %}
+                            <tr>
+                                {% for value in subject.values() %}
+                                    <td>{{ value }}</td>
+                                {% endfor %}
+                                <td><button class="createGameButton" data-json="{{ subject }}">Create Game</button></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+            <form action="/admin/upload" method="post" enctype="multipart/form-data" name="configUpload">
+                <input type="file" accept="application/JSON" name="file">
+                <input type="submit" value="Upload Config" name="upload">
             </form>
         </div>
     </div>
