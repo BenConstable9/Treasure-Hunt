@@ -8,31 +8,31 @@
     "Tutors":[
         {
           "Name":"Ronaldo Menezes",
-          "Room":"170"
+          "Room":"170",
         },
         {
           "Name":"Richard Everson",
-          "Room":"004"
+          "Room":"004",
         },
         {
           "Name":"Matthew Collison",
-          "Room":"101"
+          "Room":"101",
         },
         {
           "Name":"David Wakeling",
-          "Room":"102"
+          "Room":"102",
         },
         {
-          "Name":"Hugo Barbosa"
-          "Room":"103"
+          "Name":"Hugo Barbosa",
+          "Room":"103",
         },
         {
-          "Name":"Ke Li"
-          "Room":"107"
+          "Name":"Ke Li",
+          "Room":"107",
         },
         {
-          "Name":"Chunbo Luo"
-          "Room":"208"
+          "Name":"Chunbo Luo",
+          "Room":"208",
         }
     ],
     "Locations":[
