@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Author - Ben Constable -->
+<!-- Author - Ben Constable, Zach Lavender -->
 <!-- Render the dashboard pages -->
 <html lang="en">
 <head>
@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
     <script src="js/dashboard.js"></script>
+    <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
 </head>
 <body>
 
@@ -28,16 +29,18 @@
         <a href="">FAQ's</a>
     </div>
     <h2>Building:</h2>
-    <ol id = "building">
-
-    </ol>
-    <script>
-        addFinalLocation("Harrison");
-    </script>
+    <ul id = "building" style="display:inline;">
+        {% for row in info %}
+        <li style="display:inline;">_</li>
+        {% endfor %}
+    </ul>
+    
     <h3> Room: </h3>
-    <p id = "roomNum">___</p>
+    <p id = "roomNum" style="text-align: center;">___</p>
     <ul class="Locations">
-        <li></li>
+        {% for row in info %}
+        <li>{{ row["building"] }}</li>
+        {% endfor %}
     </ul>
 
     <image src="Camera.png"></image>

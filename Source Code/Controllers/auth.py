@@ -39,7 +39,6 @@ class AuthController():
             session["teamID"] = response["ID"]
             session["gamePin"] = response["gamePin"]
             session["subject"] = response["subject"]
-
             # Redirect
             return redirect("/dashboard", code=302)
         else:
