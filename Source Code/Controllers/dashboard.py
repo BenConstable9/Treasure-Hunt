@@ -1,5 +1,8 @@
 from flask import request, session, redirect
 from flask import render_template
+from Models.subjectModel import subjectModel
+from Models.questionModel import questionModel
+from Helpers.utility import escapeInput
 
 # Author - Ben Constable
 # MVC Controller for the home page
@@ -18,6 +21,13 @@ class DashboardController():
         else:
             teamID = session.get('teamID') #pass this to a model
             gamePin = session.get('gamePin')
-            return render_template('dashboard.html')
+            subject = session.get('subject')
+            response = questionModel.getQuestions(escapeInput(subject))
+            
+            if response["status"] == "1":
+                data = response["data"]
+                return render_template('dashboard.html',info = data)
+            else:
+                return render_template('home.html')
 
 dashboardController=DashboardController()

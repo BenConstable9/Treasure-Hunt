@@ -32,14 +32,14 @@ class TeamModel():
                     # See if the team name has already been taken for that game
                     cur.execute("SELECT * FROM Teams WHERE GamePin=? AND TeamName=?", (gamePin,teamName))
 
-                    otherTeam = cur.fetchall()
+                    otherTeam = cur.fetchone()
 
                     #now check the team name and pin combo by checking the length of the return
                     if (otherTeam is None):
-                        subject = game["Subject"]
+                        subject = game["SubjectID"]
 
                         # Insert the team data
-                        cur.execute("INSERT INTO Teams (TeamName,GamePin,Subject) VALUES (?,?,?)",(teamName,gamePin,subject) )
+                        cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID) VALUES (?,?,?)",(teamName,gamePin,subject) )
 
                         con.commit()
 
@@ -76,16 +76,16 @@ class TeamModel():
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
+                con.row_factory = sql.Row
                 cur = con.cursor()
-                cur.row_factory = sql.Row
 
                 # Get the team name
-                cur.execute("SELECT * FROM Teams WHERE TeamName=?", (teamName,))
+                cur.execute("SELECT * FROM Teams WHERE GamePin=? AND TeamName=?", (gamePin,teamName))
 
                 team = cur.fetchone()
 
                 # Check the game pin
-                if (gamePin == team["GamePin"]):
+                if (team is not None):
 
                     # Formulate the response
                     response = {'status':'1', 'message':'Team Logged In Successfully', 'ID': team["TeamID"], 'subject': team["Subject"], 'gamePin': team["GamePin"]}

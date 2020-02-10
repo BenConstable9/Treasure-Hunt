@@ -12,13 +12,16 @@
     <title>Manage Game</title>
 
     <script type="text/javascript" src="{{ url_for('static',filename='JS/ajax.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='JS/common.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='JS/game.js') }}"></script>
 </head>
 <body>
     <h1>Admin Dashboard</h1>
-    <input id="GamePin" type="text" disabled>
-    <button>Print QR Codes</button>
-    <button>Manage Exisiting Games</button>
+    <div id="success" class="alert">Success: <span></span></div>
+    <div id="error" class="alert">Error: <span></span></div>
+    <input id="gamePin" type="text" value="No Game Running" disabled>
+    <button id="endGame" disabled>No Game Running</button>
+    <button>Manage Exisiting Game Configs</button>
     <div>
         <h2>Leaderboard</h2>
     </div>
@@ -30,13 +33,28 @@
         <div class="modelBody">
             {% if length == "0" %}
                 <p class="error">No subjects added.</p>
-            {% else %}
-                <table>
+                <table id="configTable" style="display:none;">
                     <thead>
                         <tr>
                             <th>SubjectID</th>
                             <th>Name</th>
                             <th>Final Building</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            {% else %}
+                <table id="configTable">
+                    <thead>
+                        <tr>
+                            <th>SubjectID</th>
+                            <th>Name</th>
+                            <th>Final Building</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,6 +64,7 @@
                                     <td>{{ value }}</td>
                                 {% endfor %}
                                 <td><button class="createGameButton" data-json="{{ subject }}">Create Game</button></td>
+                                <td><button class="printQRCode"  data-json="{{ subject }}">Print QR Codes</button></td>
                             </tr>
                         {% endfor %}
                     </tbody>

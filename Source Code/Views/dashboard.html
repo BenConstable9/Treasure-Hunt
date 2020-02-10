@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Author - Ben Constable -->
+<!-- Author - Ben Constable, Zach Lavender -->
 <!-- Render the dashboard pages -->
 <html lang="en">
 <head>
@@ -8,26 +8,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
     <script src="js/dashboard.js"></script>
+    <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
 </head>
 <body>
+
+  <!-- with sql.connect("Models/treasure.sqlite") as con:
+            #map the columns to rows
+            con.row_factory = sql.Row
+            cur = con.cursor()
+
+            # See if the game pin is valid
+            cur.execute("SELECT Name t FROM Tutors t WHERE t.SubjectID = Subject s.SubjectID AND s.SubjectID = Games g.SubjectID AND g.GamePin =? AND g.Active=?", (int(gamePin),1))
+            print(cur) -->
+
+
+
     <div class="topnav">
         <a class="active" href="#home">Map</a>
         <a href="">Leaderboard</a>
         <a href="">FAQ's</a>
     </div>
     <h2>Building:</h2>
-    <ol id = "building">
-        
-    </ol>
-    <script>
-        addFinalLocation("Harrison");
-    </script>
-    <h3> Room: </h3>
-    <p id = "roomNum">___</p>
-    <ul class="Locations">
-        <li></li>
+    <ul id = "building" style="display:inline;">
+        {% for row in info %}
+        <li style="display:inline;">_</li>
+        {% endfor %}
     </ul>
     
-    <img src="Camera.png">
+    <h3> Room: </h3>
+    <p id = "roomNum" style="text-align: center;">___</p>
+    <ul class="Locations">
+        {% for row in info %}
+        <li>{{ row["building"] }}</li>
+        {% endfor %}
+    </ul>
+
+    <image src="Camera.png"></image>
 </body>
 </html>

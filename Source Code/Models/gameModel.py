@@ -86,7 +86,7 @@ class GameModel():
 
                             x += 1
 
-                        response = {'status':'0', 'message':'Game config added successfully.', 'ID': subjectID}
+                        response = {'status':'0', 'message':'Game config added successfully.', 'ID': subjectID, 'Name': contents["Subject"], 'FinalLocation': contents["FinalLoc"]["Building"]}
                     else:
                         response = {'status':'0', 'message':'Game not added successfully - length of locations is not the same as the final building.', 'ID': '0'}
 

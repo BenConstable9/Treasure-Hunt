@@ -87,31 +87,60 @@ class SubjectModel():
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
+                #map the columns to the rows
+                con.row_factory = sql.Row
                 cur = con.cursor()
-                cur.row_factory = sql.Row
-                print ("Gamepin: ", gamePin)
 
-                # Get the team name
-                cur.execute("SELECT * FROM Subject WHERE GamePin=?", (gamePin,))
-
-                verified = cur.fetchone()
-
-                print (verified)
+                #Get the subject associated with that GamePin
+                cur.execute ("""
+                    SELECT *
+                    FROM Subjects
+                    INNER JOIN Games
+                    ON Subjects.SubjectID = Games.SubjectID
+                    WHERE Games.GamePin = ? AND Games.Active='1'""",(gamePin,))
+                game = cur.fetchall()
+                for row in game:
+                    subject = row[0]
+                    print ("Subject", subject)
+                    obtained_row = row
 
                 # Check the game pin
-                if (gamePin == team["GamePin"]):
-
+                if (gamePin == obtained_row["GamePin"]):
                     # Formulate the response
-                    response = {'status':'1', 'message':'Team Logged In Successfully', 'ID': team["TeamID"], 'subject': team["Subject"], 'gamePin': team["GamePin"]}
+                    response = {'status':'1', 'message':'Team Logged In Successfully', 'subjectID': obtained_row["SubjectID"], 'subject': obtained_row["SubjectName"], 'gamePin': obtained_row["GamePin"]}
+                    print (response)
 
                 else:
                     response = {'status':'0', 'message':'BAD - Invalid Game Pin', 'ID': '0'}
 
-        except:
+        except Exception as e:
+            print(e)
+            print ("test2")
             response = {'status':'0', 'message':'BAD - Unsuccessful', 'ID': '0'}
 
         finally:
+            # Return the result
+            return response
 
+            con.close()
+
+    def getBuilding(self, gamePin):
+        try:
+            # Open the DB
+            with sql.connect("Models/treasure.sqlite") as con:
+                con.row_factory = sql.Row
+                cur = con.cursor()
+            cur.execute("SELECT * FROM Subjects WHERE SubjectID=?", (int(gamePin),))
+
+            subject = cur.fetchone()
+            if (subject is not None):
+                response = {'status':'1','building':subject["Building"]}
+            else:
+                response = {'status':'0'}
+        except Exception as e:
+            print(e)
+            response = {'status':'0'}
+        finally:
             # Return the result
             return response
 

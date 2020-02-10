@@ -17,6 +17,10 @@ def home():
 def registerTeam():
     return authController.registerTeam()
 
+@front.route('/verifyPin', methods=['GET'])
+def verifyPin():
+    return authController.verifyPin()
+
 @front.route('/login', methods=['POST'])
 def loginTeamPost():
     return authController.loginTeam()

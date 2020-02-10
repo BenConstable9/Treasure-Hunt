@@ -37,33 +37,28 @@ class TutorModel():
             con.close()
 
 
-    """Verifies a pin
+    """Obtains the list of tutors from a given subjectID
 
     :return: A JSON array with the status. """
-    def verifyPin(self, gamePin):
+    def obtainTutors(self, subjectID):
         # Try the SQL
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
+                con.row_factory = sql.Row
                 cur = con.cursor()
-                cur.row_factory = sql.Row
-                print ("Gamepin: ", gamePin)
 
-                # Get the team name
-                cur.execute("SELECT * FROM Subject WHERE GamePin=?", (gamePin,))
+                # Get the tutors name
+                cur.execute("SELECT * FROM Tutors WHERE SubjectID=?", (subjectID,))
+                tutors = cur.fetchall()
+                listOfTutorIDs = []
+                listOfTutorNames = []
+                for tutor in tutors:
+                    listOfTutorIDs.append(tutor[0])
+                    listOfTutorNames.append(tutor[2])
 
-                verified = cur.fetchone()
+                response = {'status':'1', 'message':'Obtained tutors', 'tutorIDs':listOfTutorIDs, 'tutorNames':listOfTutorNames}
 
-                print (verified)
-
-                # Check the game pin
-                if (gamePin == team["GamePin"]):
-
-                    # Formulate the response
-                    response = {'status':'1', 'message':'Team Logged In Successfully', 'ID': team["TeamID"], 'subject': team["Subject"], 'gamePin': team["GamePin"]}
-
-                else:
-                    response = {'status':'0', 'message':'BAD - Invalid Game Pin', 'ID': '0'}
 
         except:
             response = {'status':'0', 'message':'BAD - Unsuccessful', 'ID': '0'}
