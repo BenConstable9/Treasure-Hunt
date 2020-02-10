@@ -27,7 +27,7 @@ class TeamModel():
 
                 game = cur.fetchone()
 
-                if (gamePin == game["GamePin"]):
+                if (game is not None]):
 
                     # See if the team name has already been taken for that game
                     cur.execute("SELECT * FROM Teams WHERE GamePin=? AND TeamName=?", (gamePin,teamName))
@@ -35,7 +35,7 @@ class TeamModel():
                     otherTeam = cur.fetchall()
 
                     #now check the team name and pin combo by checking the length of the return
-                    if (len(otherTeam) == 0):
+                    if (otherTeam is None):
                         subject = game["Subject"]
 
                         # Insert the team data
