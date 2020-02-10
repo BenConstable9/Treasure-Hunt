@@ -27,7 +27,7 @@ class TeamModel():
 
                 game = cur.fetchone()
 
-                if (game is not None]):
+                if (game is not None):
 
                     # See if the team name has already been taken for that game
                     cur.execute("SELECT * FROM Teams WHERE GamePin=? AND TeamName=?", (gamePin,teamName))
