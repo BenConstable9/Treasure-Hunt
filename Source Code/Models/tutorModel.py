@@ -37,10 +37,10 @@ class TutorModel():
             con.close()
 
 
-    """Verifies a pin
+    """Obtains the list of tutors from a given subjectID
 
     :return: A JSON array with the status. """
-    def verifyPin(self, gamePin):
+    def obtainTutors(self, subjectID):
         # Try the SQL
         try:
             # Open the DB

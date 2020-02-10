@@ -101,12 +101,13 @@ class SubjectModel():
                 game = cur.fetchall()
                 for row in game:
                     subject = row[0]
+                    print ("Subject", subject)
                     obtained_row = row
 
                 # Check the game pin
-                if (gamePin == row["GamePin"]):
+                if (gamePin == obtained_row["GamePin"]):
                     # Formulate the response
-                    response = {'status':'1', 'message':'Team Logged In Successfully', 'subjectID': row["SubjectID"], 'subject': row["SubjectName"], 'gamePin': row["GamePin"]}
+                    response = {'status':'1', 'message':'Team Logged In Successfully', 'subjectID': obtained_row["SubjectID"], 'subject': obtained_row["SubjectName"], 'gamePin': obtained_row["GamePin"]}
                     print (response)
 
                 else:
