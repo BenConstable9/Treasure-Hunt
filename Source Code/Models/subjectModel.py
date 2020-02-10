@@ -87,19 +87,20 @@ class SubjectModel():
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
+                con.row_factory = sql.Row
                 cur = con.cursor()
-                cur.row_factory = sql.Row
                 print ("Gamepin: ", gamePin)
 
                 # Get the team name
-                cur.execute("SELECT * FROM Subject WHERE GamePin=?", (gamePin,))
-
+                cur.execute("SELECT * FROM Subjects WHERE GamePin=?", (int(gamePin),))
+                print ("test")
                 verified = cur.fetchone()
 
-                print (verified)
-
+                print ("test")
+                print(verified is not None)
+				
                 # Check the game pin
-                if (gamePin == team["GamePin"]):
+                if (verified is not None):
 
                     # Formulate the response
                     response = {'status':'1', 'message':'Team Logged In Successfully', 'ID': team["TeamID"], 'subject': team["Subject"], 'gamePin': team["GamePin"]}
@@ -107,14 +108,37 @@ class SubjectModel():
                 else:
                     response = {'status':'0', 'message':'BAD - Invalid Game Pin', 'ID': '0'}
 
-        except:
+        except Exception as e:
+            print(e)
+            print ("test2")
             response = {'status':'0', 'message':'BAD - Unsuccessful', 'ID': '0'}
 
         finally:
-
             # Return the result
             return response
 
             con.close()
+            
+    def getBuilding(self, gamePin):
+        try:
+            # Open the DB
+            with sql.connect("Models/treasure.sqlite") as con:
+                con.row_factory = sql.Row
+                cur = con.cursor()
+            cur.execute("SELECT * FROM Subjects WHERE SubjectID=?", (int(gamePin),))
+            
+            subject = cur.fetchone()
+            if (subject is not None):
+                response = {'status':'1','building':subject["Building"]}
+            else:
+                response = {'status':'0'}
+        except Exception as e:
+            print(e)
+            response = {'status':'0'}
+        finally:
+            # Return the result
+            return response
 
+            con.close()
+            
 subjectModel=SubjectModel()
