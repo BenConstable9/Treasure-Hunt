@@ -2,6 +2,7 @@ from flask import request, session, redirect
 from flask import render_template
 from Models.subjectModel import subjectModel
 from Models.teamModel import teamModel
+from Models.tutorModel import tutorModel
 from Helpers.utility import escapeInput
 
 # Author - Ben Constable
@@ -84,11 +85,14 @@ class AuthController():
             # Set the session varaibles
             session["gamePin"] = response["gamePin"]
 
+            tutors = tutorModel.obtainTutors(escapeInput(response["subjectID"]))
+
             # Redirect
-            return redirect("/dashboard", code=302)
-        # else:
-        #     #should output the error
-        #     return render_template('home.html', status=response["status"], message=response["message"])
+            # return redirect("/admin", code=302)
+            return tutors
+        else:
+            #should output the error
+            return response
 
 
 

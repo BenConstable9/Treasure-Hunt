@@ -34,7 +34,7 @@ function HTTPGet(url, callback) {
 
     request.onreadystatechange = function() {
         // state 4 is when the request is complete
-        if (request.status == 201 && request.readyState == 4) {
+        if (request.status == 200 && request.readyState == 4) {
             //pass te response to the callback
             callback(request.response);
         }

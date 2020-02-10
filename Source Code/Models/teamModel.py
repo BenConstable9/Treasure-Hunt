@@ -36,10 +36,10 @@ class TeamModel():
 
                     #now check the team name and pin combo by checking the length of the return
                     if (len(otherTeam) == 0):
-                        subject = game["Subject"]
+                        subject = game["SubjectID"]
 
                         # Insert the team data
-                        cur.execute("INSERT INTO Teams (TeamName,GamePin,Subject) VALUES (?,?,?)",(teamName,gamePin,subject) )
+                        cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID) VALUES (?,?,?)",(teamName,gamePin,subject) )
 
                         con.commit()
 

@@ -9,33 +9,36 @@ class TutorModel():
         pass
 
 
-    """Verifies a pin
+    """Obtains the tutors from the given subject
 
-    :return: A JSON array with the status. """
-    def verifyPin(self, gamePin):
+    :return: A JSON array with the tutors. """
+    def obtainTutors(self, subjectID):
         # Try the SQL
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
+                con.row_factory = sql.Row
                 cur = con.cursor()
-                cur.row_factory = sql.Row
-                print ("Gamepin: ", gamePin)
+                print ("SubjectID ting: ", subjectID)
 
-                # Get the team name
-                cur.execute("SELECT * FROM Subject WHERE GamePin=?", (gamePin,))
+                # Get the tutors name
+                cur.execute("SELECT * FROM Tutors WHERE SubjectID=?", (subjectID,))
+                tutors = cur.fetchall()
+                listOfTutorIDs = []
+                listOfTutorNames = []
+                for tutor in tutors:
+                    print (tutor[0])
+                    listOfTutorIDs.append(tutor[0])
+                    print (tutor[1])
+                    print (tutor[2])
+                    listOfTutorNames.append(tutor[2])
+                    print (tutor[3])
+                print (listOfTutorIDs)
+                print (listOfTutorNames)
 
-                verified = cur.fetchone()
 
-                print (verified)
+                response = {'status':'1', 'message':'Obtained tutors', 'tutorIDs':listOfTutorIDs, 'tutorNames':listOfTutorNames}
 
-                # Check the game pin
-                if (gamePin == team["GamePin"]):
-
-                    # Formulate the response
-                    response = {'status':'1', 'message':'Team Logged In Successfully', 'ID': team["TeamID"], 'subject': team["Subject"], 'gamePin': team["GamePin"]}
-
-                else:
-                    response = {'status':'0', 'message':'BAD - Invalid Game Pin', 'ID': '0'}
 
         except:
             response = {'status':'0', 'message':'BAD - Unsuccessful', 'ID': '0'}
