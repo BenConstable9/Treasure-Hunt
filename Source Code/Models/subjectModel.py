@@ -87,22 +87,27 @@ class SubjectModel():
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
+                #map the columns to the rows
+                con.row_factory = sql.Row
                 cur = con.cursor()
-                cur.row_factory = sql.Row
-                print ("Gamepin: ", gamePin)
 
-                # Get the team name
-                cur.execute("SELECT * FROM Subject WHERE GamePin=?", (gamePin,))
-
-                verified = cur.fetchone()
-
-                print (verified)
+                #Get the subject associated with that GamePin
+                cur.execute ("""
+                    SELECT *
+                    FROM Subjects
+                    INNER JOIN Games
+                    ON Subjects.SubjectID = Games.SubjectID
+                    WHERE Games.GamePin = ? AND Games.Active='1'""",(gamePin,))
+                game = cur.fetchall()
+                for row in game:
+                    subject = row[0]
+                    obtained_row = row
 
                 # Check the game pin
-                if (gamePin == team["GamePin"]):
-
+                if (gamePin == row["GamePin"]):
                     # Formulate the response
-                    response = {'status':'1', 'message':'Team Logged In Successfully', 'ID': team["TeamID"], 'subject': team["Subject"], 'gamePin': team["GamePin"]}
+                    response = {'status':'1', 'message':'Team Logged In Successfully', 'subjectID': row["SubjectID"], 'subject': row["SubjectName"], 'gamePin': row["GamePin"]}
+                    print (response)
 
                 else:
                     response = {'status':'0', 'message':'BAD - Invalid Game Pin', 'ID': '0'}

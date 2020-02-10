@@ -5,14 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
+    <script type="text/javascript" src="{{url_for('static',filename='JS/ajax.js')}}"> </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
 </head>
 <body>
-<form>
-  <button type = "button" onclick = "admin.html" name = "adminLogin">Login as Admin</button>
-</form>
     <h1>Welcome</h1>
     <h3> To the University of Exeter Freshers Treasure Hunt </h3>
     <!-- If an error is returned then output it -->
@@ -26,9 +24,54 @@
         <label for="TeamName">Team Name</label>
         <input type="text" name="TeamName">
         <label for="GamePin">Game Pin</label>
-        <input type="text" name="GamePin">
+        <input type="text" id="GamePin" name="GamePin" onchange="gameFunction()">
+        <label for="tutors">Select Your Tutor</label>
+        <select id="tutorsNames">
+        <option value="" selected disabled id="disabledSelect">Select...</option>
+        </select>
         <input type="submit" name="SignUp" value="Sign Up">
     </form>
+
+    <p id="test"></p>
+
+    <script>
+        function handleSection(response){
+          console.log(response)
+          var options = document.getElementById("tutorsNames");
+          if (response.tutorNames){
+            for(var i = 0; i < response.tutorNames.length; i++) {
+                var tutor = response.tutorNames[i];
+                var option = document.createElement("option"); //creates html option
+                option.textContent = tutor; //what the user sees
+                option.value = response.tutorIDs[i]; //the value which is associated with the option
+                options.appendChild(option); //adds the new option to bottom of the select
+            }
+          }
+          else{
+            var options = document.getElementById("tutorsNames");
+            document.getElementById("tutorsNames").innerHTML = "";
+            var option = document.createElement("option"); //creates html option
+            option.value = "";
+            option.disabled = true;
+            option.selected = true;
+            option.textContent = "Select"
+            options.appendChild(option);
+          }
+        }
+
+        function gameFunction(){
+          var pin = document.getElementById("GamePin").value;
+          document.getElementById("test").innerHTML = "You selected: " + pin;
+          // var xhttp = new XMLHttpRequest();
+          // xhttp.open("GET", "/verifyPin?GamePin="+pin,true)
+          // xhttp.send()
+
+          HTTPGet("/verifyPin?GamePin=" + pin, handleSection)
+
+          // HTTPGet("/verifyPin?GamePin=pin",verifyPin(self,pin))
+        }
+
+    </script>
 
     <h2> Log Back into your Game </h2>
     <form action="/login" method="post">

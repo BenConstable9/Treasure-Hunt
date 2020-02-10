@@ -10,6 +10,18 @@
     <script src="js/dashboard.js"></script>
 </head>
 <body>
+
+  <!-- with sql.connect("Models/treasure.sqlite") as con:
+            #map the columns to rows
+            con.row_factory = sql.Row
+            cur = con.cursor()
+
+            # See if the game pin is valid
+            cur.execute("SELECT Name t FROM Tutors t WHERE t.SubjectID = Subject s.SubjectID AND s.SubjectID = Games g.SubjectID AND g.GamePin =? AND g.Active=?", (int(gamePin),1))
+            print(cur) -->
+
+
+
     <div class="topnav">
         <a class="active" href="#home">Map</a>
         <a href="">Leaderboard</a>
@@ -17,7 +29,7 @@
     </div>
     <h2>Building:</h2>
     <ol id = "building">
-        
+
     </ol>
     <script>
         addFinalLocation("Harrison");
@@ -27,7 +39,7 @@
     <ul class="Locations">
         <li></li>
     </ul>
-    
-    <img src="Camera.png">
+
+    <image src="Camera.png"></image>
 </body>
 </html>
