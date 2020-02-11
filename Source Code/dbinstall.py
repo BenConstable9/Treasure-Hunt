@@ -36,7 +36,7 @@ cur.execute('CREATE TABLE IF NOT EXISTS Results (ResultID integer PRIMARY KEY AU
 print ("(6) Results Table created successfully");
 
 #Questions Table
-cur.execute('CREATE TABLE IF NOT EXISTS Questions (QuestionID integer PRIMARY KEY AUTOINCREMENT, SubjectID int not null, Building text not null, QRLocation text not null, QRText text not null, Question text not null, Answer text not null, Latitude text not null, Longitude text not null, Letter text not null, FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID))')
+cur.execute('CREATE TABLE IF NOT EXISTS Questions (QuestionID integer PRIMARY KEY AUTOINCREMENT, SubjectID int not null, Building text not null, QRLocation text not null, QRText text not null, Question text not null, Answer text not null, Latitude text not null, Longitude text not null, Letter text not null, Index integer not null, FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID))')
 print ("(7) Questions Table created successfully");
 
 cur = con.cursor()
