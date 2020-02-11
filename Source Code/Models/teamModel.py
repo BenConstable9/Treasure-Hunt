@@ -12,7 +12,7 @@ class TeamModel():
     :param: gamePin - the supplied game Pin
 
     :return: A JSON array with the status. """
-    def registerTeam(self, teamName, gamePin):
+    def registerTeam(self, teamName, gamePin, tutorID):
         # Try the SQL
         try:
             # Open the database
@@ -39,14 +39,14 @@ class TeamModel():
                         subject = game["SubjectID"]
 
                         # Insert the team data
-                        cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID) VALUES (?,?,?)",(teamName,gamePin,subject) )
+                        cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID,TutorID) VALUES (?,?,?)",(teamName,gamePin,subject,tutorID) )
 
                         con.commit()
 
                         # Get the last id
                         lastID = cur.lastrowid
 
-                        response = {'status':'1', 'message':'Team Registration Successfull', 'ID': lastID, 'subject': subject, 'gamePin': gamePin}
+                        response = {'status':'1', 'message':'Team Registration Successfull', 'ID': lastID, 'subject': subject, 'gamePin': gamePin, 'tutor': tutorID}
 
                     else:
                         response = {'status':'0', 'message':'Team Registration Unsuccessful - Team Name Already Taken', 'ID': '0'}

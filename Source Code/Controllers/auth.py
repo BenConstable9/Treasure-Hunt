@@ -29,9 +29,10 @@ class AuthController():
         # Get the values from the request
         teamName = request.form.get('TeamName')
         gamePin = request.form.get('GamePin')
+        tutorID = requeset.form.get('tutorsNames') #Not sure if correct
 
         # Get the response from the model
-        response = teamModel.registerTeam(escapeInput(teamName), escapeInput(gamePin))
+        response = teamModel.registerTeam(escapeInput(teamName), escapeInput(gamePin), escapeInput(tutorID)) #tutorName is actually tutorID
 
         if response["status"] == "1":
             # Set the session variables
@@ -39,6 +40,7 @@ class AuthController():
             session["teamID"] = response["ID"]
             session["gamePin"] = response["gamePin"]
             session["subject"] = response["subject"]
+            session["tutor"] = response["tutor"]
             # Redirect
             return redirect("/dashboard", code=302)
         else:

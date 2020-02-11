@@ -27,7 +27,7 @@
         <input type="text" id="GamePin" name="GamePin" onchange="gameFunction()">
         <label for="tutors">Select Your Tutor</label>
         <select id="tutorsNames">
-        <option value="" selected disabled id="disabledSelect">Select...</option>
+        <option value="" selected disabled name = id="disabledSelect">Select...</option>
         </select>
         <input type="submit" name="SignUp" value="Sign Up">
     </form>
@@ -51,6 +51,7 @@
             var options = document.getElementById("tutorsNames");
             document.getElementById("tutorsNames").innerHTML = "";
             var option = document.createElement("option"); //creates html option
+            //gives it the properties of an "empty" non selectable dropdown option
             option.value = "";
             option.disabled = true;
             option.selected = true;

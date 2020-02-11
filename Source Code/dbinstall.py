@@ -28,7 +28,7 @@ cur.execute('CREATE TABLE IF NOT EXISTS Games (GameID integer PRIMARY KEY AUTOIN
 print ("(4) Games Table created successfully");
 
 #Teams Table
-cur.execute('CREATE TABLE IF NOT EXISTS Teams (TeamID integer PRIMARY KEY AUTOINCREMENT, TeamName text not null UNIQUE, SubjectID int not null, GamePin text not null, FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID))')
+cur.execute('CREATE TABLE IF NOT EXISTS Teams (TeamID integer PRIMARY KEY AUTOINCREMENT, TeamName text not null UNIQUE, SubjectID int not null, GamePin text not null, TutorID int not null, FOREIGN KEY (TutorID) REFERENCES Tutors(TutorID), FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID))')
 print ("(5) Teams Table created successfully");
 
 #Results Table
