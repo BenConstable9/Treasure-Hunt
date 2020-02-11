@@ -9,6 +9,7 @@ from Models.questionModel import questionModel
 from Helpers.utility import escapeInput
 
 # Author - Ben Constable
+# Modified - Ravi Gohel
 # MVC Model for handling admin related data
 class GameModel():
     def __init__(self):
