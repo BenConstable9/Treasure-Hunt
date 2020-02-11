@@ -22,7 +22,6 @@ class GameController():
             return redirect("/admin", code=302)
         else:
             response = subjectModel.getSubjects()
-            print(response)
             return render_template('game.html',status = response["status"],length = len(response["data"]),data = response["data"])
 
     def createGame(self):

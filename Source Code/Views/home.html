@@ -62,13 +62,8 @@
         function gameFunction(){
           var pin = document.getElementById("GamePin").value;
           document.getElementById("test").innerHTML = "You selected: " + pin;
-          // var xhttp = new XMLHttpRequest();
-          // xhttp.open("GET", "/verifyPin?GamePin="+pin,true)
-          // xhttp.send()
 
           HTTPGet("/verifyPin?GamePin=" + pin, handleSection)
-
-          // HTTPGet("/verifyPin?GamePin=pin",verifyPin(self,pin))
         }
 
     </script>
@@ -76,10 +71,10 @@
     <h2> Log Back into your Game </h2>
     <form action="/login" method="post">
         <label for="TeamName">Team Name</label>
-        <input type="text" name="TeamName">
+        <input type="text" name="TeamName" class="inputFull">
         <label for="GamePin">Game Pin</label>
-        <input type="text" name="GamePin">
-        <input type="submit" name="Login" value="Login">
+        <input type="text" name="GamePin" class="inputFull">
+        <input type="submit" name="Login" value="Login" class="inputFull">
     </form>
 </body>
 </html>

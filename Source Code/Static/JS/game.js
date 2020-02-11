@@ -20,15 +20,25 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function handleUploadCallback(response) {
-        console.log(response);
+        if (document.getElementById('noConfigError')) {
+            document.getElementById('noConfigError').style.display = "none";
+        }
         var table = document.getElementById("configTable");
         table.style.display = "table";
 
-        var row = table.getElementsByTagName('body')[0];
+        var row = table.getElementsByTagName('tbody')[0].insertRow(0);
 
-        row.insertCell(0).innerHTML = response.ID;
-        row.insertCell(1).innerHTML = response.Name;
-        row.insertCell(2).innerHTML = response.FinalLocation;
+        buttonJSON = JSON.stringify(response);
+
+        row.insertCell(0).innerHTML = response.SubjectID;
+        row.insertCell(1).innerHTML = response.SubjectName;
+        row.insertCell(2).innerHTML = response.Building;
+        row.insertCell(3).innerHTML = '<button id="create' + response.SubjectID + '" class="createGameButton">Create Game</button>';
+        row.insertCell(4).innerHTML = '<button id="print' + response.SubjectID + '" class="printQRCode">Print QR Codes</button>';
+
+        document.getElementById('create' + response.SubjectID).addEventListener("click", createGame);
+        document.getElementById('create' + response.SubjectID).dataset.json = buttonJSON;
+        //todo add the event listener for the response
     }
 
     function handleUpload(e) {
@@ -43,10 +53,23 @@ document.addEventListener('DOMContentLoaded', function(){
         HTTPUploadFile("/admin/upload", formData, handleUploadCallback);
     }
 
+    function closeConfigModal(e) {
+        e.preventDefault();
+        document.getElementById("configModal").style.display = "none";
+    }
+
+    function openConfigModal() {
+        document.getElementById("configModal").style.display = "block";
+    }
+
     creates = document.getElementsByClassName('createGameButton');
     for (i = 0; i < creates.length; i ++) {
         creates[i].addEventListener("click", createGame)
     }
 
     document.forms["configUpload"]["upload"].addEventListener("click", handleUpload);
+
+    document.forms["configUpload"]["cancel"].addEventListener("click", closeConfigModal);
+
+    document.getElementById("manageConfigs").addEventListener("click", openConfigModal);
 }, false);

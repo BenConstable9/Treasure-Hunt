@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
 
     <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
+    <link href="{{ url_for('static',filename='CSS/game.css') }}" rel='stylesheet' type='text/css'/>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -17,22 +18,22 @@
 </head>
 <body>
     <h1>Admin Dashboard</h1>
-    <div id="success" class="alert">Success: <span></span></div>
-    <div id="error" class="alert">Error: <span></span></div>
+    <div id="success" class="alert success">Success: <span></span></div>
+    <div id="error" class="alert error">Error: <span></span></div>
     <input id="gamePin" type="text" value="No Game Running" disabled>
     <button id="endGame" disabled>No Game Running</button>
-    <button>Manage Exisiting Game Configs</button>
+    <button id="manageConfigs">Manage Exisiting Game Configs</button>
     <div>
         <h2>Leaderboard</h2>
     </div>
 
-    <div class="modal">
+    <div id="configModal" class="modal">
         <div class="modalHeader">
             <h2>Manage Existing Configs</h2>
         </div>
-        <div class="modelBody">
-            {% if length == "0" %}
-                <p class="error">No subjects added.</p>
+        <div class="modalBody">
+            {% if length == 0 %}
+                <div id="noConfigError" class="alert error">No Game Configs Added - Upload to Get Started!</div>
                 <table id="configTable" style="display:none;">
                     <thead>
                         <tr>
@@ -59,20 +60,23 @@
                     </thead>
                     <tbody>
                         {% for subject in data %}
-                            <tr>
-                                {% for value in subject.values() %}
-                                    <td>{{ value }}</td>
-                                {% endfor %}
-                                <td><button class="createGameButton" data-json="{{ subject }}">Create Game</button></td>
-                                <td><button class="printQRCode"  data-json="{{ subject }}">Print QR Codes</button></td>
-                            </tr>
+                        <tr>
+                            {% for value in subject.values() %}
+                            <td>{{ value }}</td>
+                            {% endfor %}
+                            <td><button class="createGameButton" data-json="{{ subject }}">Create Game</button></td>
+                            <td><button class="printQRCode" data-json="{{ subject }}">Print QR Codes</button></td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             {% endif %}
+        </div>
+        <div class="modalFooter">
             <form action="/admin/upload" method="post" enctype="multipart/form-data" name="configUpload">
-                <input type="file" accept="application/JSON" name="file">
+                <input type="file" accept="application/JSON" name="file" id="file">
                 <input type="submit" value="Upload Config" name="upload">
+                <input type="submit" value="Cancel" name="cancel" class="cancel">
             </form>
         </div>
     </div>

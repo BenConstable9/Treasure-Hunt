@@ -1,0 +1,15 @@
+#configTable {
+    width: 100%;
+}
+
+#file {
+    color: #666699;
+}
+
+#configTable tr th {
+    text-align: left;
+}
+
+#noConfigError {
+    display: block;
+}

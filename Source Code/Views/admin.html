@@ -15,14 +15,14 @@
     <h2>Admin Console</h2>
     <!-- If an error is returned then output it -->
     {% if status == "0" %}
-        <div id="error" class="alert" style="display:block">Error: <span>{{ message }}</span></div>
+        <div class="alert error" style="display:block">Error: <span>{{ message }}</span></div>
     {% endif %}
     <form action="/admin/login" method="post">
         <label for="Username">Username</label>
-        <input type="text" name="Username" placeholder="Your Username">
+        <input type="text" name="Username" placeholder="Your Username" class="inputFull">
         <label for="Password">Password</label>
-        <input type="password" name="Password" placeholder="Your Password">
-        <input type="submit" name="Login" value="Login as Admin">
+        <input type="password" name="Password" placeholder="Your Password" class="inputFull">
+        <input type="submit" name="Login" value="Login as Admin" class="inputFull">
     </form>
 </body>
 </html>
