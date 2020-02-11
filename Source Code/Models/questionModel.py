@@ -8,7 +8,7 @@ class QuestionModel():
     def __init__(self):
         pass
 
-    def createQuestion(self, subjectID, building, QRLocation, QRText, question, answer, letter, longitude, latitude):
+    def createQuestion(self, subjectID, building, QRLocation, QRText, question, answer, letter, letterIndex, longitude, latitude):
         # Try the SQL
         try:
             # Open the DB
@@ -23,7 +23,7 @@ class QuestionModel():
                 #now check the username is not already taken
                 if (len(subjects) == 1):
                     # Insert the team data
-                    cur.execute("INSERT INTO Questions (SubjectID,Building,QRLocation,QRText,Question,Answer,Letter,Longitude,Latitude) VALUES (?,?,?,?,?,?,?,?,?)",(subjectID,building,QRLocation,QRText,question,answer,letter,longitude,latitude) )
+                    cur.execute("INSERT INTO Questions (SubjectID,Building,QRLocation,QRText,Question,Answer,Letter,LetterIndex,Longitude,Latitude) VALUES (?,?,?,?,?,?,?,?,?,?)",(subjectID,building,QRLocation,QRText,question,answer,letter,letterIndex,longitude,latitude) )
 
                     con.commit()
 
@@ -45,7 +45,7 @@ class QuestionModel():
             return response
 
             con.close()
-            
+
     def getQuestions(self, subjectID):
         try:
             # Open the DB
@@ -53,7 +53,7 @@ class QuestionModel():
                 con.row_factory = sql.Row
                 cur = con.cursor()
             cur.execute("SELECT * FROM Questions WHERE SubjectID=?", (int(subjectID),))
-            
+
             questions = cur.fetchall()
             returns = []
 

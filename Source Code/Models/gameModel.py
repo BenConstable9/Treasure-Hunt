@@ -81,7 +81,7 @@ class GameModel():
                             QRText = hashlib.md5((location["Building"] + location["QRLocation"]).encode())
                             QRText = QRText.hexdigest()
 
-                            questionResponse = questionModel.createQuestion(subjectID, escapeInput(location["Building"]), escapeInput(location["QRLocation"]), escapeInput(QRText), escapeInput(location["Question"]), escapeInput(location["Answer"]), escapeInput(randomBuilding[x]), escapeInput(location["GPS"][0]), escapeInput(location["GPS"][1]))
+                            questionResponse = questionModel.createQuestion(subjectID, escapeInput(location["Building"]), escapeInput(location["QRLocation"]), escapeInput(QRText), escapeInput(location["Question"]), escapeInput(location["Answer"]), escapeInput(randomBuilding[x]), x, escapeInput(location["GPS"][0]), escapeInput(location["GPS"][1]))
 
                             #here we should create and store the qr code with the value of QRText and name it the question id
 
