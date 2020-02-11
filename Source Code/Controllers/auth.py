@@ -6,6 +6,7 @@ from Models.tutorModel import tutorModel
 from Helpers.utility import escapeInput
 
 # Author - Ben Constable
+# Modified By - Ravi Gohel
 # MVC Controller for handling user sign up
 class AuthController():
 
