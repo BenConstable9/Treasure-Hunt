@@ -23,7 +23,7 @@ class DashboardController():
             gamePin = session.get('gamePin')
             subject = session.get('subject')
             response = questionModel.getQuestions(escapeInput(subject))
-            
+
             if response["status"] == "1":
                 data = response["data"]
                 return render_template('dashboard.html',info = data)
@@ -31,12 +31,15 @@ class DashboardController():
                 return render_template('home.html')
     def  building(self):
         return render_template('building.html')
-    
+
     def lecturer(self):
         return render_template('lecturers.html')
 
     def faq(self):
         return render_template('FAQs.html')
-    
+
+    def openMap(self):
+        return render_template('Map.html')
+
 
 dashboardController=DashboardController()

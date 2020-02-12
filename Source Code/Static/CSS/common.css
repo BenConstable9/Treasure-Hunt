@@ -165,3 +165,37 @@ input[type=submit]:hover, button:hover {
     text-align: right;
     background-color: #f9f9f9;
 }
+
+.topnav a.icon {
+	display: none;
+}
+
+/* When the screen is less than 680 pixels wide hides the items in the navigation bar and shows the icon to display them vertivaly*/
+@media screen and (max-width:680px) {
+
+  .topnav a {
+  		display: none;
+  	}
+
+  	.topnav a.icon {
+  		float: right;
+  		display: inline-block;
+  	}
+
+    .topnav.responsive {
+  		position: relative;
+  	}
+
+    .topnav.responsive a.icon {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    .topnav.responsive a {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+
+}

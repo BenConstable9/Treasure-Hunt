@@ -7,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
-    <script src="js/dashboard.js"></script>
+    <script src="{{ url_for('static',filename='JS/common.js') }}"></script>
     <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
+    <link href="{{ url_for('static',filename='CSS/dash.css') }}" rel='stylesheet' type='text/css'/>
 </head>
 <body>
 
@@ -23,26 +24,34 @@
 
 
 
-    <div class="topnav">
-        <a class="active" href="#home">Map</a>
-        <a href="">Leaderboard</a>
-        <a href="/dashboard/faq">FAQ's</a>
+    <div class="topnav" id="myTopnav">
+        <a class="active">Dashboard</a>
+        <a href="/dashboard/Map">Map</a>
+        <a href="/dashboard/Leaderboard">Leaderboard</a>
+        <a href="/dashboard/faqs">FAQ's</a>
+        <a class="icon" onclick="showResponsiveMenu()">&#9776;</a>
     </div>
     <h2>Building:</h2>
-    <ul id = "building" style="display:inline;">
+    <div id = "building" style="text-align: center;" >
         {% for row in info %}
-        <li style="display:inline;">_</li>
+        <input size="1" disabled>
         {% endfor %}
-    </ul>
+    </div>
 
     <h3> Room: </h3>
-    <p id = "roomNum" style="text-align: center;">___</p>
-    <ul class="Locations">
-        {% for row in info %}
-        <li>{{ row["building"] }}</li>
-        {% endfor %}
-    </ul>
+    <p id = "roomNum" style="text-align: center;">Test___</p>
 
-    <image src="Camera.png"></image>
+    <div class = "itemHolder">
+      <div id = "Locations">
+        <ul class="Locations">
+            {% for row in info %}
+            <li>{{ row["building"] }}</li>
+            {% endfor %}
+        </ul>
+      </div>
+      <div id="Camera">
+        <image src="{{ url_for('static',filename='Images/Camera.png') }}"></image>
+      </div>
+    </div>
 </body>
 </html>

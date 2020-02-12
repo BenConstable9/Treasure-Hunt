@@ -1,0 +1,14 @@
+.itemHolder {
+  text-align: center;
+}
+
+#Locations{
+  display: inline-block;
+  margin: 0% 5% 0% 0%;
+}
+
+#Camera {
+  display: inline-block;
+  position: relative;
+  margin: 0% 0% 0% 5%;
+}

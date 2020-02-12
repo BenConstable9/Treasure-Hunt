@@ -50,3 +50,7 @@ def fetchLecturer():
 @front.route('/dashboard/faqs',methods=['GET'])
 def fetchFaqs():
     return dashboardController.faq()
+
+@front.route('/dashboard/Map',methods=['GET'])
+def fetchMap():
+    return dashboardController.openMap()
