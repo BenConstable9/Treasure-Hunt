@@ -40,7 +40,7 @@ class TeamModel():
                         subject = game["SubjectID"]
 
                         # Insert the team data
-                        cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID,TutorID) VALUES (?,?,?)",(teamName,gamePin,subject,tutorID) )
+                        cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID,TutorID) VALUES (?,?,?,?)",(teamName,gamePin,subject,tutorID) )
 
                         con.commit()
 
