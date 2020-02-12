@@ -29,5 +29,14 @@ class DashboardController():
                 return render_template('dashboard.html',info = data)
             else:
                 return render_template('home.html')
+    def  building(self):
+        return render_template('building.html')
+    
+    def lecturer(self):
+        return render_template('lecturers.html')
+
+    def faq(self):
+        return render_template('FAQs.html')
+    
 
 dashboardController=DashboardController()
