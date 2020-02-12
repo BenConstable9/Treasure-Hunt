@@ -22,11 +22,11 @@ GitHub Project Kanban Board link: [https://github.com/BenConstable9/Treasure-Hun
 
 We have also taken regular snapshots of the Kanban Board to archive our progress. These are held in the repository below.
 
-[./Process-Documents/Kanban Board Screenshots/](./Process-Documents/Kanban Board Screenshots/)
+[./Process-Documents/Kanban-Board-Screenshots/](./Process-Documents/Kanban-Board-Screenshots/)
 
 Within process documents we have also included the meeting notes, agenda and minutes. These will be found in the repository below.
 
-[./Process-Documents/Meeting Documents/](./Process-Documents/Meeting Documents/)
+[./Process-Documents/Meeting-Documents/](./Process-Documents/Meeting-Documents/)
 
 
 ## TECHNICAL DOCUMENTS
