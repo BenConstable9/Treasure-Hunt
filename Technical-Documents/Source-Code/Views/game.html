@@ -20,8 +20,15 @@
     <h1>Admin Dashboard</h1>
     <div id="success" class="alert success">Success: <span></span></div>
     <div id="error" class="alert error">Error: <span></span></div>
-    <input id="gamePin" type="text" value="No Game Running" disabled>
-    <button id="endGame" disabled>No Game Running</button>
+
+    <!-- Output the game pin if it exists -->
+    {% if gameStatus == 1 %}
+        <input id="gamePin" type="text" value="Current Game Pin: {{ gamePin }}" disabled>
+        <button id="endGame">End Game</button>
+    {% else %}
+        <input id="gamePin" type="text" value="No Game Running" disabled>
+        <button id="endGame" disabled>End Game</button>
+    {% endif %}
     <button id="manageConfigs">Manage Exisiting Game Configs</button>
     <div>
         <h2>Leaderboard</h2>
@@ -32,7 +39,8 @@
             <h2>Manage Existing Configs</h2>
         </div>
         <div class="modalBody">
-            {% if length == 0 %}
+            <!-- Output any of the existing subject configs -->
+            {% if subjectLength == 0 %}
                 <div id="noConfigError" class="alert error">No Game Configs Added - Upload to Get Started!</div>
                 <table id="configTable" style="display:none;">
                     <thead>
@@ -59,7 +67,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for subject in data %}
+                        {% for subject in subjectData %}
                         <tr>
                             {% for value in subject.values() %}
                             <td>{{ value }}</td>
