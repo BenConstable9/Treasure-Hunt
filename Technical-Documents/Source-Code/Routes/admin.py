@@ -25,6 +25,10 @@ def gameAdmin():
 def gameCreate():
     return gameController.createGame()
 
+@admin.route('/admin/game/end', methods=['POST'])
+def gameEnd():
+    return gameController.endGame()
+
 @admin.route('/admin/upload', methods=['POST'])
 def uploadFile():
     return gameController.uploadFile()
