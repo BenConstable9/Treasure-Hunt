@@ -3,8 +3,9 @@ from flask import render_template
 from Models.subjectModel import subjectModel
 from Models.questionModel import questionModel
 from Helpers.utility import escapeInput
+import random
 
-# Author - Ben Constable
+# Author - Ben Constable, Zach Lavender
 # MVC Controller for the home page
 class DashboardController():
 
@@ -26,6 +27,7 @@ class DashboardController():
 
             if response["status"] == "1":
                 data = response["data"]
+                random.shuffle(data)
                 return render_template('dashboard.html',info = data)
             else:
                 return render_template('home.html')
