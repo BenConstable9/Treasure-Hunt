@@ -3,7 +3,7 @@ import sqlite3 as sql
 import json
 import hashlib
 import random
-import qrcode
+import pyqrcode
 from Models.subjectModel import subjectModel
 from Models.tutorModel import tutorModel
 from Models.questionModel import questionModel
@@ -105,14 +105,15 @@ class GameModel():
                 cur = con.cursor()
                 
                 #Get the question for the required building
-                cur.execute("SELECT QRText FROM Questions WHERE subjecID=?", (subjectID))
-                result = cur.fetchall()
+                cur.execute("SELECT * FROM Questions WHERE SubjectID=?", (subjectID,))
+                questions = cur.fetchall()
                 
-                response = []
-                for code in result:
-                    img = qrcode.make(code)
-                    img.save(str(code) + ".png")
-                    response.append(img)
+                for question in questions:
+                    print(question["QRText"])
+                    img = pyqrcode.create(question["QRText"])
+                    img.svg("Static/Images/Codes/" + str(question["QuestionID"]) + ".svg", scale = 8)
+                
+                response = {'status':'1', 'message':'QR Codes Created'}
         except Exception as e:
             print(e)
             response = {'status':'0', 'message':'BAD - Unsuccessful'}
@@ -187,11 +188,11 @@ class GameModel():
 
                             questionResponse = questionModel.createQuestion(subjectID, escapeInput(location["Building"]), escapeInput(location["QRLocation"]), escapeInput(QRText), escapeInput(location["Question"]), escapeInput(location["Answer"]), escapeInput(randomBuilding[x]), x, escapeInput(location["GPS"][0]), escapeInput(location["GPS"][1]))
 
-                            #here we should create and store the qr code with the value of QRText and name it the question id
-
                             x += 1
 
                         response = {'status':'0', 'message':'Game config added successfully.', 'SubjectID': subjectID, 'SubjectName': contents["Subject"], 'Building': contents["FinalLoc"]["Building"]}
+
+                        self.genQRCodes(subjectID)
                     else:
                         response = {'status':'0', 'message':'Game not added successfully - length of locations is not the same as the final building.', 'ID': '0'}
 

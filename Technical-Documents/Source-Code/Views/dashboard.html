@@ -7,27 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
-    <script src="js/dashboard.js"></script>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <script src="{{ url_for('static',filename='JS/ajax.js') }}"></script>
+    <script src="{{ url_for('static',filename='JS/common.js') }}"></script>
+    <script src="{{ url_for('static',filename='JS/dashboard.js') }}"></script>
     <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
+    <link href="{{ url_for('static',filename='CSS/dashboard.css') }}" rel='stylesheet' type='text/css'/>
 </head>
 <body>
-
-  <!-- with sql.connect("Models/treasure.sqlite") as con:
-            #map the columns to rows
-            con.row_factory = sql.Row
-            cur = con.cursor()
-
-            # See if the game pin is valid
-            cur.execute("SELECT Name t FROM Tutors t WHERE t.SubjectID = Subject s.SubjectID AND s.SubjectID = Games g.SubjectID AND g.GamePin =? AND g.Active=?", (int(gamePin),1))
-            print(cur) -->
-
-
-
     <div class="topnav">
-        <a class="active" href="#home">Map</a>
+        <a href="#home">Map</a>
         <a href="">Leaderboard</a>
-        <a href="/dashboard/faq">FAQ's</a>
+        <a href="/dashboard/faqs">FAQ's</a>
     </div>
+
+    <div id="success" class="alert success">Success: <span></span></div>
+    <div id="error" class="alert error">Error: <span></span></div>
+
     <h2>Building:</h2>
     <ul id = "building" style="display:inline;">
         {% for row in info %}
@@ -43,6 +39,18 @@
         {% endfor %}
     </ul>
 
-    <image src="Camera.png"></image>
+    <div id="scanModal" class="modal">
+        <div class="modalHeader">
+            <h2>Scan QR Code</h2>
+        </div>
+        <div class="modalBody">
+            <video id="preview"></video>
+        </div>
+        <div class="modalFooter">
+            <button id="closeScanModal" class="cancel">Cancel</button>
+        </div>
+    </div>
+
+    <image id="openScanModal" src="{{ url_for('static',filename='Images/camera.png') }}"></image>
 </body>
 </html>
