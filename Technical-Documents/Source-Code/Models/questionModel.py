@@ -46,6 +46,11 @@ class QuestionModel():
 
             con.close()
 
+    def verifyLocation(self, subjectID, QRText):
+
+        #to be finished off
+        return {}
+
     def getQuestions(self, subjectID):
         try:
             # Open the DB
