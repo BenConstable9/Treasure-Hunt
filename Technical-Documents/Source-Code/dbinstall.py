@@ -41,7 +41,6 @@ print ("(7) Questions Table created successfully");
 
 cur = con.cursor()
 
-adminModel.adminRegister("Test Keeper", "admin", "admin") #Ensures the password will be automatically hashed
-# Insert the team data
+adminModel.adminRegister("Test Keeper", "admin", "admin") #Ensures the password will be automatically 
 
 cur.close()

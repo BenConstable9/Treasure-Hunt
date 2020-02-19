@@ -32,3 +32,7 @@ def gameEnd():
 @admin.route('/admin/upload', methods=['POST'])
 def uploadFile():
     return gameController.uploadFile()
+
+@admin.route('/admin/register', methods=['POST'])
+def registerAdmin():
+    return adminAuthController.adminRegister()

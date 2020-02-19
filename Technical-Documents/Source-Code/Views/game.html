@@ -30,6 +30,9 @@
         <button id="endGame" disabled>End Game</button>
     {% endif %}
     <button id="manageConfigs">Manage Exisiting Game Configs</button>
+    <!-- <button id="registerAdmin"><a href="/dashboard/faqs" style='text-decoration:none; color:white'>Register New Admin</a></button> -->
+    <button id="registerAdmin">Register New Admin</button>
+
     <div>
         <h2>Leaderboard</h2>
     </div>
@@ -88,5 +91,31 @@
             </form>
         </div>
     </div>
+
+    <div id="registerAdminModel" class="modal">
+        <div class="modalHeader">
+            <h2>Register New Admin</h2>
+        </div>
+        <div class="modalBody">
+            <!-- Output any of the existing subject configs -->
+        </div>
+        <div class="modalFooter">
+            <form action="/admin/register" method="post" name="registerAdmin">
+              <label for="Name">Name</label>
+              <input type="text" name="Name">
+              <label for="Username">Username</label>
+              <input type="text" name="Username">
+              <label for"Password">Password</label>
+              <input type="password" name="Password">
+              <label for"Password2">Please repeat your password</label>
+              <input type="password" name="Password2">
+              <input type="submit" name="SignUp" value="Sign Up">
+              <input type="submit" value="Cancel" name="cancel" class="cancel">
+            </form>
+        </div>
+    </div>
+
+
+
 </body>
 </html>

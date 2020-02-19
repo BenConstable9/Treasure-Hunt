@@ -1,4 +1,5 @@
 /* Author - Ben Constable
+   Modified - Ravi Gohel
    Handle the ajax functions for creating and uploading games
 */
 
@@ -132,6 +133,21 @@ document.addEventListener('DOMContentLoaded', function(){
         document.getElementById("configModal").style.display = "block";
     }
 
+    /* Handle the closing of a modal
+    */
+    function closeRegisterAdminModel(e) {
+        e.preventDefault();
+        //close it
+        document.getElementById("registerAdminModel").style.display = "none";
+    }
+
+    /* Handle opening of a modal
+    */
+    function openRegisterAdminModel() {
+        //open it
+        document.getElementById("registerAdminModel").style.display = "block";
+    }
+
     //add the event listeners
 
     creates = document.getElementsByClassName('createGameButton');
@@ -144,6 +160,10 @@ document.addEventListener('DOMContentLoaded', function(){
     document.forms["configUpload"]["cancel"].addEventListener("click", closeConfigModal);
 
     document.getElementById("manageConfigs").addEventListener("click", openConfigModal);
+
+    document.getElementById("registerAdmin").addEventListener("click",openRegisterAdminModel);
+
+    document.forms["registerAdmin"]["cancel"].addEventListener("click", closeRegisterAdminModel);
 
     document.getElementById("endGame").addEventListener("click", endGame);
 }, false);

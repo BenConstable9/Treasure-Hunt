@@ -4,6 +4,7 @@ import os
 import hashlib
 
 # Author - Ben Constable
+# Modified - Ravi Gohel
 # MVC Model for handling admin related data
 class AdminModel():
     def __init__(self):
@@ -30,7 +31,7 @@ class AdminModel():
                 #now check the username is not already taken
                 if (len(otherKeepers) == 0):
 
-                    salt = os.urandom(32)
+                    salt = os.urandom(32) #Generates the salt
 
                     # Hash the password
                     storedPassword = hashlib.pbkdf2_hmac(
@@ -66,9 +67,9 @@ class AdminModel():
 
             con.close()
 
-    """Handling the registering of the teams.
-    :param: teamName - the name submitted in the form
-    :param: gamePin - the supplied game Pin
+    """Handling the logging in of admins.
+    :param: username - the username given in the form
+    :param: givenPassword - the supplied password
 
     :return: A JSON array with the status. """
     def adminLogin(self, username, givenPassword):
