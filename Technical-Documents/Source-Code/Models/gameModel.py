@@ -3,7 +3,7 @@ import sqlite3 as sql
 import json
 import hashlib
 import random
-import qrcode
+#import qrcode
 from Models.subjectModel import subjectModel
 from Models.tutorModel import tutorModel
 from Models.questionModel import questionModel
@@ -92,9 +92,9 @@ class GameModel():
             con.close()
 
     """Generates QR code for the questions.
-    
+
     :param subjectID: The subject to generate the QR codes for.
-    
+
     :return: The list of QR codes. """
     def genQRCodes(self, subjectID):
         try:
@@ -103,11 +103,11 @@ class GameModel():
                 #Map the column names to the values returned
                 con.row_factory = makeRowDictionary
                 cur = con.cursor()
-                
+
                 #Get the question for the required building
                 cur.execute("SELECT QRText FROM Questions WHERE subjecID=?", (subjectID))
                 result = cur.fetchall()
-                
+
                 response = []
                 for code in result:
                     img = qrcode.make(code)
@@ -123,7 +123,7 @@ class GameModel():
             return response
 
             con.close()
-        
+
     """Handle the ending of a game
 
     :param keeperID: The keeper to end the games assigned to.
