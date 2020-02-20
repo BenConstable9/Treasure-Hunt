@@ -61,6 +61,6 @@ class AdminAuthController():
             return redirect("/admin/game", code=302)
         else:
             #should output the error
-            return render_template('admin/game.html', status=response["status"], message=response["message"])
+            return render_template('admin.html', status=response["status"], message=response["message"])
 
 adminAuthController=AdminAuthController()
