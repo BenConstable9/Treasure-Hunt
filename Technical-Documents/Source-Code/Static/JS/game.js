@@ -129,6 +129,8 @@ document.addEventListener('DOMContentLoaded', function(){
     /* Handle opening of a modal
     */
     function openConfigModal() {
+        //close registerAdminModel if opening
+        document.getElementById("registerAdminModel").style.display = "none";
         //open it
         document.getElementById("configModal").style.display = "block";
     }
@@ -144,7 +146,9 @@ document.addEventListener('DOMContentLoaded', function(){
     /* Handle opening of a modal
     */
     function openRegisterAdminModel() {
-        //open it
+        //close configModal if open
+        document.getElementById("configModal").style.display = "none";
+        //open registerAdmin form
         document.getElementById("registerAdminModel").style.display = "block";
     }
 

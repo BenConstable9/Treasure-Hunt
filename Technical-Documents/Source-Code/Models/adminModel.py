@@ -16,7 +16,7 @@ class AdminModel():
     :param: password - the supplied game Pin
 
     :return: A JSON array with the status. """
-    def adminRegister(self, name, username, password):
+    def adminRegister(self, name, username, password, password2):
         # Try the SQL
         try:
             # Open the database
@@ -31,36 +31,39 @@ class AdminModel():
                 #now check the username is not already taken
                 if (len(otherKeepers) == 0):
 
-                    salt = os.urandom(32) #Generates the salt
+                    if password != password2:
+                        response = {'status':'0', 'message':'Game Keeper Registration Unsuccessful - Password Do Not Match', 'ID': '0'}
+                    else:
+                        salt = os.urandom(32) #Generates the salt
 
-                    # Hash the password
-                    storedPassword = hashlib.pbkdf2_hmac(
-                        'sha256',
-                        password.encode('utf-8'),
-                        salt,
-                        100000,
-                        dklen=128
-                    )
+                        # Hash the password
+                        storedPassword = hashlib.pbkdf2_hmac(
+                            'sha256',
+                            password.encode('utf-8'),
+                            salt,
+                            100000,
+                            dklen=128
+                        )
 
-                    # Insert the team data
-                    cur.execute("INSERT INTO Keepers (Name,Username,Password,Salt) VALUES (?,?,?,?)",(name,username,storedPassword,salt) )
+                        # Insert the team data
+                        cur.execute("INSERT INTO Keepers (Name,Username,Password,Salt) VALUES (?,?,?,?)",(name,username,storedPassword,salt) )
 
-                    con.commit()
+                        con.commit()
 
-                    # Get the last id
-                    lastID = cur.lastrowid
+                        # Get the last id
+                        lastID = cur.lastrowid
 
-                    response = {'status':'1', 'message':'Game Keeper Registration Successfull', 'ID': lastID}
+                        response = {'status':'1', 'message':'Game Keeper Registration Successful', 'ID': lastID}
 
                 else:
-                    response = {'status':'0', 'message':'Game Keeper Registration Unsuccessfull - Username Already Taken', 'ID': '0'}
+                    response = {'status':'0', 'message':'Game Keeper Registration Unsuccessful - Username Already Taken', 'ID': '0'}
 
         except:
             # If a fail then rollback the transaction
 
             con.rollback()
 
-            response = {'status':'0', 'message':'Game Keeper Registration Unsuccessfull', 'ID': '0'}
+            response = {'status':'0', 'message':'Game Keeper Registration Unsuccessful', 'ID': '0'}
 
         finally:
             return response
