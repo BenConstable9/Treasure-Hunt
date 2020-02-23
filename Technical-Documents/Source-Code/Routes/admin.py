@@ -37,3 +37,7 @@ def uploadFile():
 @admin.route('/admin/register', methods=['POST'])
 def registerAdmin():
     return adminAuthController.adminRegister()
+
+@admin.route('/admin/changePassword', methods=['POST'])
+def changePassword():
+    return adminAuthController.adminChangePassword()

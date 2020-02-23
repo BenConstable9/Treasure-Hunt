@@ -131,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function(){
     function openConfigModal() {
         //close registerAdminModel if opening
         document.getElementById("registerAdminModel").style.display = "none";
+        document.getElementById("changePasswordModel").style.display = "none";
         //open it
         document.getElementById("configModal").style.display = "block";
     }
@@ -148,9 +149,29 @@ document.addEventListener('DOMContentLoaded', function(){
     function openRegisterAdminModel() {
         //close configModal if open
         document.getElementById("configModal").style.display = "none";
+        document.getElementById("changePasswordModel").style.display = "none";
         //open registerAdmin form
         document.getElementById("registerAdminModel").style.display = "block";
     }
+
+    /* Handle the closing of a modal
+    */
+    function closeChangePasswordModel(e) {
+        e.preventDefault();
+        //close it
+        document.getElementById("changePasswordModel").style.display = "none";
+    }
+
+    /* Handle opening of a modal
+    */
+    function openChangePasswordModel() {
+        //close registerAdminModel if opening
+        document.getElementById("registerAdminModel").style.display = "none";
+        document.getElementById("configModal").style.display = "none";
+        //open it
+        document.getElementById("changePasswordModel").style.display = "block";
+    }
+
 
     //add the event listeners
 
@@ -168,6 +189,10 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById("registerAdmin").addEventListener("click",openRegisterAdminModel);
 
     document.forms["registerAdmin"]["cancel"].addEventListener("click", closeRegisterAdminModel);
+
+    document.getElementById("changePassword").addEventListener("click",openChangePasswordModel);
+
+    document.forms["changePassword"]["cancel"].addEventListener("click", closeChangePasswordModel);
 
     document.getElementById("endGame").addEventListener("click", endGame);
 }, false);

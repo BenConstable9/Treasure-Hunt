@@ -26,15 +26,16 @@ class GameController():
 
             #get the stored session data
             keeperID = session.get("keeperID")
+            keeperName = session.get("name")
 
             #get any active games for this keeper
             gameResponse = gameModel.getGames(keeperID, 1)
 
             #render the html
             if (len(gameResponse) == 0):
-                return render_template('game.html',status = subjectResponse["status"],subjectLength = len(subjectResponse["data"]),subjectData = subjectResponse["data"],gameStatus = 0)
+                return render_template('game.html',name = keeperName, ID = keeperID, status = subjectResponse["status"],subjectLength = len(subjectResponse["data"]),subjectData = subjectResponse["data"],gameStatus = 0, )
             else:
-                return render_template('game.html',status = subjectResponse["status"],subjectLength = len(subjectResponse["data"]),subjectData = subjectResponse["data"],gameStatus = 1, gamePin = gameResponse[0]["GamePin"])
+                return render_template('game.html',name = keeperName, ID = keeperID, status = subjectResponse["status"],subjectLength = len(subjectResponse["data"]),subjectData = subjectResponse["data"],gameStatus = 1, gamePin = gameResponse[0]["GamePin"])
 
     """Handle starting of a game by a post request
 
@@ -77,7 +78,7 @@ class GameController():
         # submit an empty part without filename
         if file.filename == '':
             return {'status':'0', 'message':'You must select a file!'}
-            
+
         if file and self.allowedFile(file.filename):
 
             #get a legal file name for it

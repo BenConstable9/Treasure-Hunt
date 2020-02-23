@@ -18,6 +18,7 @@
 </head>
 <body>
     <h1>Admin Dashboard</h1>
+    <h2> Welcome: {{name}} </h2>
     <div id="success" class="alert success">Success: <span></span></div>
     <div id="error" class="alert error">Error: <span></span></div>
 
@@ -32,6 +33,8 @@
     <button id="manageConfigs">Manage Exisiting Game Configs</button>
     <!-- <button id="registerAdmin"><a href="/dashboard/faqs" style='text-decoration:none; color:white'>Register New Admin</a></button> -->
     <button id="registerAdmin">Register New Admin</button>
+    <button id="changePassword">Change Password</button>
+    <button id="logout">Logout</button>
 
     <div>
         <h2>Leaderboard</h2>
@@ -110,6 +113,26 @@
               <label for"Password2">Please repeat your password</label>
               <input type="password" name="Password2">
               <input type="submit" name="SignUp" value="Sign Up">
+              <input type="submit" value="Cancel" name="cancel" class="cancel">
+            </form>
+        </div>
+    </div>
+
+    <div id="changePasswordModel" class="modal">
+        <div class="modalHeader">
+            <h2>Change Password</h2>
+        </div>
+        <div class="modalBody">
+            <!-- Output any of the existing subject configs -->
+        </div>
+        <div class="modalFooter">
+            <form action="/admin/changePassword" method="post" name="changePassword">
+              <label for"Password">Password</label>
+              <input type="password" name="Password">
+              <label for"Password2">Please repeat your password</label>
+              <input type="password" name="Password2">
+              <input type="hidden" name="ID" value={{ID}}>
+              <input type="submit" name="ChangePassword" value="Change Password">
               <input type="submit" value="Cancel" name="cancel" class="cancel">
             </form>
         </div>

@@ -13,7 +13,8 @@ class AdminModel():
     """Handling the registering of the admins.
     :param: name - the name submitted in the form
     :param: username - the username submitted in the form
-    :param: password - the supplied game Pin
+    :param: password - the given password
+    :param: password2 - the repeated password
 
     :return: A JSON array with the status. """
     def adminRegister(self, name, username, password, password2):
@@ -102,17 +103,66 @@ class AdminModel():
                 if (givenPassword == keeper["Password"]):
 
                     # Formulate the response
-                    response = {'status':'1', 'message':'Game Keeper Logged In Successfully', 'ID': keeper["KeeperID"]}
+                    response = {'status':'1', 'message':'Game Keeper Logged In Successfully', 'ID': keeper["KeeperID"], 'Name':keeper["Name"]}
 
                 else:
                     response = {'status':'0', 'message':'Game Keeper Logging In Unsuccessfull - Invalid Username or Password', 'ID': '0'}
 
         except:
-            response = {'status':'0', 'message':'Game Keeper Logging In Unsuccessfull', 'ID': '0'}
+            response = {'status':'0', 'message':'Game Keeper Logging In Unsuccessful', 'ID': '0'}
 
         finally:
 
             # Return the result
+            return response
+
+            con.close()
+
+
+
+    """Handling the changing of password of an admin.
+    :param: password - the given password.
+    :param: password2 - the repeated password.
+    :param: ID - the ID of the keeper trying to change their password.
+
+    :return: A JSON array with the status. """
+    def adminChangePassword(self, password, password2, ID):
+        # Try the SQL
+        try:
+            # Open the database
+            with sql.connect("Models/treasure.sqlite") as con:
+                cur = con.cursor()
+
+                if password != password2:
+                    response = {'status':'0', 'message':'Game Keeper Password Change Unsuccessful - Password Do Not Match', 'ID': '0'}
+                else:
+                    salt = os.urandom(32) #Generates the salt
+
+                    # Hash the password
+                    storedPassword = hashlib.pbkdf2_hmac(
+                        'sha256',
+                        password.encode('utf-8'),
+                        salt,
+                        100000,
+                        dklen=128
+                    )
+
+                    passwordUpdate = """Update Keepers set Password = ?, Salt = ? where KeeperID = ?"""
+                    data = (storedPassword, salt, ID)
+                    con.execute(passwordUpdate, data)
+
+                    con.commit()
+
+                    response = {'status':'1', 'message':'Game Keeper Password Changed Successfully'}
+
+        except:
+            # If a fail then rollback the transaction
+
+            con.rollback()
+
+            response = {'status':'0', 'message':'Game Keeper Password Change Unsuccessful', 'ID': '0'}
+
+        finally:
             return response
 
             con.close()
