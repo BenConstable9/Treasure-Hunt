@@ -11,8 +11,10 @@
     <title>Treasure Hunt Admin</title>
 </head>
 <body>
-    <a style = 'border-style: solid; border-color: red; color:white; background:#f00; font-weight:bold; border-radius: 10px;' href="/">Homepage</a>
-
+    <div class="topnav">
+        <a href="/">Homepage</a>
+    
+    </div>
 
     <h1>University of Exeter Freshers Treasure Hunt</h1>
     <h2>Admin Console</h2>
@@ -24,8 +26,10 @@
     <form action="/admin/login" method="post">
         <label for="Username" style>Username</label>
         <input type="text" name="Username" placeholder="Your Username" class="inputFull">
+        <br/>
         <label for="Password">Password</label>
         <input type="password" name="Password" placeholder="Your Password" class="inputFull">
+        <br/>
         <input type="submit" name="Login" value="Login as Admin" class="inputFull">
     </form>
 </body>

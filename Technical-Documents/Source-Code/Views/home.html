@@ -9,11 +9,17 @@
     <script type="text/javascript" src="{{url_for('static',filename='JS/ajax.js')}}"> </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{{ url_for('static',filename='CSS/home.css')}}" rel='stylesheet' type='text/css'/>
     <title>Home</title>
 </head>
 <body>
-    <a style = 'border-style: solid; border-color: red; color:white; background:#f00; font-weight:bold; border-radius: 10px;' href="/dashboard/faqs">Useful Information Page</a>
-    <a style = 'border-style: solid; border-color: red; color:white; background:#f00; font-weight:bold; border-radius: 10px;' href="/admin">Admin Login</a>
+    <div class="topnav">
+    
+        <!--<a><image src ="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>-->
+        <a href="/admin">Admin Login</a>
+        <a class ="active">Home</a>
+        <a href="/dashboard/faqs">Useful Information</a>
+    </div>
 
     <h1>Welcome</h1>
     <h2> To the University of Exeter Freshers Treasure Hunt </h2>

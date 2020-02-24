@@ -11,8 +11,9 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   background-image:url(../Images/background.png);
-  background-size: height cover, width contain;
   background-repeat: no-repeat;
+  background-size: cover; 
+  background-attachment: fixed;
   /*color: #ffffff;=-0*/
 }
 
@@ -93,7 +94,7 @@ input[type=submit], button {
 }
 
 input[type=submit]:hover, button:hover {
-  background-color: #424287;
+  background-color: #8282c2;
 }
 
 
@@ -102,7 +103,6 @@ input[type=submit]:hover, button:hover {
 }
 
 .collapsible {
-  background-color: #777;
   color: white;
   cursor: pointer;
   padding: 18px;
@@ -124,21 +124,20 @@ input[type=submit]:hover, button:hover {
 }
 
 .active, .collapsible:hover {
-  background-color: #555;
+  background-color: #8282c2;
 }
 
 .content {
   padding: 0 18px;
   display: none;
   overflow: hidden;
-  background-color: #000066;
 }
 .topnav {
   overflow: hidden;
-  background-color: #777;
+  background-color:#666699;
   position: sticky;
+  opacity: 0.9;
 }
-
 .topnav a {
   float: left;
   color: white;
@@ -146,14 +145,20 @@ input[type=submit]:hover, button:hover {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
+ 
+}
+#logo {
+  float: left;
+  height:10%;
+z-index: 1000;
 }
 
 .topnav a:hover {
-  background-color: #555;
+  background-color: #8282c2;
 }
 
 .topnav a.active {
-  background-color: #555;
+  background-color: #8282c2;
   color: white;
 }
 
