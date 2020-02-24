@@ -59,12 +59,30 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
+    /* Handle the callback from ending a game
+
+        :param response: The response from the request
+    */
+    function logoutCallback(response) {
+        if (response.status == "1"){
+          window.location.replace("/admin");
+
+        }
+    }
+
     /* Send off a request to end a game
 
         :param response: The response from the request
     */
     function endGame() {
         HTTPPost("/admin/game/end", "", endGameCallback)
+    }
+
+    /* Send off a request to log the user out
+        :param response: The response from the request
+    */
+    function logout() {
+        HTTPPost("/admin/game/logout", "", logoutCallback)
     }
 
     /* Handle the callback from uploading a game
@@ -195,4 +213,6 @@ document.addEventListener('DOMContentLoaded', function(){
     document.forms["changePassword"]["cancel"].addEventListener("click", closeChangePasswordModel);
 
     document.getElementById("endGame").addEventListener("click", endGame);
+
+    document.getElementById("logout").addEventListener("click", logout);
 }, false);

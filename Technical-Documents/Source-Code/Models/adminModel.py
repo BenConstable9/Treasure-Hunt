@@ -1,4 +1,4 @@
-from flask import request,json
+from flask import request,json,session
 import sqlite3 as sql
 import os
 import hashlib
@@ -166,5 +166,14 @@ class AdminModel():
             return response
 
             con.close()
+
+
+    """Handing the logging out of an admin"""
+    def adminLogout(self):
+        session.clear()
+        response = {'status':'1', 'message':'Logged Out Successfully'}
+        return response
+
+
 
 adminModel=AdminModel()

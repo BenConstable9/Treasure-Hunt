@@ -84,4 +84,9 @@ class AdminAuthController():
             #should output the error
             return render_template('admin.html', status=response["status"], message=response["message"])
 
+    """Allow the gamekeeper to Logout """
+    def adminLogout(self):
+        response = adminModel.adminLogout()
+        return response
+
 adminAuthController=AdminAuthController()
