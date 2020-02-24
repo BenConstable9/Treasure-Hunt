@@ -92,9 +92,9 @@ class GameModel():
             con.close()
 
     """Generates QR code for the questions.
-    
+
     :param subjectID: The subject to generate the QR codes for.
-    
+
     :return: The list of QR codes. """
     def genQRCodes(self, subjectID):
         try:
@@ -103,17 +103,18 @@ class GameModel():
                 #Map the column names to the values returned
                 con.row_factory = makeRowDictionary
                 cur = con.cursor()
-                
+
                 #Get the question for the required building
                 cur.execute("SELECT * FROM Questions WHERE SubjectID=?", (subjectID,))
                 questions = cur.fetchall()
-                
+
                 for question in questions:
                     print(question["QRText"])
                     img = pyqrcode.create(question["QRText"])
                     img.svg("Static/Images/Codes/" + str(question["QuestionID"]) + ".svg", scale = 8)
-                
+
                 response = {'status':'1', 'message':'QR Codes Created'}
+
         except Exception as e:
             print(e)
             response = {'status':'0', 'message':'BAD - Unsuccessful'}
@@ -124,7 +125,7 @@ class GameModel():
             return response
 
             con.close()
-        
+
     """Handle the ending of a game
 
     :param keeperID: The keeper to end the games assigned to.
