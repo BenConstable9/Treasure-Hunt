@@ -39,7 +39,7 @@ def fetchDash():
     return dashboardController.index()
 
 @front.route('/dashboard/verifylocation', methods=['POST'])
-def fetchDash():
+def fetchVerify():
     return dashboardController.verifyLocation()
 
 @front.route('/dashboard/building',methods=['GET'])
