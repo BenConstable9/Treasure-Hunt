@@ -20,6 +20,7 @@
     <div class="topnav">
         <a class = "active">AdminHome</a>
         <a href="/">PlayerHome</a>
+        <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
     </div>
     <h1>Admin Dashboard</h1>
     <h2> Welcome: {{name}} </h2>
@@ -109,9 +110,9 @@
               <input type="text" name="Name">
               <label for="Username">Username</label>
               <input type="text" name="Username">
-              <label for"Password">Password</label>
+              <label for="Password">Password</label>
               <input type="password" name="Password">
-              <label for"Password2">Please repeat your password</label>
+              <label for="Password2">Please repeat your password</label>
               <input type="password" name="Password2">
             </div>
               <div class="modalFooter">
@@ -126,10 +127,10 @@
             <h2>Change Password</h2>
         </div>
             <form action="/admin/changePassword" method="post" name="changePassword">
-            <div class="modalBody"
-              <label for"Password">Password</label>
+            <div class="modalBody">
+              <label for="Password">Password</label>
               <input type="password" name="Password">
-              <label for"Password2">Please repeat your password</label>
+              <label for="Password2">Please repeat your password</label>
               <input type="password" name="Password2">
               <input type="hidden" name="ID" value={{ID}}>
             </div>

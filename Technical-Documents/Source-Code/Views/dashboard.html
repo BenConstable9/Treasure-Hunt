@@ -20,6 +20,7 @@
         <a href="#home">Map</a>
         <a href="">Leaderboard</a>
         <a href="/dashboard/faqs">FAQ's</a>
+        <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
     </div>
 
     <div id="success" class="alert success">Success: <span></span></div>
@@ -53,5 +54,23 @@
     </div>
 
     <image id="openScanModal" src="{{ url_for('static',filename='Images/camera.png') }}"></image>
+    
+    <div id="question" class="modal">
+        <div class="modalHeader">
+            <h2>Answer The Question For A Letter</h2>
+        </div>
+            <form action="/dashboard" method="post" name="question">
+            <div class="modalBody">
+              <label for="Question Title">Question Title</label>
+              <input type="text" name="Name">
+              <label for="Answer">Answer</label>
+              <input type="text" name="Answer">
+            </div>
+            <div class="modalFooter">
+              <input type="submit" name="Submit" value="Submit">
+              <input type="submit" value="Cancel" name="cancel" class="cancel">
+            </div>
+            </form>
+    </div>
 </body>
 </html>
