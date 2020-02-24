@@ -46,32 +46,48 @@ class QuestionModel():
 
             con.close()
 
-    def verifyLocation(self, subjectID, QRText):
-
-        #to be finished off
-        return {}
-
-    def getQuestions(self, subjectID):
+    def verifyLocation(self, subjectID, qRText):
         try:
-            # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
                 con.row_factory = sql.Row
-                cur = con.cursor()
-            cur.execute("SELECT * FROM Questions WHERE SubjectID=?", (int(subjectID),))
+                cur =  con.cursor()
+                cur.execute("SELECT * FROM Questions WHERE QRText='48d7dccdb68928f81bd1b28d02400130'")#, ("48d7dccdb68928f81bd1b28d02400130"))
 
-            questions = cur.fetchall()
-            returns = []
-
-            for question in questions:
-                returns.append({"question":question["Question"], "answer":question["Answer"], "building":question["Building"],"letter":question["Letter"]})
-            response = {'status': '1', 'data': returns}
+                questions =  cur.fetchone()
+                returns =[]
+                for question in questions:
+                    returns.append({'QuestionID':question['QuestionID']})
+                response = {'status':'1','QuestionID': returns}
         except Exception as e:
             print(e)
             response = {'status':'0'}
         finally:
-            # Return the result
-            return response
 
+            #to be finished off
+            return response
             con.close()
+
+    def getQuestions(self, subjectID):
+         try:
+             # Open the DB
+             with sql.connect("Models/treasure.sqlite") as con:
+                 con.row_factory = sql.Row
+                 cur = con.cursor()
+                 cur.execute("SELECT * FROM Questions WHERE SubjectID=?", (int(subjectID),))
+
+                 questions = cur.fetchall()
+                 returns = []
+
+                 for question in questions:
+                     returns.append({"question":question["Question"], "answer":question["Answer"], "building":question["Building"],"letter":question["Letter"]})
+                 response = {'status': '1', 'data': returns}
+         except Exception as e:
+             print(e)
+             response = {'status':'0'}
+         finally:
+             # Return the result
+             return response
+
+             con.close()
 
 questionModel=QuestionModel()
