@@ -131,7 +131,6 @@ input[type=submit]:hover, button:hover {
   display: none;
   overflow: hidden;
   background-color:  azure;
-  opacity: 0.1;
 }
 
 
