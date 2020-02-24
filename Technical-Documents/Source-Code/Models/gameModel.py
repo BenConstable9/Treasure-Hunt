@@ -119,7 +119,6 @@ class GameModel():
                 questions = cur.fetchall()
 
                 for question in questions:
-                    print(question["QRText"])
                     img = pyqrcode.create(question["QRText"])
                     img.svg("Static/Images/Codes/" + str(question["QuestionID"]) + ".svg", scale = 8)
 
@@ -201,7 +200,7 @@ class GameModel():
 
                             x += 1
 
-                        response = {'status':'0', 'message':'Game config added successfully.', 'SubjectID': subjectID, 'SubjectName': contents["Subject"], 'Building': contents["FinalLoc"]["Building"]}
+                        response = {'status':'1', 'message':'Game config added successfully.', 'SubjectID': subjectID, 'SubjectName': contents["Subject"], 'Building': contents["FinalLoc"]["Building"]}
 
                         self.genQRCodes(subjectID)
                     else:
