@@ -1,4 +1,4 @@
-## Code Standards
+# Code Standards
 
 All variables to be camel case.
 
@@ -17,3 +17,5 @@ All functions to have doc-strings
 Session variables to be camel case
 
 All files to have an author, modifier and 1 line description at the top
+
+Changes are to be tracked with an additional comment at the top of the file
