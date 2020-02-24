@@ -97,7 +97,6 @@ input[type=submit]:hover, button:hover {
   background-color: #8282c2;
 }
 
-
 * {
   box-sizing: border-box;
 }
@@ -131,7 +130,11 @@ input[type=submit]:hover, button:hover {
   padding: 0 18px;
   display: none;
   overflow: hidden;
+  background-color:  azure;
+  opacity: 0.1;
 }
+
+
 .topnav {
   overflow: hidden;
   background-color:#666699;
@@ -145,21 +148,16 @@ input[type=submit]:hover, button:hover {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
- 
 }
-#logo {
-  float: left;
-  height:10%;
-z-index: 1000;
-}
-
 .topnav a:hover {
   background-color: #8282c2;
-}
-
+}=
 .topnav a.active {
   background-color: #8282c2;
   color: white;
+}
+#logo {
+  float: right;
 }
 
 .modal {
