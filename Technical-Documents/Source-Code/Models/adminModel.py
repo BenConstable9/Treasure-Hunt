@@ -97,8 +97,6 @@ class AdminModel():
                     dklen=128
                 )
 
-                print(givenPassword)
-
                 # Check the game pin
                 if (givenPassword == keeper["Password"]):
 
