@@ -11,14 +11,18 @@
     <title>Treasure Hunt Admin</title>
 </head>
 <body>
+    <a style = 'border-style: solid; border-color: red; color:white; background:#f00; font-weight:bold; border-radius: 10px;' href="/">Homepage</a>
+
+
     <h1>University of Exeter Freshers Treasure Hunt</h1>
     <h2>Admin Console</h2>
+
     <!-- If an error is returned then output it -->
     {% if status == "0" %}
         <div class="alert error" style="display:block">Error: <span>{{ message }}</span></div>
     {% endif %}
     <form action="/admin/login" method="post">
-        <label for="Username">Username</label>
+        <label for="Username" style>Username</label>
         <input type="text" name="Username" placeholder="Your Username" class="inputFull">
         <label for="Password">Password</label>
         <input type="password" name="Password" placeholder="Your Password" class="inputFull">

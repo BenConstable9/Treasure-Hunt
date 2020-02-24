@@ -1,4 +1,5 @@
 /* Author - Ben Constable
+   Modified - Ravi Gohel
    Handle the ajax functions for creating and uploading games
 */
 
@@ -58,12 +59,30 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
+    /* Handle the callback from ending a game
+
+        :param response: The response from the request
+    */
+    function logoutCallback(response) {
+        if (response.status == "1"){
+          window.location.replace("/admin");
+
+        }
+    }
+
     /* Send off a request to end a game
 
         :param response: The response from the request
     */
     function endGame() {
         HTTPPost("/admin/game/end", "", endGameCallback)
+    }
+
+    /* Send off a request to log the user out
+        :param response: The response from the request
+    */
+    function logout() {
+        HTTPPost("/admin/game/logout", "", logoutCallback)
     }
 
     /* Handle the callback from uploading a game
@@ -128,9 +147,49 @@ document.addEventListener('DOMContentLoaded', function(){
     /* Handle opening of a modal
     */
     function openConfigModal() {
+        //close registerAdminModel if opening
+        document.getElementById("registerAdminModel").style.display = "none";
+        document.getElementById("changePasswordModel").style.display = "none";
         //open it
         document.getElementById("configModal").style.display = "block";
     }
+
+    /* Handle the closing of a modal
+    */
+    function closeRegisterAdminModel(e) {
+        e.preventDefault();
+        //close it
+        document.getElementById("registerAdminModel").style.display = "none";
+    }
+
+    /* Handle opening of a modal
+    */
+    function openRegisterAdminModel() {
+        //close configModal if open
+        document.getElementById("configModal").style.display = "none";
+        document.getElementById("changePasswordModel").style.display = "none";
+        //open registerAdmin form
+        document.getElementById("registerAdminModel").style.display = "block";
+    }
+
+    /* Handle the closing of a modal
+    */
+    function closeChangePasswordModel(e) {
+        e.preventDefault();
+        //close it
+        document.getElementById("changePasswordModel").style.display = "none";
+    }
+
+    /* Handle opening of a modal
+    */
+    function openChangePasswordModel() {
+        //close registerAdminModel if opening
+        document.getElementById("registerAdminModel").style.display = "none";
+        document.getElementById("configModal").style.display = "none";
+        //open it
+        document.getElementById("changePasswordModel").style.display = "block";
+    }
+
 
     //add the event listeners
 
@@ -145,5 +204,15 @@ document.addEventListener('DOMContentLoaded', function(){
 
     document.getElementById("manageConfigs").addEventListener("click", openConfigModal);
 
+    document.getElementById("registerAdmin").addEventListener("click",openRegisterAdminModel);
+
+    document.forms["registerAdmin"]["cancel"].addEventListener("click", closeRegisterAdminModel);
+
+    document.getElementById("changePassword").addEventListener("click",openChangePasswordModel);
+
+    document.forms["changePassword"]["cancel"].addEventListener("click", closeChangePasswordModel);
+
     document.getElementById("endGame").addEventListener("click", endGame);
+
+    document.getElementById("logout").addEventListener("click", logout);
 }, false);
