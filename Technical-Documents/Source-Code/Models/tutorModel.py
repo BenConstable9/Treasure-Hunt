@@ -23,7 +23,7 @@ class TutorModel():
                 # Get the last id
                 lastID = cur.lastrowid
 
-                response = {'status':'1', 'message':'Tutor Creation Successfull', 'ID': lastID}
+                response = {'status':'1', 'message':'Tutor Creation Successful', 'ID': lastID}
 
         except Exception as e:
             print(e)

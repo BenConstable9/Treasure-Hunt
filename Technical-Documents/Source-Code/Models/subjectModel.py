@@ -36,7 +36,7 @@ class SubjectModel():
                     response = {'status':'1', 'message':'Subject Creation Successfull', 'ID': lastID}
 
                 else:
-                    response = {'status':'0', 'message':'Subject Creation Unsuccessfull - Subject Already Taken', 'ID': '0'}
+                    response = {'status':'0', 'message':'Subject Creation Unsuccessfull - Name Already Taken. Please Delete Subject Then Try Again.', 'ID': '0'}
 
         except Exception as e:
             print(e)
@@ -115,7 +115,6 @@ class SubjectModel():
 
         except Exception as e:
             print(e)
-            print ("test2")
             response = {'status':'0', 'message':'BAD - Unsuccessful', 'ID': '0'}
 
         finally:

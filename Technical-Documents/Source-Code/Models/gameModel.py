@@ -28,24 +28,34 @@ class GameModel():
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
+                con.row_factory = makeRowDictionary
                 cur = con.cursor()
 
                 #check they don't have any other games active
                 otherGames = self.getGames(keeperID, 1)
 
                 if (len(otherGames) == 0):
-                    #make a random game pin
-                    gamePin = random.randint(100000, 999999)
+                    while (True):
+                        #make a random game pin
+                        gamePin = random.randint(100000, 999999)
 
-                    # Insert the game data
-                    cur.execute("INSERT INTO Games (SubjectID,GamePin,KeeperID,Active) VALUES (?,?,?,?)",(subjectID,gamePin,keeperID,1) )
+                        #Get all of the games with the correct params
+                        cur.execute("SELECT * FROM Games WHERE GamePin=?", (gamePin,))
 
-                    con.commit()
+                        matching = cur.fetchall()
 
-                    # Get the last id
-                    lastID = cur.lastrowid
+                        if (len(matching) == 0):
+                            # Insert the game data
+                            cur.execute("INSERT INTO Games (SubjectID,GamePin,KeeperID,Active) VALUES (?,?,?,?)",(subjectID,gamePin,keeperID,1) )
 
-                    response = {'status':'1', 'message':'Added game', 'ID': lastID, 'GamePin':gamePin}
+                            con.commit()
+
+                            # Get the last id
+                            lastID = cur.lastrowid
+
+                            response = {'status':'1', 'message':'Added game', 'ID': lastID, 'GamePin':gamePin}
+
+                            break
                 else :
                     response = {'status':'0', 'message':'You already have a game running.'}
 
@@ -109,11 +119,11 @@ class GameModel():
                 questions = cur.fetchall()
 
                 for question in questions:
-                    print(question["QRText"])
                     img = pyqrcode.create(question["QRText"])
                     img.svg("Static/Images/Codes/" + str(question["QuestionID"]) + ".svg", scale = 8)
 
                 response = {'status':'1', 'message':'QR Codes Created'}
+
         except Exception as e:
             print(e)
             response = {'status':'0', 'message':'BAD - Unsuccessful'}
@@ -190,7 +200,7 @@ class GameModel():
 
                             x += 1
 
-                        response = {'status':'0', 'message':'Game config added successfully.', 'SubjectID': subjectID, 'SubjectName': contents["Subject"], 'Building': contents["FinalLoc"]["Building"]}
+                        response = {'status':'1', 'message':'Game config added successfully.', 'SubjectID': subjectID, 'SubjectName': contents["Subject"], 'Building': contents["FinalLoc"]["Building"]}
 
                         self.genQRCodes(subjectID)
                     else:
