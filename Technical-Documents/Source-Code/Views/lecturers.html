@@ -1,0 +1,513 @@
+
+<!--Author: Ravi Gohel
+    Description: Computer Science Lecturers Details Page-->
+<!--Edited by: Freddie Woods
+    Description: Implemented common css and added topnav -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Computer Science Lecturers Information</title>
+        <link href="../Static/CSS/common.css" rel='stylesheet' type='text/css'/>
+    </head>
+
+<body>
+<div class="topnav">
+<a href="/">Home</a>
+<a href="building" >Buildings</a>
+<a class="active">Lecturers</a>
+<a href="faqs">FAQs</a>
+<a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+</div>
+<h2>Lecturers</h2>
+
+<button type="button" class="collapsible">Computer Science</button>
+<div class="content">
+        <button type="button" class="collapsible">Professor Ronaldo Menezes</button>
+        <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h1>Professor Ronaldo Menezes - Head of Computer Science</h1>
+                    <ul>
+                        <li>Professor of Data and Network Science</li>
+                        <li>Email: R.Menezes@exeter.ac.uk</li>
+                        <li><a href="http://emps.exeter.ac.uk/computer-science/staff/rm660">Exeter University Profile</a>
+                        <li>Office: Innovation Centre B1B</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/RonaldoMenezes.jpg') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr Matthew Collison</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Dr Matthew Collison - Learning Facilitator</h2>
+                    <ul>
+                        <li>Lecturer in Computer Science</li>
+                        <li>Email: M.Collison@exeter.ac.uk</li>
+                        <li><a href="http://emps.exeter.ac.uk/computer-science/staff/mmc212">Exeter University Profile</a>
+                        <li>Office: Innovation Centre B1A (Open Door Policy)</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/RonaldoMenezes.jpg') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr David Wakeling</button>
+            <div class="content">
+                <div class="row">
+                    <div class="column">
+                      <h2>Dr David Wakeling - Director of Education</h2>
+                      <ul>
+                          <li>Senior Lecturer in Computer Science</li>
+                          <li>Email: D.Wakeling@exeter.ac.uk</li>
+                          <li><a href="http://emps.exeter.ac.uk/computer-science/staff/dw355">Exeter University Profile</a>
+                          <li>Office: TO BE INSERTED</li>
+                      </ul>
+                      <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/DavidWakeling.png') }}" width="200" height="200" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                    </div>
+                    <div class="column">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2525.0556681987932!2d-3.5356932840485715!3d50.73745637452369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x486da4445dc4fea7%3A0xb5f41af63daed34e!2sUniversity%20of%20Exeter%20Laver%20Building!5e0!3m2!1sen!2suk!4v1580987862529!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                    </div>
+                </div>
+            </div>
+        <button type="button" class="collapsible">Professor Jonathan Fieldsend</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Professor Jonathan Fieldsend</h2>
+                    <ul>
+                        <li>Senior Lecturer in Computer Science</li>
+                        <li>Email: J.E.Fieldsend@exeter.ac.uk</li>
+                        <li><a href="http://emps.exeter.ac.uk/computer-science/staff/jefields">Exeter University Profile</a>
+                        <li>Office: Innovation Centre Phase 1, Room Ma</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/JonathanFieldsend.png') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr Yulei Wu</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Dr Yulei Wu</h2>
+                    <ul>
+                        <li>Senior Lecturer in Computer Science</li>
+                        <li>Email: Y.L.Wu@exeter.ac.uk</li>
+                        <li><a href="https://emps.exeter.ac.uk/computer-science/staff/yw433">Exeter University Profile</a>
+                        <li>Office: Innovation Centre Unit ME</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/YuleiWu.png') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr Hongping Cai</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Dr Hongping Cai</h2>
+                    <ul>
+                        <li>Lecturer in Computer Science in the Education and Scholarship Family</li>
+                        <li>Email: H.Cai@exeter.ac.uk</li>
+                        <li><a href="https://emps.exeter.ac.uk/computer-science/staff/hc564">Exeter University Profile</a>
+                        <li>Office: Hope Hall 1.01</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/HongpingCai.png') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2525.2498559533974!2d-3.5287784842583205!3d50.73385457951547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x486da441c0352b3f%3A0xba4189937f8d954b!2sHope%20Hall%2C%20Prince%20of%20Wales%20Rd%2C%20Exeter%20EX4%204PL!5e0!3m2!1sen!2suk!4v1580988814518!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr Alberto Moraglio</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Dr Alberto Moraglio</h2>
+                    <ul>
+                        <li>Senior Lecturer in Computer Science</li>
+                        <li>Email: A.Moraglio@exeter.ac.uk</li>
+                        <li><a href="https://emps.exeter.ac.uk/computer-science/staff/am666">Exeter University Profile</a>
+                        <li>Office: Hope Hall 1.01</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/AlbertoMoraglio.jpg') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2525.2498559533974!2d-3.5287784842583205!3d50.73385457951547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x486da441c0352b3f%3A0xba4189937f8d954b!2sHope%20Hall%2C%20Prince%20of%20Wales%20Rd%2C%20Exeter%20EX4%204PL!5e0!3m2!1sen!2suk!4v1580988814518!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Professor Achim D. Brucker</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Professor Achim D. Brucker</h2>
+                    <ul>
+                        <li>Lecturer in Computer Science</li>
+                        <li>Chair in Cybersecurity</li>
+                        <li>Head of the Cybersecurity Group</li>
+                        <li>Email: A.Brucker@exeter.ac.uk</li>
+                        <li><a href="http://emps.exeter.ac.uk/computer-science/staff/ab1185">Exeter University Profile</a>
+                        <li>Office: Innovation Centre A1</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/AchimBrucker.jpg') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Diego Marmsoler</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Diego Marmsoler</h2>
+                    <ul>
+                        <li>Lecturer in Cybersecurity</li>
+                        <li>Email: D.Marmsoler@exeter.ac.uk</li>
+                        <li><a href="http://emps.exeter.ac.uk/computer-science/staff/dm656">Exeter University Profile</a>
+                        <li>Office: TO BE INSERTED</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/DiegoMarmsoler.jpg') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr Chunbo Luo</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Dr Chunbo Luo</h2>
+                    <ul>
+                        <li>Senior Lecturer in Computer Science</li>
+                        <li>Email: C.Luo@exeter.ac.uk</li>
+                        <li><a href="https://emps.exeter.ac.uk/computer-science/staff/cl535">Exeter University Profile</a>
+                        <li>Office: Innovation Centre Unit ME</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/ChunboLuo.jpg') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr Jia Hu</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Dr Jia Hu</h2>
+                    <ul>
+                        <li>Lecturer in Computer Science</li>
+                        <li>Email: J.Hu@exeter.ac.uk</li>
+                        <li><a href="https://emps.exeter.ac.uk/computer-science/staff/jh815">Exeter University Profile</a>
+                        <li>Office: Innovation Centre Unit M1</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/JiaHu.png') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr Hugo Barbosa</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Dr Hugo Barbosa</h2>
+                    <ul>
+                        <li>Lecturer in Computer Science</li>
+                        <li>Email: H.Barbosa@exeter.ac.uk</li>
+                        <li><a href="https://emps.exeter.ac.uk/computer-science/staff/hs613">Exeter University Profile</a>
+                        <li>Office: Innovation Centre - Office L1</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/HugoBarbosa.png') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr Jacqueline Christmas</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Dr Jacqueline Christmas</h2>
+                    <ul>
+                        <li>Senior Lecturer in Computer Science</li>
+                        <li>Email: J.T.Christmas@exeter.ac.uk</li>
+                        <li><a href="http://emps.exeter.ac.uk/computer-science/staff/jtc202">Exeter University Profile</a>
+                        <li>Office: TO BE INSERTED</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/JacquelineChristmas.png') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Federico Botta</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Federico Botta</h2>
+                    <ul>
+                        <li>Lecturer in Computer Science</li>
+                        <li>Email: F.Botta@exeter.ac.uk</li>
+                        <li><a href="http://emps.exeter.ac.uk/computer-science/staff/fb394">Exeter University Profile</a>
+                        <li>Office: Innovation Centre M1 (Email for appointment)</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/FedericoBotta.jpg') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr Ke Li</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Dr Ke Li</h2>
+                    <ul>
+                        <li>Senior Lecturer in Computer Science</li>
+                        <li>UKRI Future Leaders Fellow</li>
+                        <li>Email: K.Li@exeter.ac.uk</li>
+                        <li><a href="https://emps.exeter.ac.uk/computer-science/staff/hs613">Exeter University Profile</a>
+                        <li>Office: Innovation Centre A1</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/KeLi.png') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr Nicolas Pugeault</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Dr Nicolas Pugeault</h2>
+                    <ul>
+                        <li>Senior Lecturer in Computer Science</li>
+                        <li>Senior Lecturer in Computer Vision and Machine Learning</li>
+                        <li>Email: N.Pugeault@exeter.ac.uk</li>
+                        <li><a href="https://emps.exeter.ac.uk/computer-science/staff/np331">Exeter University Profile</a>
+                        <li>Office: TO BE INSERTED</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/NicolasPugeault.png') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr Leon Danon</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Dr Leon Danon</h2>
+                    <ul>
+                        <li>Senior Lecturer in Data Analytics</li>
+                        <li>Email: L.Danon@exeter.ac.uk</li>
+                        <li><a href="https://emps.exeter.ac.uk/computer-science/staff/ld450">Exeter University Profile</a>
+                        <li>Office: TO BE INSERTED</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/LeonDanon.png') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr David Acreman</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Dr David Acreman</h2>
+                    <ul>
+                        <li>Senior Research Fellow</li>
+                        <li>Email: D.M.Acreman@exeter.ac.uk</li>
+                        <li><a href="http://emps.exeter.ac.uk/physics-astronomy/staff/dma204">Exeter University Profile</a>
+                        <li>Office: Physics Tower, 4th Floor, Office 402</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/DavidAcreman.png') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2525.070866691447!2d-3.538247083964148!3d50.73717447951602!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x486da4459710a485%3A0xeec3e6e988a5e5e8!2sUniversity%20of%20Exeter%20Physics%20Building!5e0!3m2!1sen!2suk!4v1580990065506!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Professor Mitchell Berger</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Professor Mitchell Berger</h2>
+                    <ul>
+                        <li>Lecturer in Computer Science and Mathematics</li>
+                        <li>Email: M.Berger@exeter.ac.uk</li>
+                        <li><a href="http://emps.exeter.ac.uk/mathematics/staff/mab215">Exeter University Profile</a></li>
+                        <li>Office: TO BE INSERTED</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/MitchellBerger.png') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+
+
+      </div>
+
+
+<button type="button" class="collapsible">Mathematics...</button>
+<div class="content">
+        <button type="button" class="collapsible">Professor Ronaldo Menezes</button>
+        <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h1>Professor Ronaldo Menezes - Head of Computer Science</h1>
+                    <ul>
+                        <li>Professor of Data and Network Science</li>
+                        <li>Email: R.Menezes@exeter.ac.uk</li>
+                        <li><a href="http://emps.exeter.ac.uk/computer-science/staff/rm660">Exeter University Profile</a>
+                        <li>Office: Innovation Centre B1B</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/RonaldoMenezes.jpg') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr Matthew Collison</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Dr Matthew Collison - Learning Facilitator</h2>
+                    <ul>
+                        <li>Lecturer in Computer Science</li>
+                        <li>Email: M.Collison@exeter.ac.uk</li>
+                        <li><a href="http://emps.exeter.ac.uk/computer-science/staff/mmc212">Exeter University Profile</a>
+                        <li>Office: Innovation Centre B1A (Open Door Policy)</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/RonaldoMenezes.jpg') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr David Wakeling</button>
+            <div class="content">
+                <div class="row">
+                    <div class="column">
+                      <h2>Dr David Wakeling - Director of Education</h2>
+                      <ul>
+                          <li>Senior Lecturer in Computer Science</li>
+                          <li>Email: D.Wakeling@exeter.ac.uk</li>
+                          <li><a href="http://emps.exeter.ac.uk/computer-science/staff/dw355">Exeter University Profile</a>
+                          <li>Office: TO BE INSERTED</li>
+                      </ul>
+                      <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/DavidWakeling.png') }}" width="200" height="200" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                    </div>
+                    <div class="column">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2525.0556681987932!2d-3.5356932840485715!3d50.73745637452369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x486da4445dc4fea7%3A0xb5f41af63daed34e!2sUniversity%20of%20Exeter%20Laver%20Building!5e0!3m2!1sen!2suk!4v1580987862529!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                    </div>
+                </div>
+            </div>
+</div>
+
+<button type="button" class="collapsible">Psychology...</button>
+<div class="content">
+        <button type="button" class="collapsible">Professor Ronaldo Menezes</button>
+        <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h1>Professor Ronaldo Menezes - Head of Computer Science</h1>
+                    <ul>
+                        <li>Professor of Data and Network Science</li>
+                        <li>Email: R.Menezes@exeter.ac.uk</li>
+                        <li><a href="http://emps.exeter.ac.uk/computer-science/staff/rm660">Exeter University Profile</a>
+                        <li>Office: Innovation Centre B1B</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/RonaldoMenezes.jpg') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr Matthew Collison</button>
+               <div class = "content">
+            <div class = "row">
+                <div class = "column">
+                    <h2>Dr Matthew Collison - Learning Facilitator</h2>
+                    <ul>
+                        <li>Lecturer in Computer Science</li>
+                        <li>Email: M.Collison@exeter.ac.uk</li>
+                        <li><a href="http://emps.exeter.ac.uk/computer-science/staff/mmc212">Exeter University Profile</a>
+                        <li>Office: Innovation Centre B1A (Open Door Policy)</li>
+                    </ul>
+                    <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/RonaldoMenezes.jpg') }}" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                </div>
+                <div class = "column">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.076253535459!2d-3.5306391!3d50.7381353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a5f61816c99672c!2sThe%20Innovation%20Centre!5e0!3m2!1sen!2suk!4v1580987229189!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="collapsible">Dr David Wakeling</button>
+            <div class="content">
+                <div class="row">
+                    <div class="column">
+                      <h2>Dr David Wakeling - Director of Education</h2>
+                      <ul>
+                          <li>Senior Lecturer in Computer Science</li>
+                          <li>Email: D.Wakeling@exeter.ac.uk</li>
+                          <li><a href="http://emps.exeter.ac.uk/computer-science/staff/dw355">Exeter University Profile</a>
+                          <li>Office: TO BE INSERTED</li>
+                      </ul>
+                      <image src="{{ url_for('static',filename='Images/LecturersProfilePictures/DavidWakeling.png') }}" width="200" height="200" frameborder="0" style="border:0;" allowfullscreen=""></image>
+                    </div>
+                    <div class="column">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2525.0556681987932!2d-3.5356932840485715!3d50.73745637452369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x486da4445dc4fea7%3A0xb5f41af63daed34e!2sUniversity%20of%20Exeter%20Laver%20Building!5e0!3m2!1sen!2suk!4v1580987862529!5m2!1sen!2suk" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                    </div>
+                </div>
+            </div>
+</div>
+
+
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
+
+    </body>
+</html>

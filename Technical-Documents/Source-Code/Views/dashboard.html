@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!-- Author - Ben Constable, Zach Lavender -->
+<!-- Render the dashboard pages -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <script src="{{ url_for('static',filename='JS/ajax.js') }}"></script>
+    <script src="{{ url_for('static',filename='JS/common.js') }}"></script>
+    <script src="{{ url_for('static',filename='JS/dashboard.js') }}"></script>
+    <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
+    <link href="{{ url_for('static',filename='CSS/dashboard.css') }}" rel='stylesheet' type='text/css'/>
+</head>
+<body>
+    <div class="topnav">
+        <a class = "active"> Home</a>
+        <a href="#home">Map</a>
+        <a href="">Leaderboard</a>
+        <a href="/dashboard/faqs">FAQ's</a>
+        <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+    </div>
+
+    <div id="success" class="alert success">Success: <span></span></div>
+    <div id="error" class="alert error">Error: <span></span></div>
+
+    <h2>Building:</h2>
+    <ul id = "building" style="display:inline;">
+        {% for row in info %}
+        <li style="display:inline;">_</li>
+        {% endfor %}
+    </ul>
+
+    <h3> Room: </h3>
+    <p id = "roomNum" style="text-align: center;">___</p>
+    <ul class="Locations">
+        {% for row in info %}
+        <li>{{ row["building"] }}</li>
+        {% endfor %}
+    </ul>
+
+    <div id="scanModal" class="modal">
+        <div class="modalHeader">
+            <h2>Scan QR Code</h2>
+        </div>
+        <div class="modalBody">
+            <video id="preview"></video>
+        </div>
+        <div class="modalFooter">
+            <button id="closeScanModal" class="cancel">Cancel</button>
+        </div>
+    </div>
+
+    <image id="openScanModal" src="{{ url_for('static',filename='Images/camera.png') }}"></image>
+    
+    <div id="question" class="modal">
+        <div class="modalHeader">
+            <h2>Answer The Question For A Letter</h2>
+        </div>
+            <form action="/dashboard" method="post" name="question">
+            <div class="modalBody">
+              <label for="Question Title">Question Title</label>
+              <input type="text" name="Name">
+              <label for="Answer">Answer</label>
+              <input type="text" name="Answer">
+            </div>
+            <div class="modalFooter">
+              <input type="submit" name="Submit" value="Submit">
+              <input type="submit" value="Cancel" name="cancel" class="cancel">
+            </div>
+            </form>
+    </div>
+</body>
+</html>

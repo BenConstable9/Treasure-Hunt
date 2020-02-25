@@ -1,0 +1,189 @@
+
+/*  Author: Adam Bannister
+    Description: Common css to standardise the presentation of website.
+
+    Edited  by: Freddie Woods
+    Description: Added css to be used for Building information and Lecturer information,
+
+    Edited by: Ben Constable
+    Description: Added input types for other than select and alerts. */
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-image:url(../Images/background.png);
+  background-repeat: no-repeat;
+  background-size: cover; 
+  background-attachment: fixed;
+  /*color: #ffffff;=-0*/
+}
+
+h1{
+    margin-top: 50px;
+    text-align:center;
+    color:#999999;
+}
+h2{
+    text-align:center;
+    color:#999999;
+}
+h4 {
+  text-align: left;
+  font-size: 30;
+  color:#999999;
+}
+
+.alert {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: bold;
+    display: none;
+}
+
+.success {
+    border: 1px solid #32CD32;
+    background-color: #32CD32;
+}
+
+.error {
+    border: 1px solid crimson;
+    background-color: crimson;
+}
+
+input[type=text], input[type=password], input[type=file], select {
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-decoration-color:#999999;
+} 
+input {
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-decoration-color:#999999;
+}
+
+input[type=text]:disabled {
+    color: #fff;
+}
+
+.cancel {
+    background-color: crimson !important;
+}
+
+.cancel:hover {
+    background-color: #b21130 !important;
+}
+
+input[type=submit], button {
+  background-color: #666699;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover, button:hover {
+  background-color: #8282c2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.collapsible {
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.column{
+  float:left;
+  width:50%;
+  padding:5px;
+}
+
+.active, .collapsible:hover {
+  background-color: #8282c2;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color:  azure;
+}
+
+
+.topnav {
+  overflow: hidden;
+  background-color:#666699;
+  position: sticky;
+  opacity: 0.9;
+}
+.topnav a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+.topnav a:hover {
+  background-color: #8282c2;
+}=
+.topnav a.active {
+  background-color: #8282c2;
+  color: white;
+}
+#logo {
+  float: right;
+}
+
+.modal {
+    display: none;
+    background-color: #fefefe;
+    margin: 5% auto;
+    border: 1px solid #888;
+    width: 80%;
+    position: fixed;
+    z-index: 10000;
+    left: 10%;
+    right: 10%;
+    top: 15%;
+}
+.modalHeader {
+    background-color: #ccccff;
+    color: #000068;
+    padding: 20px;
+    text-align: center;
+    font-size: 20px;
+}
+.modalBody {
+    padding: 20px;
+    color: #000068;
+}
+.modalFooter {
+    padding: 20px;
+    text-align: right;
+    background-color: #f9f9f9;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- Author - Ben Constable -->
+<!-- Render the admin login page -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Treasure Hunt Admin</title>
+</head>
+<body>
+    <div class="topnav">
+        <a href="/">Homepage</a>
+        <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+    </div>
+
+    <h1>University of Exeter Freshers Treasure Hunt</h1>
+    <h2>Admin Console</h2>
+
+    <!-- If an error is returned then output it -->
+    {% if status == "0" %}
+        <div class="alert error" style="display:block">Error: <span>{{ message }}</span></div>
+    {% endif %}
+    <form action="/admin/login" method="post">
+        <label for="Username" style>Username</label>
+        <input type="text" name="Username" placeholder="Your Username" class="inputFull">
+        <br/>
+        <label for="Password">Password</label>
+        <input type="password" name="Password" placeholder="Your Password" class="inputFull">
+        <br/>
+        <input type="submit" name="Login" value="Login as Admin" class="inputFull">
+    </form>
+</body>
+</html>
