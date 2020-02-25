@@ -1,5 +1,6 @@
-#map{
-  height: 500px;
-  width: 500px;
-  text-align: center;
+.google-maps {
+    position: relative;
+    padding-bottom: 75%; // This is the aspect ratio
+    height: 0;
+    overflow: hidden;
 }

@@ -21,11 +21,13 @@
       <a href="">Leaderboard</a>
       <a href="/dashboard/faqs">FAQ's</a>
       <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+      <a class="icon" onclick="showResponsiveMenu()">&#9776;</a>
   </div>
-<script>HTTPGet("/getPins", handleSection)</script>
-<div id = "map">
-</div>
+<div class = "google-maps" id = "map">
+
 <script
  src="https://maps.googleapis.com/maps/api/js?callback=createMap&key=AIzaSyAjWyS2TbtvLNFmE5PnOFpQ1rZu7LI0NpI" ></script>
+
+</div>
 </body>
 </html>
