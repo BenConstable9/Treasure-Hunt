@@ -15,12 +15,13 @@
     <link href="{{ url_for('static',filename='CSS/dashboard.css') }}" rel='stylesheet' type='text/css'/>
 </head>
 <body>
-    <div class="topnav">
+    <div class="topnav" id = "myTopnav">
         <a class = "active"> Home</a>
         <a href="/dashboard/map">Map</a>
         <a href="">Leaderboard</a>
         <a href="/dashboard/faqs">FAQ's</a>
         <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+        <a class="icon" onclick="showResponsiveMenu()">&#9776;</a>
     </div>
 
     <div id="success" class="alert success">Success: <span></span></div>
@@ -29,7 +30,7 @@
     <h2>Building:</h2>
     <ul id = "building" style="display:inline;">
         {% for row in info %}
-        <input size = 1 style="max-width: 5%" disabled>
+        <input size = 4 style="max-width: 2%" disabled>
         {% endfor %}
     </ul>
 
@@ -54,7 +55,7 @@
     </div>
 
     <image id="openScanModal" src="{{ url_for('static',filename='Images/camera.png') }}"></image>
-    
+
     <div id="question" class="modal">
         <div class="modalHeader">
             <h2>Answer The Question For A Letter</h2>

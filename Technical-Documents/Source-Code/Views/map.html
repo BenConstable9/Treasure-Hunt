@@ -15,9 +15,13 @@
 
 </head>
 <body>
-<!--<iframe width="600" height="450" frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAjWyS2TbtvLNFmE5PnOFpQ1rZu7LI0NpI&q=Harrison+Building,Exeter+University" allowfullscreen></iframe>
--->
+  <div class="topnav" id = "myTopnav">
+      <a href="/dashboard"> Home</a>
+      <a class = "active">Map</a>
+      <a href="">Leaderboard</a>
+      <a href="/dashboard/faqs">FAQ's</a>
+      <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+  </div>
 <script>HTTPGet("/getPins", handleSection)</script>
 <div id = "map">
 </div>
