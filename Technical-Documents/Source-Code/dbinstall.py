@@ -10,9 +10,6 @@ print ("Opened database successfully");
 
 cur = con.cursor()
 
-#QuestionsAnswered Table
-cur.execute('CREATE TABLE IF NOT EXISTS QuestionsAnswered (QuestionID int not null PRIMARY KEY, TeamID int not null PRIMARY KEY, TimeObtained datetime not null, FOREIGN KEY (QuestionID) REFERENCES Questions(QuestionID), FOREIGN KEY (TeamID) REFERENCES Teams(TeamID))')
-
 #Tutors Table
 cur.execute('CREATE TABLE IF NOT EXISTS Tutors (TutorID integer PRIMARY KEY AUTOINCREMENT, SubjectID integer not null, Name text not null, Room text not null, FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID))')
 print ("(1) Tutors Table created successfully");
@@ -41,6 +38,10 @@ print ("(6) Results Table created successfully");
 #Questions Table
 cur.execute('CREATE TABLE IF NOT EXISTS Questions (QuestionID integer PRIMARY KEY AUTOINCREMENT, SubjectID integer not null, Building text not null, QRLocation text not null, QRText text not null, Question text not null, Answer text not null, Latitude text not null, Longitude text not null, Letter text not null, LetterIndex integer not null, FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID))')
 print ("(7) Questions Table created successfully");
+
+#QuestionsAnswered Table
+cur.execute('CREATE TABLE IF NOT EXISTS QuestionsAnswered (QuestionID int not null, TeamID int not null, TimeObtained datetime not null, PRIMARY KEY (QuestionID, TeamID), FOREIGN KEY (QuestionID) REFERENCES Questions(QuestionID), FOREIGN KEY (TeamID) REFERENCES Teams(TeamID))')
+print ("(8) QuestionsAnswered Table created successfully");
 
 cur = con.cursor()
 
