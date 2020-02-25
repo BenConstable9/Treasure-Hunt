@@ -17,30 +17,12 @@
     <script type="text/javascript" src="{{ url_for('static',filename='JS/game.js') }}"></script>
 </head>
 <body>
-    <div class="topnav">
-        <a class = "active">AdminHome</a>
-        <a href="/">PlayerHome</a>
-        <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
-    </div>
     <h1>Admin Dashboard</h1>
-    <h2> Welcome: {{name}} </h2>
     <div id="success" class="alert success">Success: <span></span></div>
     <div id="error" class="alert error">Error: <span></span></div>
-
-    <!-- Output the game pin if it exists -->
-    {% if gameStatus == 1 %}
-        <input id="gamePin" type="text" value="Current Game Pin: {{ gamePin }}" disabled>
-        <button id="endGame">End Game</button>
-    {% else %}
-        <input id="gamePin" type="text" value="No Game Running" disabled>
-        <button id="endGame" disabled>End Game</button>
-    {% endif %}
+    <input id="gamePin" type="text" value="No Game Running" disabled>
+    <button id="endGame" disabled>No Game Running</button>
     <button id="manageConfigs">Manage Exisiting Game Configs</button>
-    <!-- <button id="registerAdmin"><a href="/dashboard/faqs" style='text-decoration:none; color:white'>Register New Admin</a></button> -->
-    <button id="registerAdmin">Register New Admin</button>
-    <button id="changePassword">Change Password</button>
-    <button id="logout">Logout</button>
-
     <div>
         <h2>Leaderboard</h2>
     </div>
@@ -50,8 +32,7 @@
             <h2>Manage Existing Configs</h2>
         </div>
         <div class="modalBody">
-            <!-- Output any of the existing subject configs -->
-            {% if subjectLength == 0 %}
+            {% if length == 0 %}
                 <div id="noConfigError" class="alert error">No Game Configs Added - Upload to Get Started!</div>
                 <table id="configTable" style="display:none;">
                     <thead>
@@ -78,7 +59,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for subject in subjectData %}
+                        {% for subject in data %}
                         <tr>
                             {% for value in subject.values() %}
                             <td>{{ value }}</td>
@@ -99,48 +80,5 @@
             </form>
         </div>
     </div>
-
-    <div id="registerAdminModel" class="modal">
-        <div class="modalHeader">
-            <h2>Register New Admin</h2>
-        </div>
-            <form action="/admin/register" method="post" name="registerAdmin">
-            <div class="modalBody">
-              <label for="Name">Name</label>
-              <input type="text" name="Name">
-              <label for="Username">Username</label>
-              <input type="text" name="Username">
-              <label for="Password">Password</label>
-              <input type="password" name="Password">
-              <label for="Password2">Please repeat your password</label>
-              <input type="password" name="Password2">
-            </div>
-              <div class="modalFooter">
-              <input type="submit" name="SignUp" value="Sign Up">
-              <input type="submit" value="Cancel" name="cancel" class="cancel">
-            </div>
-            </form>
-    </div>
-
-    <div id="changePasswordModel" class="modal">
-        <div class="modalHeader">
-            <h2>Change Password</h2>
-        </div>
-            <form action="/admin/changePassword" method="post" name="changePassword">
-            <div class="modalBody">
-              <label for="Password">Password</label>
-              <input type="password" name="Password">
-              <label for="Password2">Please repeat your password</label>
-              <input type="password" name="Password2">
-              <input type="hidden" name="ID" value={{ID}}>
-            </div>
-              <div class="modalFooter">
-              <input type="submit" name="ChangePassword" value="Change Password">
-              <input type="submit" value="Cancel" name="cancel" class="cancel">
-            </div>
-            </form>
-        </div>
-
-
 </body>
 </html>

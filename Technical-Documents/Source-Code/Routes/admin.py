@@ -4,7 +4,6 @@ from Controllers.adminAuth import adminAuthController
 from Controllers.game import gameController
 
 # Author - Ben Constable
-# Modified - Ravi Gohel
 # MVC Router for handling all admin related routes
 
 admin = Blueprint("admin", __name__)
@@ -26,22 +25,6 @@ def gameAdmin():
 def gameCreate():
     return gameController.createGame()
 
-@admin.route('/admin/game/end', methods=['POST'])
-def gameEnd():
-    return gameController.endGame()
-
 @admin.route('/admin/upload', methods=['POST'])
 def uploadFile():
     return gameController.uploadFile()
-
-@admin.route('/admin/register', methods=['POST'])
-def registerAdmin():
-    return adminAuthController.adminRegister()
-
-@admin.route('/admin/changePassword', methods=['POST'])
-def changePassword():
-    return adminAuthController.adminChangePassword()
-
-@admin.route('/admin/game/logout', methods=['POST'])
-def logout():
-    return adminAuthController.adminLogout()
