@@ -3,6 +3,7 @@ from flask import render_template
 from Models.subjectModel import subjectModel
 from Models.questionModel import questionModel
 from Helpers.utility import escapeInput
+import random
 
 # Author - Ben Constable
 # MVC Controller for the home page
@@ -48,5 +49,21 @@ class DashboardController():
     def faq(self):
         return render_template('FAQs.html')
     
+    def openMap(self):
+        if not session.get('loggedIn'):
+            return redirect("/", code=302)
+        else:
+            teamID = session.get('teamID') #pass this to a model
+            gamePin = session.get('gamePin')
+            subject = session.get('subject')
+            response = questionModel.getQuestions(escapeInput(subject))
+
+            if response["status"] == "1":
+                data = response["data"]
+                random.shuffle(data)
+                return render_template('map.html',info = data)
+            else:
+                return render_template('home.html')
+
 
 dashboardController=DashboardController()

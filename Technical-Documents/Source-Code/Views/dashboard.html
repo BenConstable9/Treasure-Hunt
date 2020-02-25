@@ -17,7 +17,7 @@
 <body>
     <div class="topnav">
         <a class = "active"> Home</a>
-        <a href="#home">Map</a>
+        <a href="/dashboard/map">Map</a>
         <a href="">Leaderboard</a>
         <a href="/dashboard/faqs">FAQ's</a>
         <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
@@ -29,7 +29,7 @@
     <h2>Building:</h2>
     <ul id = "building" style="display:inline;">
         {% for row in info %}
-        <li style="display:inline;">_</li>
+        <input size = 1 style="max-width: 5%" disabled>
         {% endfor %}
     </ul>
 
