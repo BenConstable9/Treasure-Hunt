@@ -54,14 +54,16 @@ class QuestionModel():
                 cur =  con.cursor()
                 cur.execute("SELECT * FROM Questions WHERE QRText=?",(str(qRText),))
 
-                questions =  cur.fetchall()
-                returns =[]
-                for question in questions:
-                    returns.append({'QuestionID':question['Question']})
-                response = {'status':'1','QuestionID': returns}
+                question =  cur.fetchone()
+
+                if (len(question) == 0):
+                    response = {'status':'0', 'message':'Invalid QR Code - try scanning again.'}
+                else:
+                    response = {'status':'1','message':'QR Code Valid - You Have A New Question.', 'QuestionID': question['QuestionID'], 'Building': question['Building'],'Question': question['Question']}
+
         except Exception as e:
             print(e)
-            response = {'status':'0'}
+            response = {'status':'0', 'message':'Unable to fetch question.'}
         finally:
 
             #to be finished off
@@ -90,5 +92,29 @@ class QuestionModel():
              return response
 
              con.close()
+
+    def checkAnswer(self,answer,questionId):
+        try:
+            # Open the DB
+            with sql.connect("Models/treasure.sqlite") as con:
+                con.row_factory = sql.Row
+                cur = con.cursor()
+                cur.execute("SELECT * FROM Questions WHERE QuestionID=?", (int(questionId),))
+
+                questions = cur.fetchall()
+                returns = []
+
+                for question in questions:
+                    if question["Answer"] == answer:
+                        returns.append({"letter":question["Letter"]})
+                response = {'status': '1', 'data': returns}
+        except Exception as e:
+            print(e)
+            response = {'status':'0'}
+        finally:
+            # Return the result
+            return response
+
+            con.close()
 
 questionModel=QuestionModel()

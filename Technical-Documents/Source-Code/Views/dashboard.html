@@ -42,6 +42,23 @@
         {% endfor %}
     </ul>
 
+    <div id="questionAnswerModal" class="modal">
+        <div class="modalHeader">
+            <h2>Welcome To: <span id="questionBuilding"></span></h2>
+        </div>
+        <div class="modalBody">
+            <div>Your Challenge! Answer the following: <span id="questionText"></span></div>
+        </div>
+        <div class="modalFooter">
+            <form action="/dashboard/question" method="post" name="questionAnswer">
+                <input type="hidden" name="questionID">
+                <input type="text" placeholder="Answer Question Here" name="answer">
+                <input type="submit" value="Submit Answer" name="submit">
+                <input type="submit" value="Cancel" name="cancel" class="cancel">
+            </form>
+        </div>
+    </div>
+
     <div id="scanModal" class="modal">
         <div class="modalHeader">
             <h2>Scan QR Code</h2>
@@ -49,29 +66,8 @@
         <div class="modalBody">
             <video id="preview"></video>
         </div>
-        <div class="modalFooter">
-            <button id="closeScanModal" class="cancel">Cancel</button>
-        </div>
     </div>
 
-    <image id="openScanModal" src="{{ url_for('static',filename='Images/camera.png') }}"></image>
-
-    <div id="question" class="modal">
-        <div class="modalHeader">
-            <h2>Answer The Question For A Letter</h2>
-        </div>
-            <form action="/dashboard" method="post" name="question">
-            <div class="modalBody">
-              <label for="Question Title">Question Title</label>
-              <input type="text" name="Name">
-              <label for="Answer">Answer</label>
-              <input type="text" name="Answer">
-            </div>
-            <div class="modalFooter">
-              <input type="submit" name="Submit" value="Submit">
-              <input type="submit" value="Cancel" name="cancel" class="cancel">
-            </div>
-            </form>
-    </div>
+    <image id="flipScanModel" src="{{ url_for('static',filename='Images/camera.png') }}"></image>
 </body>
 </html>
