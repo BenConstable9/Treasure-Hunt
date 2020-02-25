@@ -10,6 +10,9 @@ print ("Opened database successfully");
 
 cur = con.cursor()
 
+#QuestionsAnswered Table
+cur.execute('CREATE TABLE IF NOT EXISTS QuestionsAnswered (QuestionID int not null PRIMARY KEY, TeamID int not null PRIMARY KEY, TimeObtained datetime not null, FOREIGN KEY (QuestionID) REFERENCES Questions(QuestionID), FOREIGN KEY (TeamID) REFERENCES Teams(TeamID))')
+
 #Tutors Table
 cur.execute('CREATE TABLE IF NOT EXISTS Tutors (TutorID integer PRIMARY KEY AUTOINCREMENT, SubjectID integer not null, Name text not null, Room text not null, FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID))')
 print ("(1) Tutors Table created successfully");
@@ -41,6 +44,6 @@ print ("(7) Questions Table created successfully");
 
 cur = con.cursor()
 
-adminModel.adminRegister("Test Keeper", "admin", "admin", "admin") #Ensures the password will be automatically 
+adminModel.adminRegister("Test Keeper", "admin", "admin", "admin") #Ensures the password will be automatically
 
 cur.close()
