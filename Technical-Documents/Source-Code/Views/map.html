@@ -9,7 +9,7 @@
     <title>Map</title>
     <script src="{{ url_for('static',filename='JS/common.js') }}"></script>
     <script src="{{ url_for('static',filename='JS/maps.js') }}"></script>
-
+    <script src="{{ url_for('static',filename='JS/ajax.js') }}"></script>
     <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
     <link href="{{ url_for('static',filename='CSS/maps.css') }}" rel='stylesheet' type='text/css'/>
 
@@ -18,8 +18,10 @@
 <!--<iframe width="600" height="450" frameborder="0" style="border:0"
   src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAjWyS2TbtvLNFmE5PnOFpQ1rZu7LI0NpI&q=Harrison+Building,Exeter+University" allowfullscreen></iframe>
 -->
+<script>HTTPGet("/getPins", handleSection)</script>
 <div id = "map">
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?callback=createMap&key=AIzaSyAjWyS2TbtvLNFmE5PnOFpQ1rZu7LI0NpI" ></script>
+<script
+ src="https://maps.googleapis.com/maps/api/js?callback=createMap&key=AIzaSyAjWyS2TbtvLNFmE5PnOFpQ1rZu7LI0NpI" ></script>
 </body>
 </html>

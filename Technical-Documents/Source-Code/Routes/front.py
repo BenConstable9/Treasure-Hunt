@@ -2,6 +2,7 @@ from flask import Blueprint,request,json
 from flask import render_template
 from Controllers.auth import authController
 from Controllers.dashboard import dashboardController
+from Controllers.map import mapController
 
 # Author - Ben Constable
 # MVC Router for handling all front end routes
@@ -51,6 +52,10 @@ def fetchLecturer():
 def fetchFaqs():
     return dashboardController.faq()
 
-@front.route('/dashboard/Map',methods=['GET'])
+@front.route('/dashboard/map',methods=['GET'])
 def fetchMap():
     return dashboardController.openMap()
+
+@front.route('/getPins',methods=['GET'])
+def fetchPins():
+    return mapController.getPins()
