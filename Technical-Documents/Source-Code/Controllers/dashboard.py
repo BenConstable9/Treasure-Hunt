@@ -32,6 +32,16 @@ class DashboardController():
                 return render_template('dashboard.html',info = data)
             else:
                 return render_template('home.html')
+
+    def verifyLocation(self):
+        # Check if logged in
+        if not session.get('loggedIn'):
+            return {'status':'0', 'message':'Not Logged In - Refresh Page and Login'}
+        else:
+            subject = session.get('subject')
+            value = request.form.get('value')
+            return questionModel.verifyLocation(subject, value)
+    
     def  building(self):
         return render_template('building.html')
 

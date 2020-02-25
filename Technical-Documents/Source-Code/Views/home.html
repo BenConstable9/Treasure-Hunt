@@ -9,33 +9,55 @@
     <script type="text/javascript" src="{{url_for('static',filename='JS/ajax.js')}}"> </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{{ url_for('static',filename='CSS/home.css')}}" rel='stylesheet' type='text/css'/>
     <title>Home</title>
 </head>
 <body>
+    <div class="topnav">
+        <a href="/admin">Admin Login</a>
+        <a class ="active">Home</a>
+        <a href="/dashboard/faqs">Useful Information</a>
+        <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+    </div>
+
     <h1>Welcome</h1>
-    <h3> To the University of Exeter Freshers Treasure Hunt </h3>
+    <h2> To the University of Exeter Freshers Treasure Hunt </h2>
     <!-- If an error is returned then output it -->
 
     {% if status == "0" %}
         <div class="error"><p>{{ message }}</p></div>
     {% endif %}
 
-    <h2> Register your Team</h2>
     <form action="/register" method="post">
+        <h4>Register your Team</h4>
         <label for="TeamName">Team Name</label>
         <input type="text" name="TeamName">
+        <br/>
         <label for="GamePin">Game Pin</label>
         <input type="text" id="GamePin" name="GamePin" onchange="gameFunction()">
+        <br/>
         <label for="tutors">Select Your Tutor</label>
         <select id="tutorsNames" name="TutorID">
         <option value="" selected disabled name = id="disabledSelect">Select...</option>
         </select>
+        <br/>
         <input type="submit" name="SignUp" value="Sign Up">
     </form>
 
     <p id="test"></p>
 
-    <script>
+    <h4> Log Back into your Game </h4>
+    <form action="/login" method="post">
+        <label for="TeamName">Team Name</label>
+        <input type="text" name="TeamName" class="inputFull">
+        <br/>
+        <label for="GamePin">Game Pin</label>
+        <input type="text" name="GamePin" class="inputFull">
+        <br/>
+        <input type="submit" name="Login" value="Login" class="inputFull">
+    </form>
+    
+        <script>
         function handleSection(response){
           console.log(response)
           var options = document.getElementById("tutorsNames");
@@ -69,14 +91,5 @@
         }
 
     </script>
-
-    <h2> Log Back into your Game </h2>
-    <form action="/login" method="post">
-        <label for="TeamName">Team Name</label>
-        <input type="text" name="TeamName" class="inputFull">
-        <label for="GamePin">Game Pin</label>
-        <input type="text" name="GamePin" class="inputFull">
-        <input type="submit" name="Login" value="Login" class="inputFull">
-    </form>
 </body>
 </html>
