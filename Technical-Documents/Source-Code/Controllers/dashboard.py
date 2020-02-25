@@ -78,6 +78,7 @@ class DashboardController():
             #ajax call to say passed
         else:
             #ajax call to say failed
+            response = {}
 
 
 dashboardController=DashboardController()
