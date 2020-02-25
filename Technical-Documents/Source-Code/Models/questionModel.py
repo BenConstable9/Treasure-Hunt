@@ -59,7 +59,7 @@ class QuestionModel():
                 if (len(question) == 0):
                     response = {'status':'0', 'message':'Invalid QR Code - try scanning again.'}
                 else:
-                    response = {'status':'1','message':'QR Code Valid - You Have A New Question.', 'QuestionID': question['QuestionID'],'Question': question['Question']}
+                    response = {'status':'1','message':'QR Code Valid - You Have A New Question.', 'QuestionID': question['QuestionID'], 'Building': question['Building'],'Question': question['Question']}
 
         except Exception as e:
             print(e)

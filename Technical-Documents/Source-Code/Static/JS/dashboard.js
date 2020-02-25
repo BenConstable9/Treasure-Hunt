@@ -19,8 +19,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function verifyLocationCallback(response) {
         if (response.status == "1") {
-            showAlert("success", response.message);
+            document.getElementById("questionBuilding").innerHTML = response.Building;
+            document.getElementById("questionText").innerHTML = response.Question;
             document.getElementById("scanModal").style.display = "none";
+            document.getElementById("questionAnswerModal").style.display = "block";
+
+            document.forms["questionAnswer"]["questionID"].value = response.QuestionID;
+            showAlert("success", response.message);
         } else {
             showAlert("error", response.message);
         }
@@ -40,6 +45,14 @@ document.addEventListener('DOMContentLoaded', function(){
         document.getElementById("scanModal").style.display = "none";
     }
 
+    /* Handle the closing of a modal
+    */
+   function closeQuestionAnswerModel(e) {
+        e.preventDefault();
+        //close it
+        document.getElementById("questionAnswerModal").style.display = "none";
+    }
+
     /* Handle opening of a modal
     */
     function openScanModal() {
@@ -50,4 +63,6 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById("closeScanModal").addEventListener("click", closeScanModal);
 
     document.getElementById("openScanModal").addEventListener("click", openScanModal);
+
+    document.forms["questionAnswer"]["cancel"].addEventListener("click", closeQuestionAnswerModel);
 });
