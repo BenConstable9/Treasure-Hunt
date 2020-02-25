@@ -203,6 +203,7 @@ input[type=submit]:hover, button:hover {
   	.topnav a.icon {
   		float: right;
   		display: inline-block;
+
   	}
 
     .topnav.responsive {

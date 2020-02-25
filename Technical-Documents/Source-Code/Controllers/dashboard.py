@@ -75,5 +75,11 @@ class DashboardController():
         if response["status"] == "1":
             leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
             letter = response["data"]
+
+            #ajax call to say passed
+        else:
+            #ajax call to say failed
+            response = {}
         return response
+
 dashboardController=DashboardController()
