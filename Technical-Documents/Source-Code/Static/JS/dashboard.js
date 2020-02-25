@@ -18,7 +18,12 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     function verifyLocationCallback(response) {
-        console.log(response);
+        if (response.status == "1") {
+            showAlert("success", response.message);
+            document.getElementById("scanModal").style.display = "none";
+        } else {
+            showAlert("error", response.message);
+        }
     }
 
     /* Fetch the question for the given QR Code */
