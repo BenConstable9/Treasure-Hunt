@@ -18,7 +18,17 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     function verifyLocationCallback(response) {
-        console.log(response);
+        if (response.status == "1") {
+            document.getElementById("questionBuilding").innerHTML = response.Building;
+            document.getElementById("questionText").innerHTML = response.Question;
+            document.getElementById("scanModal").style.display = "none";
+            document.getElementById("questionAnswerModal").style.display = "block";
+
+            document.forms["questionAnswer"]["questionID"].value = response.QuestionID;
+            showAlert("success", response.message);
+        } else {
+            showAlert("error", response.message);
+        }
     }
 
     /* Fetch the question for the given QR Code */
@@ -29,13 +39,31 @@ document.addEventListener('DOMContentLoaded', function(){
 
     /*toggles bettween displaying and hiding the scan model*/
     function flipScanModel(e){
-
-        if (document.getElementById("scanModal").style.display === "block"){
-          document.getElementById("scanModal").style.display = "none";
-        }else{
-          document.getElementById("scanModal").style.display = "block"
-        }
+      if (document.getElementById("scanModal").style.display === "block"){
+        document.getElementById("scanModal").style.display = "none";
+      }else{
+        document.getElementById("scanModal").style.display = "block"
+      }
     }
 
+    /* Handle the closing of a modal
+    */
+   function closeQuestionAnswerModel(e) {
+        e.preventDefault();
+        //close it
+        document.getElementById("questionAnswerModal").style.display = "none";
+    }
+
+    /* Handle opening of a modal
+    */
+    function openScanModal() {
+        //open it
+        document.getElementById("scanModal").style.display = "block";
+    }
+
+    document.getElementById("closeScanModal").addEventListener("click", flipScanModel);
+
     document.getElementById("flipScanModel").addEventListener("click", flipScanModel);
+
+    document.forms["questionAnswer"]["cancel"].addEventListener("click", closeQuestionAnswerModel);
 });
