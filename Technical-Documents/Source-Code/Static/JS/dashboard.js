@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function(){
         document.getElementById("scanModal").style.display = "block";
     }
 
-    document.getElementById("closeScanModal").addEventListener("click", flipScanModel);
+    /*document.getElementById("closeScanModal").addEventListener("click", flipScanModel);*/
 
     document.getElementById("flipScanModel").addEventListener("click", flipScanModel);
 

@@ -2,6 +2,7 @@ from flask import request, session, redirect
 from flask import render_template
 from Models.subjectModel import subjectModel
 from Models.questionModel import questionModel
+from Models.leaderboardModel import leaderboardModel
 from Helpers.utility import escapeInput
 import random
 
@@ -74,10 +75,5 @@ class DashboardController():
         if response["status"] == "1":
             leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
             letter = response["data"]
-
-            #ajax call to say passed
-        else:
-            #ajax call to say failed
-
-
+        return response
 dashboardController=DashboardController()
