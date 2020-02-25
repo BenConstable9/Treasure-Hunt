@@ -27,22 +27,15 @@ document.addEventListener('DOMContentLoaded', function(){
         HTTPPost("/dashboard/verifylocation", "value=" + value, verifyLocationCallback)
     }
 
-    /* Handle the closing of a modal
-    */
-   function closeScanModal(e) {
-        e.preventDefault();
-        //close it
-        document.getElementById("scanModal").style.display = "none";
+    /*toggles bettween displaying and hiding the scan model*/
+    function flipScanModel(e){
+
+        if (document.getElementById("scanModal").style.display === "block"){
+          document.getElementById("scanModal").style.display = "none";
+        }else{
+          document.getElementById("scanModal").style.display = "block"
+        }
     }
 
-    /* Handle opening of a modal
-    */
-    function openScanModal() {
-        //open it
-        document.getElementById("scanModal").style.display = "block";
-    }
-
-    document.getElementById("closeScanModal").addEventListener("click", closeScanModal);
-
-    document.getElementById("openScanModal").addEventListener("click", openScanModal);
+    document.getElementById("flipScanModel").addEventListener("click", flipScanModel);
 });

@@ -61,3 +61,7 @@ def fetchMap():
 @front.route('/getPins',methods=['GET'])
 def fetchPins():
     return mapController.getPins()
+
+@front.route('dashboard/question', methods=['POST'])
+def checkAnswer():
+    return dashboardController.checkAnswer()

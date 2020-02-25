@@ -91,4 +91,28 @@ class QuestionModel():
 
              con.close()
 
+    def checkAnswer(self,answer,questionId):
+        try:
+            # Open the DB
+            with sql.connect("Models/treasure.sqlite") as con:
+                con.row_factory = sql.Row
+                cur = con.cursor()
+                cur.execute("SELECT * FROM Questions WHERE QuestionID=?", (int(questionId),))
+
+                questions = cur.fetchall()
+                returns = []
+
+                for question in questions:
+                    if question["Answer"] == answer:
+                        returns.append({"letter":question["Letter"]})
+                response = {'status': '1', 'data': returns}
+        except Exception as e:
+            print(e)
+            response = {'status':'0'}
+        finally:
+            # Return the result
+            return response
+
+            con.close()
+
 questionModel=QuestionModel()
