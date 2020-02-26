@@ -56,6 +56,8 @@ public link: [https://treasure-hunt-groupb.herokuapp.com/]
 4B) If a game is not already created, you can demo the system by uploading the provided Computer Science config within the Config folder
 4C) Click on 'Manage Existing Game Config'
 4D) Click on 'Create Game' if Computer Science is already there, if not, then click on 'Choose File' and upload the Computer Science config that can be found within the Configs folder in Source Code.
+    NOTE: There is a bug that once you click "Upload Config", you may have to wait for a few moments for the upload to occur.
+4E) Once the config is uploaded, click on the "Create Game" button on the new Computer Science row
 5) Copy the generated Game Pin and return to the main-page by clicking on 'PlayerHome' on the navigation bar
 6) Register a new team, entering in the copied game pin
 7) Once registered, you will be sent to the dashboard
