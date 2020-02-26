@@ -54,6 +54,7 @@ class TeamModel():
                             response = {'status':'0', 'message':message, 'ID': '0'}
                         else:
                             # Insert the team data
+                            print (teamName, gamePin, subject, tutorID)
                             cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID,TutorID) VALUES (?,?,?,?)",(teamName,gamePin,subject,tutorID) )
 
                             con.commit()
@@ -96,15 +97,16 @@ class TeamModel():
                 cur.execute("SELECT * FROM Teams WHERE GamePin=? AND TeamName=?", (gamePin,teamName))
 
                 team = cur.fetchone()
+                print(team)
 
                 # Check the game pin
                 if (team is not None):
-
                     # Formulate the response
-                    response = {'status':'1', 'message':'Team Logged In Successfully', 'ID': team["TeamID"], 'subject': team["Subject"], 'gamePin': team["GamePin"]}
+                    response = {'status':'1', 'message':'Team Logged In Successfully', 'ID': team["TeamID"], 'subject': team["SubjectID"], 'gamePin': team["GamePin"]}
 
                 else:
                     response = {'status':'0', 'message':'Team Logging In Unsuccessful - Invalid Game Pin', 'ID': '0'}
+
 
         except:
             response = {'status':'0', 'message':'Team Logging In Unsuccessful', 'ID': '0'}
