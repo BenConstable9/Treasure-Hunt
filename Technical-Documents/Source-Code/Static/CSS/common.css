@@ -19,18 +19,13 @@ body {
 }
 
 h1{
-    margin-top: 50px;
+    margin-top: 25px;
     text-align:center;
-    color:#999999;
+    color:#666699;
 }
 h2{
     text-align:center;
-    color:#999999;
-}
-h4 {
-  text-align: left;
-  font-size: 30;
-  color:#999999;
+    color:#fff;
 }
 
 .alert {
@@ -171,24 +166,54 @@ input[type=submit]:hover, button:hover {
     border-radius: 0px 0px 5px 5px;
 }
 
-.modalBody input {
+.modalBody input, .authForm input, .authForm select {
     border-color: #666699;
     color: #666699;
     width: 100%;
 }
 
-.modalBody input:focus {
+.authForm input[type=submit] {
+    color: #fff;
+}
+
+.modalBody input:focus, .authForm input:focus, .authForm select:focus {
     border-color: crimson !important;
     border-width: 3px;
 }
 
-.modalBody label {
+.modalBody label, .authForm label {
     color: crimson;
     font-weight: bold;
 }
 
-.modalBody label::after {
+.modalBody label::after, .authForm label::after {
   content: ": ";
+}
+
+.authForm h4 {
+    font-size: 18px;
+    color: #666699 !important;
+    color:#fff;
+    margin: 5px 0px;
+}
+
+.authForm {
+    background: rgba(255, 255, 0255, 0.73);
+    margin: 0% 30% 3% 30%;
+    border: 2px solid #666699;
+    border-radius: 5px;
+    width: 40%;
+    padding: 25px;
+}
+
+@media screen and (max-width:680px) {
+    /* change the modals */
+
+    .authForm {
+        padding: 10px;
+        margin: 5% auto;
+        width: 90%;
+    }
 }
 
 .topnav {
