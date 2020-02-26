@@ -73,13 +73,13 @@ class DashboardController():
         questionId = request.form.get('questionId')
         response = questionModel.checkAnswer(escapeInput(answer),escapeInput(questionId))
         if response["status"] == "1":
-            leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
-            letter = response["data"]
+            #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
+            data = response["data"]
             return render_template('dashboard.html',info = data)
             #ajax call to say passed
         else:
             #ajax call to say failed
             response = {}
-        return response
+            return response
 
 dashboardController=DashboardController()

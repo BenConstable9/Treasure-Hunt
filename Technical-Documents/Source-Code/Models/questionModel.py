@@ -93,7 +93,7 @@ class QuestionModel():
 
              con.close()
 
-    def checkAnswer(self,answer,questionId):
+    def checkAnswer(self,answer,questionId,teamID):
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
@@ -101,12 +101,16 @@ class QuestionModel():
                 cur = con.cursor()
                 cur.execute("SELECT * FROM Questions WHERE QuestionID=?", (int(questionId),))
 
-                questions = cur.fetchall()
-                returns = []
-
-                for question in questions:
-                    if question["Answer"] == answer:
-                        returns.append({"letter":question["Letter"]})
+                questions = cur.fetchone()
+                if question["Answer"] == answer:
+                    cur.execute("SELECT * FROM QuestionsAnswered WHERE QuestionID=? AND TeamID=?", (int(questionId),int(teamID)))
+                    results = cur.fetchone()
+                    if result is None:
+                        cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?)", (int(questionId),int(teamID)))
+                cur.execute("SELECT * FROM QuestionsAnswered WHERE TeamID=? InnerJoin Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID", (int(teamID)))
+                res = cur.fetchall()
+                for let in res:
+                    returns.append({"letter":let["Letter"]})
                 response = {'status': '1', 'data': returns}
         except Exception as e:
             print(e)
