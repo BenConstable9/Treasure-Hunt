@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function(){
         var answer = document.forms["questionAnswer"]["answer"].value;
         if (answer.length >= 1) {
             //send off our request
-            HTTPPost("/dashboard/question", "answer=" + answer + "questionID=" + document.forms["questionAnswer"]["questionID"].value, answerQuestionCallback)
+            HTTPPost("/dashboard/question", "answer=" + answer + "&questionID=" + document.forms["questionAnswer"]["questionID"].value, answerQuestionCallback)
         } else {
             showAlert("questionAnswerModalError", "Fill In An Answer Before Submitting");
         }

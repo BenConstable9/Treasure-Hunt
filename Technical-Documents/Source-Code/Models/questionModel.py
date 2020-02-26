@@ -99,19 +99,27 @@ class QuestionModel():
             with sql.connect("Models/treasure.sqlite") as con:
                 con.row_factory = sql.Row
                 cur = con.cursor()
-                cur.execute("SELECT * FROM Questions WHERE QuestionID=?", (int(questionId),))
 
-                questions = cur.fetchone()
+                cur.execute("SELECT * FROM Questions WHERE QuestionID=?", questionId)
+
+                question = cur.fetchone()
                 if question["Answer"] == answer:
-                    cur.execute("SELECT * FROM QuestionsAnswered WHERE QuestionID=? AND TeamID=?", (int(questionId),int(teamID)))
-                    results = cur.fetchone()
+                    cur.execute("SELECT * FROM QuestionsAnswered WHERE QuestionID=? AND TeamID=?", (questionId,teamID))
+                    result = cur.fetchone()
                     if result is None:
-                        cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?)", (int(questionId),int(teamID)))
-                cur.execute("SELECT * FROM QuestionsAnswered WHERE TeamID=? InnerJoin Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID", (int(teamID)))
+
+                        cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?,1010-10-10)", (questionId,teamID))
+
+                cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
+
                 res = cur.fetchall()
-                for let in res:
-                    returns.append({"letter":let["Letter"]})
-                response = {'status': '1', 'data': returns}
+
+                if res is not None:
+                    returns = []
+                    for let in res:
+                    
+                        returns.append({"letter":let["Letter"]})
+                        response = {'status': '1', 'data': returns}
         except Exception as e:
             print(e)
             response = {'status':'0'}

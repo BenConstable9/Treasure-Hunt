@@ -70,16 +70,16 @@ class DashboardController():
         teamID = session.get('teamID')
         gamePin = session.get('gamePin')
         answer = request.form.get('answer')
-        questionId = request.form.get('questionId')
+        questionId = request.form.get("questionID")
         response = questionModel.checkAnswer(escapeInput(answer),escapeInput(questionId),escapeInput(teamID) )
         if response["status"] == "1":
             #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
             data = response["data"]
-            return render_template('dashboard.html',info = data)
+
             #ajax call to say passed
         else:
             #ajax call to say failed
             response = {}
-            return response
+        return response
 
 dashboardController=DashboardController()
