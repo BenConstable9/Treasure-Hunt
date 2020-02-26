@@ -37,6 +37,32 @@ document.addEventListener('DOMContentLoaded', function(){
         HTTPPost("/dashboard/verifylocation", "value=" + value, verifyLocationCallback)
     }
 
+    /* Handle the response from answering a question */
+    function answerQuestionCallback(response) {
+        if (response.status == "0") {
+            //incorrect response
+            showAlert("questionAnswerModalError", "Incorrect Answer - Try Again");
+        } else {
+            showAlert("success", "Question Answer Successfully")
+            document.getElementById("questionAnswerModal").style.display = "none";
+            //todo add the letter and cross off the list
+            //get the index and add at the correct index
+        }
+    }
+
+    /* Answer the given question */
+    function answerQuestion(e) {
+        e.preventDefault();
+        //validated the answer
+        var answer = document.forms["questionAnswer"]["answer"].value;
+        if (answer.length >= 1) {
+            //send off our request
+            HTTPPost("/dashboard/question", "answer=" + answer + "questionID=" + document.forms["questionAnswer"]["questionID"].value, answerQuestionCallback)
+        } else {
+            showAlert("questionAnswerModalError", "Fill In An Answer Before Submitting");
+        }
+    }
+
     /*toggles bettween displaying and hiding the scan model*/
     function flipScanModel(e){
       if (document.getElementById("scanModal").style.display === "block"){
@@ -66,4 +92,6 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById("flipScanModel").addEventListener("click", flipScanModel);
 
     document.forms["questionAnswer"]["cancel"].addEventListener("click", closeQuestionAnswerModel);
+
+    document.forms["questionAnswer"]["submit"].addEventListener("click", answerQuestion);
 });
