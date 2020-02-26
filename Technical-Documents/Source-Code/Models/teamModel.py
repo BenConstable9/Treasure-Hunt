@@ -38,25 +38,17 @@ class TeamModel():
                     #now check the team name and pin combo by checking the length of the return
                     if (otherTeam is None):
                         subject = game["SubjectID"]
-
-                        print ("TN", teamName)
-                        print ("tuN", tutorID)
                         message = "Team Registration Unsuccessful - "
                         toBreak = False
 
 
                         if (len(teamName) == 0):
-                            print ("W")
                             message = message + " Team Name is empty - "
                             toBreak = True
-                            print (message)
 
-                        if (tutorID is None):
-                            print ("W")
-                            message = message + " Tutor is empty - "
+                        if (tutorID == "None"):
+                            message = message + "Tutor is empty."
                             toBreak = True
-                            print ("M: ", message)
-
 
                         if (toBreak == True):
                             response = {'status':'0', 'message':message, 'ID': '0'}
