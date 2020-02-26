@@ -30,7 +30,7 @@
 
 ## Documentation
 
-Documentation for using the system can be found in XXXX (TO BE COMPLETED). The user interface is by design easy to use and should be intuitive as to what you need to do to get a game up and running - any error messages (hopefully none) should be displayed out to tell you any errors you are causing when operating the system.
+Documentation for using the system can be found in [../Product-Documents/User-Manual/User-Manual.docx](../Product-Documents/User-Manual/User-Manual.docx). The user interface is by design easy to use and should be intuitive as to what you need to do to get a game up and running - any error messages (hopefully none) should be displayed out to tell you any errors you are causing when operating the system.
 
 ## Extending the program
 
