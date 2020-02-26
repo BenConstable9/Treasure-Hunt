@@ -3,15 +3,19 @@
 */
 
 document.addEventListener('DOMContentLoaded', function(){
+    /* Handles the QR code scanning */
     let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
     scanner.addListener('scan', function (content) {
+        //once scanned, send data to verifyLocation
         verifyLocation(content);
     });
     Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 0) {
+            //always start the first camera
             scanner.start(cameras[0]);
         } else {
-            showAlert("error", "No Camera Installed");
+            //give them an error
+            showAlert("error", "No Camera Installed - Check Your Settings");
         }
     }).catch(function (e) {
         showAlert("error", e);
