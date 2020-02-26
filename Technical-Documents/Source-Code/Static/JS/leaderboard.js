@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function(){
   */
   function createLeaderboardCallback(response) {
     if (response.status == "1") {
-      
+      console.log(response)
+    }
   }
-}
+
+  HTTPGet("/dashboard/leaderboard/data", createLeaderboardCallback)
+});

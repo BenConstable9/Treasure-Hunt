@@ -20,20 +20,24 @@ class leaderboardModel():
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
                 #map the column names to the values returned
-                con.row_factory = makeRowDictionary
+                #con.row_factory = makeRowDictionary
                 cur = con.cursor()
 
                 # Get the appropriate results
-                cur.execute("SELECT t.TeamName, r.StartTime, r.FinishTime, r.Letters, t.GamePin FROM Teams t, Results r WHERE t.Gamepin=?", (gamePin))
+                cur.execute("SELECT t.TeamName, r.StartTime, r.FinishTime, r.Letters, t.GamePin FROM Teams t INNER JOIN Results r ON t.TeamID = r.TeamID WHERE t.Gamepin=?", (gamePin,))
 
-                response = cur.fetchall()
+                results = cur.fetchall()
+
+                response = {'status':'1', 'data':results}
         except Exception as e:
             print(e)
             response = {'status':'0', 'message':'BAD - Unsuccessful'}
 
         finally:
-
+            print(response)
             # Return the result
             return response
 
             con.close()
+
+leaderboardModel=leaderboardModel()

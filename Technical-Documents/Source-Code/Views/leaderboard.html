@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Leaderboard</title>
+    <script src="{{ url_for('static',filename='JS/ajax.js') }}"></script>
+    <script src="{{ url_for('static',filename='JS/common.js') }}"></script>
+    <script src="{{ url_for('static',filename='JS/leaderboard.js') }}"></script>
 
     <style>
       table{
@@ -20,7 +23,10 @@
 
 
 <body>
-  <button type = "button" onclick = "home.html" name = "backFromLeaderboard">Back</button>
+  <div class="topnav">
+  <a href="/dashboard">Back</a>
+  <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+  </div>
 
   <h1>Leaderboard</h1>
 

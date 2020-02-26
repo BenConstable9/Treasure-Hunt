@@ -61,3 +61,11 @@ def fetchMap():
 @front.route('/getPins',methods=['GET'])
 def fetchPins():
     return mapController.getPins()
+
+@front.route('/dashboard/leaderboard',methods=['GET'])
+def fetchLeaderboard():
+    return dashboardController.leaderboard()
+
+@front.route('/dashboard/leaderboard/data',methods=['GET'])
+def fetchLeaderboardData():
+    return dashboardController.leaderboardData()
