@@ -30,11 +30,10 @@ class AuthController():
         # Get the values from the request
         teamName = request.form.get('TeamName')
         gamePin = request.form.get('GamePin')
-        tutorID = request.form.get('TutorID') #Not sure if correct
+        tutorID = request.form.get('TutorID')
 
         # Get the response from the model
-        print (tutorID)
-        response = teamModel.registerTeam(escapeInput(teamName), escapeInput(gamePin), escapeInput(tutorID)) #tutorName is actually tutorID
+        response = teamModel.registerTeam(escapeInput(teamName), escapeInput(gamePin), escapeInput(tutorID)) 
 
         if response["status"] == "1":
             # Set the session variables

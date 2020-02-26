@@ -39,15 +39,37 @@ class TeamModel():
                     if (otherTeam is None):
                         subject = game["SubjectID"]
 
-                        # Insert the team data
-                        cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID,TutorID) VALUES (?,?,?,?)",(teamName,gamePin,subject,tutorID) )
+                        print ("TN", teamName)
+                        print ("tuN", tutorID)
+                        message = "Team Registration Unsuccessful - "
+                        toBreak = False
 
-                        con.commit()
 
-                        # Get the last id
-                        lastID = cur.lastrowid
+                        if (len(teamName) == 0):
+                            print ("W")
+                            message = message + " Team Name is empty - "
+                            toBreak = True
+                            print (message)
 
-                        response = {'status':'1', 'message':'Team Registration Successfull', 'ID': lastID, 'subject': subject, 'gamePin': gamePin, 'tutor': tutorID}
+                        if (tutorID is None):
+                            print ("W")
+                            message = message + " Tutor is empty - "
+                            toBreak = True
+                            print ("M: ", message)
+
+
+                        if (toBreak == True):
+                            response = {'status':'0', 'message':message, 'ID': '0'}
+                        else:
+                            # Insert the team data
+                            cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID,TutorID) VALUES (?,?,?,?)",(teamName,gamePin,subject,tutorID) )
+
+                            con.commit()
+
+                            # Get the last id
+                            lastID = cur.lastrowid
+
+                            response = {'status':'1', 'message':'Team Registration Successfull', 'ID': lastID, 'subject': subject, 'gamePin': gamePin, 'tutor': tutorID}
 
                     else:
                         response = {'status':'0', 'message':'Team Registration Unsuccessful - Team Name Already Taken', 'ID': '0'}
