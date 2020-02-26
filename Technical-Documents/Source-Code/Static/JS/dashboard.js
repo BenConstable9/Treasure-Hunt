@@ -21,6 +21,28 @@ document.addEventListener('DOMContentLoaded', function(){
         showAlert("error", e);
     });
 
+HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
+
+    function addLocationBlocks(response){
+      if (response.status == "0") {
+          //incorrect response
+          showAlert("Unable to load database");
+      } else {
+          var ul = document.getElementById("Locations");
+          var ul2 = document.getElementById("building")
+          console.log(response)
+          for (rowNum in response.data){
+            var li = document.createElement("li");
+            li.id = response.data[rowNum].building
+            li.appendChild(document.createTextNode(response.data[rowNum].building));
+            ul.appendChild(li);
+            var box = document.createElement("input");
+            box.id = "letter"+response.data[rowNum].building
+            ul2.appendChild(box);
+
+          }
+    }}
+
     function verifyLocationCallback(response) {
         if (response.status == "1") {
             document.getElementById("questionBuilding").innerHTML = response.Building;
@@ -49,6 +71,15 @@ document.addEventListener('DOMContentLoaded', function(){
         } else {
             showAlert("success", "Question Answer Successfully")
             document.getElementById("questionAnswerModal").style.display = "none";
+            var ul = document.getElementById("building");
+            console.log(response)
+            for (rowNum in response.data){
+              var box = document.getElementById("letter"+response.data[rowNum].building);
+              box.value = response.data[rowNum].letter
+              var ul2 = document.getElementById(response.data[rowNum].building);
+              ul2.innerHTML = "<del>"+response.data[rowNum].building+"</del>";
+
+            }
             //todo add the letter and cross off the list
             //get the index and add at the correct index
         }

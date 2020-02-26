@@ -28,6 +28,7 @@ class DashboardController():
 
             if response["status"] == "1":
                 data = response["data"]
+                random.shuffle(data)
                 return render_template('dashboard.html',info = data)
             else:
                 return render_template('home.html')
@@ -82,4 +83,16 @@ class DashboardController():
             response = {}
         return response
 
+    def getLoc(self):
+        subject = session.get('subject')
+        response = questionModel.getQuestions(escapeInput(subject))
+        print("test")
+        if response["status"] == "1":
+            data = response["data"]
+            random.shuffle(data)
+            print(data)
+            return response
+        else:
+            data = {"status" == "0"}
+            return data
 dashboardController=DashboardController()
