@@ -23,7 +23,7 @@
     {% if status == "0" %}
         <div class="alert error" style="display:block">Error: <span>{{ message }}</span></div>
     {% endif %}
-    <form action="/admin/login" method="post">
+    <form action="/admin/login" method="post" class="authForm">
         <label for="Username" style>Username</label>
         <input type="text" name="Username" placeholder="Your Username" class="inputFull">
         <br/>

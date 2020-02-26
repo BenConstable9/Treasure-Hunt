@@ -116,7 +116,8 @@ document.addEventListener('DOMContentLoaded', function(){
             //add the event listeners
             document.getElementById('create' + response.SubjectID).addEventListener("click", createGame);
             document.getElementById('create' + response.SubjectID).dataset.json = buttonJSON;
-            //todo add the event listener for the generateqr code
+            document.getElementById('print' + response.SubjectID).addEventListener("click", createPrints);
+            document.getElementById('print' + response.SubjectID).dataset.json = buttonJSON;
         } else {
             showAlert("error", response.message);
         }
@@ -180,6 +181,14 @@ document.addEventListener('DOMContentLoaded', function(){
         document.getElementById("changePasswordModel").style.display = "none";
     }
 
+    /* Handle the closing of a modal
+    */
+    function closeQuestionsModal(e) {
+        e.preventDefault();
+        //close it
+        document.getElementById("questionsModal").style.display = "none";
+    }
+
     /* Handle opening of a modal
     */
     function openChangePasswordModel() {
@@ -190,12 +199,41 @@ document.addEventListener('DOMContentLoaded', function(){
         document.getElementById("changePasswordModel").style.display = "block";
     }
 
+    /* Handle submission of clicking print QR codes
+    */
+    function createPrints(){
+        subjectID = JSON.parse(this.dataset.json.replace(/'/g, '"')).SubjectID;
+        HTTPGet("/admin/questions?subject=" + subjectID, createPrintsCallback);
+
+    }
+
+    /* Handles displaying the QR codes
+    */
+    function createPrintsCallback(response){
+        console.log(response);
+        document.getElementById("questionsModalList").innerHTML = '';
+        //Loops through data from questions and adds a link to QR code for each location
+        for (i = 0; i < response.data.length; i ++) {
+            var x = document.createElement("LI");
+            x.innerHTML = "<a href='/Static/Images/Codes/" + response.data[i].questionID + ".svg' target='_blank'>" + response.data[i].building + "</a>";
+            document.getElementById("questionsModalList").appendChild(x);
+        }
+        //Closes modals
+        document.getElementById("configModal").style.display = "none";
+        document.getElementById("questionsModal").style.display = "block";
+    }
+
 
     //add the event listeners
 
     creates = document.getElementsByClassName('createGameButton');
     for (i = 0; i < creates.length; i ++) {
         creates[i].addEventListener("click", createGame)
+    }
+
+    prints = document.getElementsByClassName('printQRCode');
+    for (i = 0; i < prints.length; i ++) {
+        prints[i].addEventListener("click", createPrints)
     }
 
     document.forms["configUpload"]["upload"].addEventListener("click", handleUpload);
@@ -215,4 +253,6 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById("endGame").addEventListener("click", endGame);
 
     document.getElementById("logout").addEventListener("click", logout);
+
+    document.getElementById("cancelQuestionsModal").addEventListener("click", closeQuestionsModal);
 }, false);

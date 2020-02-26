@@ -20,41 +20,33 @@
         <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
     </div>
 
-    <h1>Welcome</h1>
-    <h2> To the University of Exeter Freshers Treasure Hunt </h2>
+    <h1>Welcome To the University of Exeter Freshers Treasure Hunt</h1>
     <!-- If an error is returned then output it -->
 
     {% if status == "0" %}
         <div class="error"><p>{{ message }}</p></div>
     {% endif %}
 
-    <form action="/register" method="post">
-        <h4>Register your Team</h4>
+    <form action="/register" method="post" class="authForm">
+        <h4>Register Team</h4>
         <label for="TeamName">Team Name</label>
-        <input type="text" name="TeamName">
-        <br/>
+        <input type="text" name="TeamName" placeholder="Enter Team Name">
         <label for="GamePin">Game Pin</label>
-        <input type="text" id="GamePin" name="GamePin" onchange="gameFunction()">
-        <br/>
+        <input type="text" id="GamePin" name="GamePin" onchange="gameFunction()" placeholder="Enter Game Pin">
         <label for="tutors">Select Your Tutor</label>
         <select id="tutorsNames" name="TutorID">
-        <option value="" selected disabled name = id="disabledSelect">Select...</option>
+            <option value="" selected disabled id="disabledSelect">Select...</option>
         </select>
-        <br/>
         <input type="submit" name="SignUp" value="Sign Up">
     </form>
 
-    <p id="test"></p>
-
-    <h4> Log Back into your Game </h4>
-    <form action="/login" method="post">
+    <form action="/login" method="post" class="authForm">
+        <h4>Log Back In</h4>
         <label for="TeamName">Team Name</label>
-        <input type="text" name="TeamName" class="inputFull">
-        <br/>
+        <input type="text" name="TeamName" placeholder="Enter Team Name">
         <label for="GamePin">Game Pin</label>
-        <input type="text" name="GamePin" class="inputFull">
-        <br/>
-        <input type="submit" name="Login" value="Login" class="inputFull">
+        <input type="text" name="GamePin" placeholder="Enter Game Pin">
+        <input type="submit" name="Login" value="Login">
     </form>
     
         <script>
@@ -85,7 +77,6 @@
 
         function gameFunction(){
           var pin = document.getElementById("GamePin").value;
-          document.getElementById("test").innerHTML = "You selected: " + pin;
 
           HTTPGet("/verifyPin?GamePin=" + pin, handleSection)
         }

@@ -2,8 +2,10 @@ import os
 from flask import request, session, redirect, url_for
 from flask import render_template
 from Models.gameModel import gameModel
+from Models.questionModel import questionModel
 from Models.subjectModel import subjectModel
 from werkzeug.utils import secure_filename
+from Helpers.utility import escapeInput
 import json
 
 # Author - Ben Constable
@@ -36,6 +38,19 @@ class GameController():
                 return render_template('game.html',name = keeperName, ID = keeperID, status = subjectResponse["status"],subjectLength = len(subjectResponse["data"]),subjectData = subjectResponse["data"],gameStatus = 0, )
             else:
                 return render_template('game.html',name = keeperName, ID = keeperID, status = subjectResponse["status"],subjectLength = len(subjectResponse["data"]),subjectData = subjectResponse["data"],gameStatus = 1, gamePin = gameResponse[0]["GamePin"])
+
+    """Get the questions for the current subject.
+    
+    :return: Array of questions. """
+    def getQuestions(self):
+        # Check if logged in
+        if not session.get('adminLoggedIn'):
+            return redirect("/admin", code=302)
+        else:
+            #Get questions from questionModel
+            subject = request.args.get('subject')
+            response = questionModel.getQuestions(escapeInput(subject))
+        return response
 
     """Handle starting of a game by a post request
 
