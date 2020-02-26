@@ -1,6 +1,7 @@
 from flask import request, session, redirect
 from flask import render_template
 from Models.subjectModel import subjectModel
+from Models.leaderboardModel import leaderboardModel
 from Models.questionModel import questionModel
 from Models.leaderboardModel import leaderboardModel
 from Helpers.utility import escapeInput
@@ -50,6 +51,13 @@ class DashboardController():
 
     def faq(self):
         return render_template('FAQs.html')
+
+    def leaderboard(self):
+        return render_template('leaderboard.html')
+
+    def leaderboardData(self):
+        gamePin = session.get('gamePin')
+        return leaderboardModel.obtainResults(gamePin)
 
     def openMap(self):
         if not session.get('loggedIn'):

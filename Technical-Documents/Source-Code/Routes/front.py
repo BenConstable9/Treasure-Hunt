@@ -69,3 +69,12 @@ def checkAnswer():
 @front.route('/dashboard/getLoc', methods=['POST'])
 def getLoc():
     return dashboardController.getLoc()
+
+@front.route('/dashboard/leaderboard',methods=['GET'])
+def fetchLeaderboard():
+    return dashboardController.leaderboard()
+
+@front.route('/dashboard/leaderboard/data',methods=['GET'])
+def fetchLeaderboardData():
+    return dashboardController.leaderboardData()
+

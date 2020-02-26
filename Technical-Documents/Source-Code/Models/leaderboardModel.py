@@ -8,6 +8,7 @@ class leaderboardModel():
     def __init__(self):
         pass
 
+
     def addLetter(self, teamID):
         try:
             # Open the DB
@@ -32,21 +33,37 @@ class leaderboardModel():
 
             con.close()
 
-    def obtainResults(self, GamePin):
+    """Fetch the relevant data for results for the leaderboard
+
+    :param gamePin: the gamePin to create results for
+
+    :return: a json response containing leaderboard data"""
+
+    def obtainResults(self, gamePin):
         #try the sql
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
-                con.row_factory = sql.Row
+                #map the column names to the values returned
+                #con.row_factory = makeRowDictionary
                 cur = con.cursor()
 
                 # Get the appropriate results
-                response = {'status': '1'}
+                cur.execute("SELECT t.TeamName, r.StartTime, r.FinishTime, r.Letters, t.GamePin FROM Teams t INNER JOIN Results r ON t.TeamID = r.TeamID WHERE t.Gamepin=?", (gamePin,))
+
+                results = cur.fetchall()
+
+                response = {'status':'1', 'data':results}
         except Exception as e:
             print(e)
-            response = {'status':'0'}
+            response = {'status':'0', 'message':'BAD - Unsuccessful'}
+
         finally:
+            print(response)
+
             # Return the result
             return response
 
             con.close()
+
+leaderboardModel=leaderboardModel()
