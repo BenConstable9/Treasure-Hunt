@@ -38,16 +38,30 @@ class TeamModel():
                     #now check the team name and pin combo by checking the length of the return
                     if (otherTeam is None):
                         subject = game["SubjectID"]
+                        message = "Team Registration Unsuccessful - "
+                        toBreak = False
 
-                        # Insert the team data
-                        cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID,TutorID) VALUES (?,?,?,?)",(teamName,gamePin,subject,tutorID) )
 
-                        con.commit()
+                        if (len(teamName) == 0):
+                            message = message + " Team Name is empty - "
+                            toBreak = True
 
-                        # Get the last id
-                        lastID = cur.lastrowid
+                        if (tutorID == "None"):
+                            message = message + "Tutor is empty."
+                            toBreak = True
 
-                        response = {'status':'1', 'message':'Team Registration Successfull', 'ID': lastID, 'subject': subject, 'gamePin': gamePin, 'tutor': tutorID}
+                        if (toBreak == True):
+                            response = {'status':'0', 'message':message, 'ID': '0'}
+                        else:
+                            # Insert the team data
+                            cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID,TutorID) VALUES (?,?,?,?)",(teamName,gamePin,subject,tutorID) )
+
+                            con.commit()
+
+                            # Get the last id
+                            lastID = cur.lastrowid
+
+                            response = {'status':'1', 'message':'Team Registration Successfull', 'ID': lastID, 'subject': subject, 'gamePin': gamePin, 'tutor': tutorID}
 
                     else:
                         response = {'status':'0', 'message':'Team Registration Unsuccessful - Team Name Already Taken', 'ID': '0'}
@@ -55,12 +69,10 @@ class TeamModel():
                 else:
                     response = {'status':'0', 'message':'Team Registration Unsuccessful - Game Pin Invalid', 'ID': '0'}
 
-        except sql.Error as error:
-            print("Error while connecting to sqlite", error)
-
+        except:
             con.rollback()
 
-            response = {'status':'0', 'message':'Team Registration Unsuccessful', 'ID': '0'}
+            response = {'status':'0', 'message':'Team Registration Unsuccessful - Check All Values', 'ID': '0'}
 
         finally:
             return response

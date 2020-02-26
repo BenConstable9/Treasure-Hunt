@@ -30,7 +30,7 @@
 
 ## Documentation
 
-Documentation for using the system can be found in XXXX (TO BE COMPLETED). The user interface is by design easy to use and should be intuitive as to what you need to do to get a game up and running - any error messages (hopefully none) should be displayed out to tell you any errors you are causing when operating the system.
+Documentation for using the system can be found in [../Product-Documents/User-Manual/User-Manual.docx](../Product-Documents/User-Manual/User-Manual.docx). The user interface is by design easy to use and should be intuitive as to what you need to do to get a game up and running - any error messages (hopefully none) should be displayed out to tell you any errors you are causing when operating the system.
 
 ## Extending the program
 
@@ -40,4 +40,8 @@ The Treasure Hunt website is built in a way such that is can be easily extended 
 
 Within the [../Product-Documents](../Product-Documents) directory, information including UI designs, flow diagrams for the transitions of the system and justifications of the languages used. Other information such as the FAQs and the Market Research may be useful for further reading. 
 
+## Deployment
+
 The website should be deployable to any Python environment which supports the requirements at the top of the page, the URLs are automatically configured by Flask when using the Routes directory. None of the folder or file names should be changed as this could lead to unspecified errors.
+
+Any changes that are pushed to the Deployment branch, will be automatically deployed to the URL of the project - there is a delay of approximately 2 minutes while the system builds a new version from the code that is added to the branch. This uses the Heroku pipeline to automatically control the deployment in an orderly fashion.  A valid DB file must be included within the code to be deployed as the system currently will not build a new DB.

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
-    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <script src="{{ url_for('static',filename='JS/instascan.js') }}"></script>
     <script src="{{ url_for('static',filename='JS/ajax.js') }}"></script>
     <script src="{{ url_for('static',filename='JS/common.js') }}"></script>
     <script src="{{ url_for('static',filename='JS/dashboard.js') }}"></script>
@@ -15,10 +15,13 @@
     <link href="{{ url_for('static',filename='CSS/dashboard.css') }}" rel='stylesheet' type='text/css'/>
 </head>
 <body>
-    <div class="topnav">
-        <a href="#home">Map</a>
+    <div class="topnav" id = "myTopnav">
+        <a class = "active"> Home</a>
+        <a href="/dashboard/map">Map</a>
         <a href="">Leaderboard</a>
         <a href="/dashboard/faqs">FAQ's</a>
+        <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+        <a class="icon" onclick="showResponsiveMenu()">&#9776;</a>
     </div>
 
     <div id="success" class="alert success">Success: <span></span></div>
@@ -27,7 +30,7 @@
     <h2>Building:</h2>
     <ul id = "building" style="display:inline;">
         {% for row in info %}
-        <li style="display:inline;">_</li>
+        <input size = 4 style="max-width: 2%" disabled>
         {% endfor %}
     </ul>
 
@@ -39,6 +42,23 @@
         {% endfor %}
     </ul>
 
+    <div id="questionAnswerModal" class="modal">
+        <div class="modalHeader">
+            <h2>Welcome To: <span id="questionBuilding"></span></h2>
+        </div>
+        <div class="modalBody">
+            <div>Your Challenge! Answer the following: <span id="questionText"></span></div>
+        </div>
+        <div class="modalFooter">
+            <form action="/dashboard/question" method="post" name="questionAnswer">
+                <input type="hidden" name="questionID">
+                <input type="text" placeholder="Answer Question Here" name="answer">
+                <input type="submit" value="Submit Answer" name="submit">
+                <input type="submit" value="Cancel" name="cancel" class="cancel">
+            </form>
+        </div>
+    </div>
+
     <div id="scanModal" class="modal">
         <div class="modalHeader">
             <h2>Scan QR Code</h2>
@@ -46,11 +66,8 @@
         <div class="modalBody">
             <video id="preview"></video>
         </div>
-        <div class="modalFooter">
-            <button id="closeScanModal" class="cancel">Cancel</button>
-        </div>
     </div>
 
-    <image id="openScanModal" src="{{ url_for('static',filename='Images/camera.png') }}"></image>
+    <image id="flipScanModel" src="{{ url_for('static',filename='Images/camera.png') }}"></image>
 </body>
 </html>

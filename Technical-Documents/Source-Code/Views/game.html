@@ -17,6 +17,11 @@
     <script type="text/javascript" src="{{ url_for('static',filename='JS/game.js') }}"></script>
 </head>
 <body>
+    <div class="topnav">
+        <a class = "active">AdminHome</a>
+        <a href="/">PlayerHome</a>
+        <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+    </div>
     <h1>Admin Dashboard</h1>
     <h2> Welcome: {{name}} </h2>
     <div id="success" class="alert success">Success: <span></span></div>
@@ -31,7 +36,6 @@
         <button id="endGame" disabled>End Game</button>
     {% endif %}
     <button id="manageConfigs">Manage Exisiting Game Configs</button>
-    <!-- <button id="registerAdmin"><a href="/dashboard/faqs" style='text-decoration:none; color:white'>Register New Admin</a></button> -->
     <button id="registerAdmin">Register New Admin</button>
     <button id="changePassword">Change Password</button>
     <button id="logout">Logout</button>
@@ -102,13 +106,13 @@
             <form action="/admin/register" method="post" name="registerAdmin">
             <div class="modalBody">
               <label for="Name">Name</label>
-              <input type="text" name="Name">
+              <input type="text" name="Name" placeholder="Enter Name">
               <label for="Username">Username</label>
-              <input type="text" name="Username">
-              <label for"Password">Password</label>
-              <input type="password" name="Password">
-              <label for"Password2">Please repeat your password</label>
-              <input type="password" name="Password2">
+              <input type="text" name="Username" placeholder="Enter Username">
+              <label for="Password">Password</label>
+              <input type="password" name="Password" placeholder="Enter Password">
+              <label for="Password2">Please repeat your password</label>
+              <input type="password" name="Password2" placeholder="Repeat Password">
             </div>
               <div class="modalFooter">
               <input type="submit" name="SignUp" value="Sign Up">
@@ -121,20 +125,20 @@
         <div class="modalHeader">
             <h2>Change Password</h2>
         </div>
-            <form action="/admin/changePassword" method="post" name="changePassword">
-            <div class="modalBody"
-              <label for"Password">Password</label>
-              <input type="password" name="Password">
-              <label for"Password2">Please repeat your password</label>
-              <input type="password" name="Password2">
-              <input type="hidden" name="ID" value={{ID}}>
+        <form action="/admin/changePassword" method="post" name="changePassword">
+            <div class="modalBody">
+                <label for="Password">Password</label>
+                <input type="password" name="Password" placeholder="Enter Password">
+                <label for="Password2">Please repeat your password</label>
+                <input type="password" name="Password2" placeholder="Repeat Password">
+                <input type="hidden" name="ID" value={{ID}}>
             </div>
-              <div class="modalFooter">
-              <input type="submit" name="ChangePassword" value="Change Password">
-              <input type="submit" value="Cancel" name="cancel" class="cancel">
+                <div class="modalFooter">
+                <input type="submit" name="ChangePassword" value="Change Password">
+                <input type="submit" value="Cancel" name="cancel" class="cancel">
             </div>
-            </form>
-        </div>
+        </form>
+    </div>
 
 
 </body>
