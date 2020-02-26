@@ -39,8 +39,12 @@ print ("(6) Results Table created successfully");
 cur.execute('CREATE TABLE IF NOT EXISTS Questions (QuestionID integer PRIMARY KEY AUTOINCREMENT, SubjectID integer not null, Building text not null, QRLocation text not null, QRText text not null, Question text not null, Answer text not null, Latitude text not null, Longitude text not null, Letter text not null, LetterIndex integer not null, FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID))')
 print ("(7) Questions Table created successfully");
 
+#QuestionsAnswered Table
+cur.execute('CREATE TABLE IF NOT EXISTS QuestionsAnswered (QuestionID int not null, TeamID int not null, TimeObtained datetime not null, PRIMARY KEY (QuestionID, TeamID), FOREIGN KEY (QuestionID) REFERENCES Questions(QuestionID), FOREIGN KEY (TeamID) REFERENCES Teams(TeamID))')
+print ("(8) QuestionsAnswered Table created successfully");
+
 cur = con.cursor()
 
-adminModel.adminRegister("Test Keeper", "admin", "admin", "admin") #Ensures the password will be automatically 
+adminModel.adminRegister("Test Keeper", "admin", "admin", "admin") #Ensures the password will be automatically
 
 cur.close()
