@@ -69,12 +69,10 @@ class TeamModel():
                 else:
                     response = {'status':'0', 'message':'Team Registration Unsuccessful - Game Pin Invalid', 'ID': '0'}
 
-        except sql.Error as error:
-            print("Error while connecting to sqlite", error)
-
+        except:
             con.rollback()
 
-            response = {'status':'0', 'message':'Team Registration Unsuccessful', 'ID': '0'}
+            response = {'status':'0', 'message':'Team Registration Unsuccessful - Check All Values', 'ID': '0'}
 
         finally:
             return response
