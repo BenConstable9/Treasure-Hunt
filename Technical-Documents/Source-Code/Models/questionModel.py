@@ -82,7 +82,7 @@ class QuestionModel():
                  returns = []
 
                  for question in questions:
-                     returns.append({"question":question["Question"], "answer":question["Answer"], "building":question["Building"],"letter":question["Letter"],"latitude":question["Latitude"],"longitude":question["Longitude"]})
+                     returns.append({"questionID":question["QuestionID"],"question":question["Question"], "answer":question["Answer"], "building":question["Building"],"letter":question["Letter"],"latitude":question["Latitude"],"longitude":question["Longitude"]})
                  response = {'status': '1', 'data': returns}
          except Exception as e:
              print(e)
@@ -93,21 +93,33 @@ class QuestionModel():
 
              con.close()
 
-    def checkAnswer(self,answer,questionId):
+    def checkAnswer(self,answer,questionId,teamID):
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
                 con.row_factory = sql.Row
                 cur = con.cursor()
-                cur.execute("SELECT * FROM Questions WHERE QuestionID=?", (int(questionId),))
 
-                questions = cur.fetchall()
-                returns = []
+                cur.execute("SELECT * FROM Questions WHERE QuestionID=?", questionId)
 
-                for question in questions:
-                    if question["Answer"] == answer:
-                        returns.append({"letter":question["Letter"]})
-                response = {'status': '1', 'data': returns}
+                question = cur.fetchone()
+                if question["Answer"] == answer:
+                    cur.execute("SELECT * FROM QuestionsAnswered WHERE QuestionID=? AND TeamID=?", (questionId,teamID))
+                    result = cur.fetchone()
+                    if result is None:
+
+                        cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?,1010-10-10)", (questionId,teamID))
+
+                cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
+
+                res = cur.fetchall()
+
+                if res is not None:
+                    returns = []
+                    for let in res:
+
+                        returns.append({"letter":let["Letter"], "building":let["Building"]})
+                        response = {'status': '1', 'data': returns}
         except Exception as e:
             print(e)
             response = {'status':'0'}

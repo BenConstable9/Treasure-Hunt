@@ -29,17 +29,11 @@
 
     <h2>Building:</h2>
     <ul id = "building" style="display:inline;">
-        {% for row in info %}
-        <input size = 4 style="max-width: 2%" disabled>
-        {% endfor %}
     </ul>
 
     <h3> Room: </h3>
     <p id = "roomNum" style="text-align: center;">___</p>
-    <ul class="Locations">
-        {% for row in info %}
-        <li>{{ row["building"] }}</li>
-        {% endfor %}
+    <ul class="Locations" id = "Locations">
     </ul>
 
     <div id="questionAnswerModal" class="modal">
@@ -47,6 +41,7 @@
             <h2>Welcome To: <span id="questionBuilding"></span></h2>
         </div>
         <div class="modalBody">
+            <div id="questionAnswerModalError" class="alert error">Error: <span></span></div>
             <div>Your Challenge! Answer the following: <span id="questionText"></span></div>
         </div>
         <div class="modalFooter">

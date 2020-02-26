@@ -65,3 +65,7 @@ def fetchPins():
 @front.route('/dashboard/question', methods=['POST'])
 def checkAnswer():
     return dashboardController.checkAnswer()
+
+@front.route('/dashboard/getLoc', methods=['POST'])
+def getLoc():
+    return dashboardController.getLoc()

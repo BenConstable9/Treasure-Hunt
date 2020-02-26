@@ -2,6 +2,7 @@ from flask import request, session, redirect
 from flask import render_template
 from Models.subjectModel import subjectModel
 from Models.questionModel import questionModel
+from Models.leaderboardModel import leaderboardModel
 from Helpers.utility import escapeInput
 import random
 
@@ -27,6 +28,7 @@ class DashboardController():
 
             if response["status"] == "1":
                 data = response["data"]
+                random.shuffle(data)
                 return render_template('dashboard.html',info = data)
             else:
                 return render_template('home.html')
@@ -69,16 +71,28 @@ class DashboardController():
         teamID = session.get('teamID')
         gamePin = session.get('gamePin')
         answer = request.form.get('answer')
-        questionId = request.form.get('questionId')
-        response = questionModel.checkAnswer(escapeInput(answer),escapeInput(questionId))
+        questionId = request.form.get("questionID")
+        response = questionModel.checkAnswer(escapeInput(answer),escapeInput(questionId),escapeInput(teamID) )
         if response["status"] == "1":
-            leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
-            letter = response["data"]
+            #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
+            data = response["data"]
 
             #ajax call to say passed
         else:
             #ajax call to say failed
             response = {}
+        return response
 
-
+    def getLoc(self):
+        subject = session.get('subject')
+        response = questionModel.getQuestions(escapeInput(subject))
+        print("test")
+        if response["status"] == "1":
+            data = response["data"]
+            random.shuffle(data)
+            print(data)
+            return response
+        else:
+            data = {"status" == "0"}
+            return data
 dashboardController=DashboardController()
