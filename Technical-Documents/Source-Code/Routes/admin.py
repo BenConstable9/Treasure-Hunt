@@ -45,3 +45,9 @@ def changePassword():
 @admin.route('/admin/game/logout', methods=['POST'])
 def logout():
     return adminAuthController.adminLogout()
+
+@admin.route('/admin/questions', methods=['GET'])
+def getQuestions():
+    return gameController.getQuestions()
+
+
