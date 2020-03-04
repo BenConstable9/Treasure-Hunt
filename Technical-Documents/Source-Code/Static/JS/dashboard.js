@@ -3,25 +3,7 @@
 */
 
 document.addEventListener('DOMContentLoaded', function(){
-    /* Handles the QR code scanning */
-    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-    scanner.addListener('scan', function (content) {
-        //once scanned, send data to verifyLocation
-        verifyLocation(content);
-    });
-    Instascan.Camera.getCameras().then(function (cameras) {
-        if (cameras.length > 0) {
-            //always start the first camera
-            scanner.start(cameras[0]);
-        } else {
-            //give them an error
-            showAlert("error", "No Camera Installed - Check Your Settings");
-        }
-    }).catch(function (e) {
-        showAlert("error", e);
-    });
-
-HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
+    HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
 
     function addLocationBlocks(response){
       if (response.status == "0") {
@@ -98,13 +80,42 @@ HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
         }
     }
 
+    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+    scanner.addListener('scan', function (content) {
+        //once scanned, send data to verifyLocation
+        verifyLocation(content);
+    });
+
     /*toggles bettween displaying and hiding the scan model*/
     function flipScanModel(e){
-      if (document.getElementById("scanModal").style.display === "block"){
-        document.getElementById("scanModal").style.display = "none";
-      }else{
-        document.getElementById("scanModal").style.display = "block"
-      }
+        if (document.getElementById("scanModal").style.display === "block"){
+            document.getElementById("scanModal").style.display = "none";
+            Instascan.Camera.getCameras().then(function (cameras) {
+            if (cameras.length > 0) {
+                //stop the camera
+                scanner.stop();
+            } else {
+                //give them an error
+                showAlert("error", "No Camera Installed - Check Your Settings");
+            }
+            }).catch(function (e) {
+                showAlert("error", e);
+            });
+        }else{
+            document.getElementById("scanModal").style.display = "block"
+            /* Handles the QR code scanning */
+            Instascan.Camera.getCameras().then(function (cameras) {
+            if (cameras.length > 0) {
+                //always start the first camera
+                scanner.start(cameras[0]);
+            } else {
+                //give them an error
+                showAlert("error", "No Camera Installed - Check Your Settings");
+            }
+            }).catch(function (e) {
+                showAlert("error", e);
+            });
+        }
     }
 
     /* Handle the closing of a modal
