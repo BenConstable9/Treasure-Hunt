@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function(){
       } else {
           var ul = document.getElementById("Locations");
           var ul2 = document.getElementById("building")
-          console.log(response)
+
           for (rowNum in response.data){
             var li = document.createElement("li");
             li.id = response.data[rowNum].building
@@ -110,9 +110,12 @@ document.addEventListener('DOMContentLoaded', function(){
             document.getElementById("scanModal").style.display = "block";
             /* Handles the QR code scanning */
             Instascan.Camera.getCameras().then(function (cameras) {
-            if (cameras.length > 0) {
+            if (cameras.length == 1) {
                 //always start the first camera
                 scanner.start(cameras[0]);
+            } else if (cameras.length > 1) {
+                //always start the first camera
+                scanner.start(cameras[1]);
             } else {
                 //give them an error
                 showAlert("error", "No Camera Installed - Check Your Settings");
@@ -139,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function(){
         document.getElementById("scanModal").style.display = "block";
     }
 
-    /*document.getElementById("closeScanModal").addEventListener("click", flipScanModel);*/
+    document.getElementById("closeScanModal").addEventListener("click", flipScanModel);
 
     document.getElementById("flipScanModel").addEventListener("click", flipScanModel);
 
