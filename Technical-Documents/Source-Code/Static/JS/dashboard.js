@@ -86,6 +86,10 @@ document.addEventListener('DOMContentLoaded', function(){
         verifyLocation(content);
     });
 
+    scanner.addListener('active', function (content) {
+        document.getElementById("loadingContainer").style.display = "none";
+    });
+
     /*toggles bettween displaying and hiding the scan model*/
     function flipScanModel(e){
         if (document.getElementById("scanModal").style.display === "block"){
@@ -102,7 +106,8 @@ document.addEventListener('DOMContentLoaded', function(){
                 showAlert("error", e);
             });
         }else{
-            document.getElementById("scanModal").style.display = "block"
+            document.getElementById("loadingContainer").style.display = "block";
+            document.getElementById("scanModal").style.display = "block";
             /* Handles the QR code scanning */
             Instascan.Camera.getCameras().then(function (cameras) {
             if (cameras.length > 0) {
@@ -113,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 showAlert("error", "No Camera Installed - Check Your Settings");
             }
             }).catch(function (e) {
+                document.getElementById("loadingContainer").style.display = "none";
                 showAlert("error", e);
             });
         }

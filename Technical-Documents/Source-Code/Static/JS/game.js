@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function(){
         :param response: The response from the request
     */
     function handleUploadCallback(response) {
+        document.getElementById("loadingContainer").style.display = "none";
         if (response.status == "1") {
             showAlert("success", response.message);
 
@@ -128,6 +129,8 @@ document.addEventListener('DOMContentLoaded', function(){
     function handleUpload(e) {
         //stop a page reload
         e.preventDefault();
+
+        document.getElementById("loadingContainer").style.display = "block";
 
         //create the form data and send it off
         var form = document.forms["configUpload"];
@@ -210,7 +213,6 @@ document.addEventListener('DOMContentLoaded', function(){
     /* Handles displaying the QR codes
     */
     function createPrintsCallback(response){
-        console.log(response);
         document.getElementById("questionsModalList").innerHTML = '';
         //Loops through data from questions and adds a link to QR code for each location
         for (i = 0; i < response.data.length; i ++) {
