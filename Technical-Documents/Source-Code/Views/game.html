@@ -24,35 +24,43 @@
     </div>
 
     <div class="boxed">
+        <div id="success" class="alert success">Success: <span></span></div>
+        <div id="error" class="alert error">Error: <span></span></div>
         <h1>Admin Dashboard</h1>
         <p>Welcome: {{name}}. Below are all of the controls to manage the games - the leaderboard will be automatically populated as the teams complete the questions.</p>
     </div>
-    <div id="success" class="alert success">Success: <span></span></div>
-    <div id="error" class="alert error">Error: <span></span></div>
 
     <div id="loadingContainer">
         <div id="loadingWheel"></div>
         <p id="loadingText">Loading...</p>
     </div>
 
-    <div id="controls" class="boxed">
-        <h4>Game Controls</h4>
-        <!-- Output the game pin if it exists -->
-        {% if gameStatus == 1 %}
-            <input id="gamePin" type="text" value="Current Game Pin: {{ gamePin }}" disabled>
-            <button id="endGame">End Game</button>
-        {% else %}
-            <input id="gamePin" type="text" value="No Game Running" disabled>
-            <button id="endGame" disabled>End Game</button>
-        {% endif %}
-        <button id="manageConfigs">Manage Exisiting Game Configs</button>
-        <button id="registerAdmin">Register New Admin</button>
-        <button id="changePassword">Change Password</button>
-        <button id="logout">Logout</button>
-    </div>
+    <div class="columns">
+        <div id="controls" class="columnOne boxed">
+            <h4>Game Controls</h4>
+            <!-- Output the game pin if it exists -->
+            {% if gameStatus == 1 %}
+                <input id="gamePin" type="text" value="Current Game Pin: {{ gamePin }}" disabled>
+                <button id="endGame">End Game</button>
+            {% else %}
+                <input id="gamePin" type="text" value="No Game Running" disabled>
+                <button id="endGame" disabled>End Game</button>
+            {% endif %}
+            <button id="manageConfigs">Manage Existing Game Configs</button>
+            <button id="registerAdmin">Register New Admin</button>
+            <button id="changePassword">Change Password</button>
+            <button id="logout">Logout</button>
+        </div>
 
-    <div id="leaderboard" class="boxed">
-        <h4>Leaderboard</h4>
+        <div id="notifications" class="columnTwo boxed">
+            <h4>Game Notifications</h4>
+            <div id="notificationsError" class="alert error">No Notifications</div>
+            <ul id="notificationsList"></ul>
+        </div>
+
+        <div id="leaderboard" class="columnThree boxed">
+            <h4>Leaderboard</h4>
+        </div>
     </div>
 
     <div id="configModal" class="modal">

@@ -43,6 +43,10 @@ print ("(7) Questions Table created successfully");
 cur.execute('CREATE TABLE IF NOT EXISTS QuestionsAnswered (QuestionID int not null, TeamID int not null, TimeObtained datetime not null, PRIMARY KEY (QuestionID, TeamID), FOREIGN KEY (QuestionID) REFERENCES Questions(QuestionID), FOREIGN KEY (TeamID) REFERENCES Teams(TeamID))')
 print ("(8) QuestionsAnswered Table created successfully");
 
+#Notifcations Table
+cur.execute('CREATE TABLE IF NOT EXISTS Notifications (NotificationID integer PRIMARY KEY AUTOINCREMENT, GamePin integer not null, TeamID int not null, Time datetime not null, Action text not null, FOREIGN KEY (TeamID) REFERENCES Teams(TeamID))')
+print ("(8) Notifications Table created successfully");
+
 cur = con.cursor()
 
 adminModel.adminRegister("Test Keeper", "admin", "admin", "admin") #Ensures the password will be automatically
