@@ -22,8 +22,11 @@
         <a href="/">PlayerHome</a>
         <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
     </div>
-    <h1>Admin Dashboard</h1>
-    <h2> Welcome: {{name}} </h2>
+
+    <div class="boxed">
+        <h1>Admin Dashboard</h1>
+        <p>Welcome: {{name}}. Below are all of the controls to manage the games - the leaderboard will be automatically populated as the teams complete the questions.</p>
+    </div>
     <div id="success" class="alert success">Success: <span></span></div>
     <div id="error" class="alert error">Error: <span></span></div>
 
@@ -32,21 +35,24 @@
         <p id="loadingText">Loading...</p>
     </div>
 
-    <!-- Output the game pin if it exists -->
-    {% if gameStatus == 1 %}
-        <input id="gamePin" type="text" value="Current Game Pin: {{ gamePin }}" disabled>
-        <button id="endGame">End Game</button>
-    {% else %}
-        <input id="gamePin" type="text" value="No Game Running" disabled>
-        <button id="endGame" disabled>End Game</button>
-    {% endif %}
-    <button id="manageConfigs">Manage Exisiting Game Configs</button>
-    <button id="registerAdmin">Register New Admin</button>
-    <button id="changePassword">Change Password</button>
-    <button id="logout">Logout</button>
+    <div id="controls" class="boxed">
+        <h4>Game Controls</h4>
+        <!-- Output the game pin if it exists -->
+        {% if gameStatus == 1 %}
+            <input id="gamePin" type="text" value="Current Game Pin: {{ gamePin }}" disabled>
+            <button id="endGame">End Game</button>
+        {% else %}
+            <input id="gamePin" type="text" value="No Game Running" disabled>
+            <button id="endGame" disabled>End Game</button>
+        {% endif %}
+        <button id="manageConfigs">Manage Exisiting Game Configs</button>
+        <button id="registerAdmin">Register New Admin</button>
+        <button id="changePassword">Change Password</button>
+        <button id="logout">Logout</button>
+    </div>
 
-    <div>
-        <h2>Leaderboard</h2>
+    <div id="leaderboard" class="boxed">
+        <h4>Leaderboard</h4>
     </div>
 
     <div id="configModal" class="modal">

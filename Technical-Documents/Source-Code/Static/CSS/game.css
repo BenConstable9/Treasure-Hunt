@@ -13,3 +13,27 @@
 #noConfigError {
     display: block;
 }
+
+.boxed {
+    margin: 10px;
+}
+
+#controls {
+    float: left;
+    width: 24%;
+    padding: 20px;
+}
+
+#leaderboard {
+    float: right;
+    width: 73%;
+}
+
+.boxed h1, .boxed p {
+    margin: 2px;
+}
+
+.boxed p {
+    margin-top: 10px;
+    color: crimson;
+}
