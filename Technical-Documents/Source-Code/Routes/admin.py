@@ -50,4 +50,8 @@ def logout():
 def getQuestions():
     return gameController.getQuestions()
 
+@admin.route('/admin/notifications', methods=['GET'])
+def getNotifications():
+    return gameController.getNotifications()
+
 

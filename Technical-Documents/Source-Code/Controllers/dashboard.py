@@ -4,6 +4,7 @@ from Models.subjectModel import subjectModel
 from Models.leaderboardModel import leaderboardModel
 from Models.questionModel import questionModel
 from Models.leaderboardModel import leaderboardModel
+from Models.gameModel import gameModel
 from Helpers.utility import escapeInput
 import random
 
@@ -84,9 +85,11 @@ class DashboardController():
         if response["status"] == "1":
             #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
             data = response["data"]
+            gameModel.logAction(gamePin, teamID, "answered question " + questionId + " successfully")
 
             #ajax call to say passed
         else:
+            gameModel.logAction(gamePin, teamID, "attempted to answer question " + questionId + " successfully")
             #ajax call to say failed
             response = {}
         return response

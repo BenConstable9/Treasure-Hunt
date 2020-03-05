@@ -39,18 +39,37 @@ class GameController():
             else:
                 return render_template('game.html',name = keeperName, ID = keeperID, status = subjectResponse["status"],subjectLength = len(subjectResponse["data"]),subjectData = subjectResponse["data"],gameStatus = 1, gamePin = gameResponse[0]["GamePin"])
 
+    """Get the latest notifications for a given game pin.
+    
+    :return: A JSON object full of the latest actions."""
+    def getNotifications(self):
+        if not session.get('adminLoggedIn'):
+            return {'status':'0', 'message':'Not logged in - please refresh and log in again.'}
+        else:
+            #get the variabales out of the session
+
+            keeperID = session.get("keeperID")
+            gameResponse = gameModel.getGames(keeperID, 1)
+            
+            if (len(gameResponse) == 0):
+                return {'status':'0', 'message':'No Game Running'}
+            else:
+                response = gameModel.getNotifications(escapeInput(gameResponse[0]["GamePin"]))
+
+            return response
+
     """Get the questions for the current subject.
     
     :return: Array of questions. """
     def getQuestions(self):
         # Check if logged in
         if not session.get('adminLoggedIn'):
-            return redirect("/admin", code=302)
+            return {'status':'0', 'message':'Not logged in - please refresh and log in again.'}
         else:
             #Get questions from questionModel
             subject = request.args.get('subject')
             response = questionModel.getQuestions(escapeInput(subject))
-        return response
+            return response
 
     """Handle starting of a game by a post request
 

@@ -4,6 +4,7 @@ from Models.subjectModel import subjectModel
 from Models.teamModel import teamModel
 from Models.tutorModel import tutorModel
 from Helpers.utility import escapeInput
+from Models.gameModel import gameModel
 
 # Author - Ben Constable
 # Modified By - Ravi Gohel
@@ -42,6 +43,8 @@ class AuthController():
             session["gamePin"] = response["gamePin"]
             session["subject"] = response["subject"]
             session["tutor"] = response["tutor"]
+
+            gameModel.logAction(gamePin, response["ID"], "registered for the game")
             # Redirect
             return redirect("/dashboard", code=302)
         else:
@@ -65,6 +68,9 @@ class AuthController():
             session["teamID"] = response["ID"]
             session["gamePin"] = response["gamePin"]
             session["subject"] = response["subject"]
+
+            #log the action
+            gameModel.logAction(gamePin, response["ID"], "logged back into the game")
 
             # Redirect
             return redirect("/dashboard", code=302)

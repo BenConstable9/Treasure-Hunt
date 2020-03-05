@@ -13,3 +13,56 @@
 #noConfigError {
     display: block;
 }
+
+.boxed {
+    margin: 10px;
+}
+
+#controls {
+    width: 24%;
+    padding: 20px;
+}
+
+#leaderboard {
+    width: 73%;
+}
+
+#notificationsList {
+    padding: 0;
+    list-style-type: none;
+}
+
+#notificationsList li {
+    padding-bottom: 5px;
+}
+
+.teamName {
+    color: crimson;
+    font-weight: bold;
+}
+
+.boxed h1, .boxed p {
+    margin: 2px;
+}
+
+.boxed p {
+    margin-top: 10px;
+    color: crimson;
+}
+
+.columns {
+    display: flex;
+}
+
+.columnOne {
+    flex: 1;
+}
+
+.columnTwo {
+    flex: 1;
+}
+
+.columnThree {
+    flex: 1;
+}
+

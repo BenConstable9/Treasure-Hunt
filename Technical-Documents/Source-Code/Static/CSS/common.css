@@ -102,7 +102,9 @@ input {
 }
 
 input[type=text]:disabled {
-    color: #fff;
+    background-color: #E8E8E8;
+    color: #666699;
+    font-weight: bold;
 }
 
 .cancel {
@@ -200,13 +202,13 @@ input[type=submit]:hover, button:hover {
     border-radius: 0px 0px 5px 5px;
 }
 
-.modalBody input, .authForm input, .authForm select {
+.modalBody input, .authForm input, .authForm select, .boxed input, .boxed button {
     border-color: #666699;
     color: #666699;
     width: 100%;
 }
 
-.authForm input[type=submit] {
+.authForm input[type=submit], .boxed button {
     color: #fff;
 }
 
@@ -224,20 +226,23 @@ input[type=submit]:hover, button:hover {
   content: ": ";
 }
 
-.authForm h4 {
+.authForm h4, .boxed h4 {
     font-size: 18px;
     color: #666699 !important;
     color:#fff;
     margin: 5px 0px;
 }
 
-.authForm {
+.authForm, .boxed {
     background: rgba(255, 255, 0255, 0.73);
-    margin: 0% 30% 3% 30%;
     border: 2px solid #666699;
     border-radius: 5px;
-    width: 40%;
     padding: 25px;
+}
+
+.authForm {
+    margin: 0% 30% 3% 30%;
+    width: 40%;
 }
 
 @media screen and (max-width:680px) {

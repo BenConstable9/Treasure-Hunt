@@ -213,16 +213,42 @@ document.addEventListener('DOMContentLoaded', function(){
     /* Handles displaying the QR codes
     */
     function createPrintsCallback(response){
-        document.getElementById("questionsModalList").innerHTML = '';
-        //Loops through data from questions and adds a link to QR code for each location
-        for (i = 0; i < response.data.length; i ++) {
-            var x = document.createElement("LI");
-            x.innerHTML = "<a href='/Static/Images/Codes/" + response.data[i].questionID + ".svg' target='_blank'>" + response.data[i].building + "</a>";
-            document.getElementById("questionsModalList").appendChild(x);
+        if (response.status == "0") {
+            showAlert("error", response.message);
+        } else {
+            document.getElementById("questionsModalList").innerHTML = '';
+            //Loops through data from questions and adds a link to QR code for each location
+            for (i = 0; i < response.data.length; i ++) {
+                var x = document.createElement("LI");
+                x.innerHTML = "<a href='/Static/Images/Codes/" + response.data[i].questionID + ".svg' target='_blank'>" + response.data[i].building + "</a>";
+                document.getElementById("questionsModalList").appendChild(x);
+            }
+            //Closes modals
+            document.getElementById("configModal").style.display = "none";
+            document.getElementById("questionsModal").style.display = "block";
         }
-        //Closes modals
-        document.getElementById("configModal").style.display = "none";
-        document.getElementById("questionsModal").style.display = "block";
+    }
+
+    function fetchNotificationsCallback(response) {
+        document.getElementById("notificationsList").innerHTML = "";
+        if (response.status == "0" && response.message != "No Game Running") {
+            showAlert("error", response.message);
+            document.getElementById("notificationsError").style.display = "block";
+        } else if (response.status == "1" && response.data.length > 0) {
+            document.getElementById("notificationsError").style.display = "none";
+            for (i = 0; i < response.data.length; i ++) {
+                var x = document.createElement("LI");
+                x.innerHTML = "<span class='teamName'>" + response.data[i].TeamName + "</span> " + response.data[i].Action + " <span class='teamName'> @ " + response.data[i].Time.split(" ")[1].substring(0,5) + "</span>";
+                document.getElementById("notificationsList").appendChild(x);
+            }
+        } else {
+            //no game running
+            document.getElementById("notificationsError").style.display = "block";
+        }
+    }
+
+    function fetchNotifications() {
+        HTTPGet("/admin/notifications", fetchNotificationsCallback);
     }
 
 
@@ -257,4 +283,8 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById("logout").addEventListener("click", logout);
 
     document.getElementById("cancelQuestionsModal").addEventListener("click", closeQuestionsModal);
+
+    setInterval(function(){ fetchNotifications(); }, 5000);
+
+    fetchNotifications();
 }, false);

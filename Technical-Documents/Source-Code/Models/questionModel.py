@@ -33,7 +33,7 @@ class QuestionModel():
                     response = {'status':'1', 'message':'Question Creation Successfull', 'ID': lastID}
 
                 else:
-                    response = {'status':'0', 'message':'Question Creationn Unsuccessfull - Subject Already Taken', 'ID': '0'}
+                    response = {'status':'0', 'message':'Question Creation Unsuccessfull - Subject Already Taken', 'ID': '0'}
 
         except Exception as e:
             print(e)
