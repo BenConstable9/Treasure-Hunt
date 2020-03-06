@@ -40,7 +40,7 @@ Documentation for using the system can be found in [../Product-Documents/User-Ma
 
 ER Model for the database can be found below:
 
-![ER Model](https://github.com/BenConstable9/Treasure-Hunt/Technical-Documents/Database-Models/ER.png)
+![ER Model](https://github.com/BenConstable9/Treasure-Hunt/blob/master/Technical-Documents/Database-Models/ER.png)
 
 ## Extending the program
 
