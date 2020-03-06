@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', function(){
               box.value = response.data[rowNum].letter
               var ul2 = document.getElementById(response.data[rowNum].building);
               ul2.innerHTML = "<del>"+response.data[rowNum].building+"</del>";
-
             }
+            scanner.stop();
             //todo add the letter and cross off the list
             //get the index and add at the correct index
         }
