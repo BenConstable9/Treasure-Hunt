@@ -21,7 +21,8 @@ document.addEventListener('DOMContentLoaded', function(){
             var box = document.createElement("input");
             box.id = "letter"+response.data[rowNum].building
             box.className = "finalLoc"
-            box.active = false;
+            box.disabled = true;
+            box.size = 1;
             ul2.appendChild(box);
 
           }
