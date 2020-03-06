@@ -4,6 +4,13 @@
 import sqlite3 as sql
 import datetime
 from Models.adminModel import adminModel
+import os
+
+#Delete the orginal database and make a new one
+if os.path.exists("Models/treasure.sqlite"):
+  os.remove("Models/treasure.sqlite")
+else:
+  print('File does not exists')
 
 con = sql.connect('Models/treasure.sqlite')
 print ("Opened database successfully");
@@ -45,7 +52,7 @@ print ("(8) QuestionsAnswered Table created successfully");
 
 #Notifcations Table
 cur.execute('CREATE TABLE IF NOT EXISTS Notifications (NotificationID integer PRIMARY KEY AUTOINCREMENT, GamePin integer not null, TeamID int not null, Time datetime not null, Action text not null, FOREIGN KEY (TeamID) REFERENCES Teams(TeamID))')
-print ("(8) Notifications Table created successfully");
+print ("(9) Notifications Table created successfully");
 
 cur = con.cursor()
 

@@ -21,7 +21,7 @@ class SubjectModel():
 
                 otherSubjects = cur.fetchall()
 
-                #now check the username is not already taken
+                #now check the subject is not already taken
                 if (len(otherSubjects) == 0):
                     #shuld we overwite existing configs>
 
