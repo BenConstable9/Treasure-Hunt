@@ -103,7 +103,7 @@ class QuestionModel():
                 cur.execute("SELECT * FROM Questions WHERE QuestionID=?", questionId)
 
                 question = cur.fetchone()
-                if question["Answer"] == answer:
+                if question["Answer"].casefold() == answer:
                     cur.execute("SELECT * FROM QuestionsAnswered WHERE QuestionID=? AND TeamID=?", (questionId,teamID))
                     result = cur.fetchone()
                     if result is None:

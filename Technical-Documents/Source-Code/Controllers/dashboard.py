@@ -81,7 +81,7 @@ class DashboardController():
         gamePin = session.get('gamePin')
         answer = request.form.get('answer')
         questionId = request.form.get("questionID")
-        response = questionModel.checkAnswer(escapeInput(answer),escapeInput(questionId),escapeInput(teamID) )
+        response = questionModel.checkAnswer(escapeInput(answer.casefold()),escapeInput(questionId),escapeInput(teamID) )
         if response["status"] == "1":
             #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
             data = response["data"]
