@@ -1,5 +1,7 @@
 # Treasure-Hunt
 
+![Python application](https://github.com/BenConstable9/Treasure-Hunt/workflows/Python%20application/badge.svg)
+
 Install pip
 
 Navigate to directory
