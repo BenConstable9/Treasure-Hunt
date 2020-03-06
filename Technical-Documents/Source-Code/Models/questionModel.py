@@ -93,6 +93,30 @@ class QuestionModel():
 
              con.close()
 
+    def getAnswers(self,teamID):
+        print("bigtest the one2")
+        try:
+            # Open the DB
+            with sql.connect("Models/treasure.sqlite") as con:
+                con.row_factory = sql.Row
+                cur = con.cursor()
+
+                cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
+                result = cur.fetchall()
+                if result is not None:
+                    returns = []
+                    for let in result:
+                        returns.append({"letter":let["Letter"], "building":let["Building"]})
+                    response = {'status': '1', 'data': returns}
+                    print("bigtest the one and only")
+        except Exception as e:
+            print(e)
+            response = {'status':'0'}
+        finally:
+            # Return the result
+            return response
+            con.close()
+
     def checkAnswer(self,answer,questionId,teamID):
         try:
             # Open the DB

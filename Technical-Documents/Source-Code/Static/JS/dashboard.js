@@ -4,6 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', function(){
     HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
+    HTTPPost("/dashboard/getAnswers", values = "values", answerQuestionCallback)
 
     function addLocationBlocks(response){
       if (response.status == "0") {
@@ -58,15 +59,16 @@ document.addEventListener('DOMContentLoaded', function(){
             document.getElementById("questionAnswerModal").style.display = "none";
             var ul = document.getElementById("building");
             console.log(response)
+            console.log("test")
             for (rowNum in response.data){
               var box = document.getElementById("letter"+response.data[rowNum].building);
+              console.log(box)
+              console.log(response.data[rowNum].letter);
               box.value = response.data[rowNum].letter
               var ul2 = document.getElementById(response.data[rowNum].building);
               ul2.innerHTML = "<del>"+response.data[rowNum].building+"</del>";
-
             }
-            //todo add the letter and cross off the list
-            //get the index and add at the correct index
+
         }
     }
 

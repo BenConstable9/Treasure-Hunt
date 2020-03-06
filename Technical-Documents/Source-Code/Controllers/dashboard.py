@@ -94,6 +94,20 @@ class DashboardController():
             response = {}
         return response
 
+    def getAnswers(self):
+        print("bigtest the one")
+        teamID = session.get('teamID')
+        response = questionModel.getAnswers(escapeInput(teamID))
+        if response["status"] == "1":
+            #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
+            data = response["data"]
+
+            #ajax call to say passed
+        else:
+            #ajax call to say failed
+            response = {}
+        return response
+
     def getLoc(self):
         subject = session.get('subject')
         response = questionModel.getQuestions(escapeInput(subject))
