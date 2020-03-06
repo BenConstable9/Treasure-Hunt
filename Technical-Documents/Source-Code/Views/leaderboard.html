@@ -31,10 +31,21 @@
   <h1>Leaderboard</h1>
 
   <table id="leaderboardTable" align="center">
-    <tr id = "titleRow">
+    <thead>
+      <tr>
       <th>Rank</th>
       <th>Team Name</th>
       <th>Number of Letters Collected</th>
     </tr>
+  </thead>
+  <tbody>
+      {% for leaderboardRow in leaderboardData %}
+      <tr>
+        {% for value in leaderboardRow.values() %}
+        <td>{{ value }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+  </tbody>
   </table>
   </body>
