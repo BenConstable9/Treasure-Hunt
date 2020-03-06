@@ -4,6 +4,7 @@ import json
 import hashlib
 import random
 import pyqrcode
+import datetime
 from Models.subjectModel import subjectModel
 from Models.tutorModel import tutorModel
 from Models.questionModel import questionModel
@@ -15,6 +16,63 @@ from Helpers.utility import escapeInput, makeRowDictionary
 class GameModel():
     def __init__(self):
         pass
+
+    """Log an action for the admin to see.
+
+    :param gamePin: The game you are currently playing.
+
+    :param teamID: The team which is logging the action.
+
+    :param action: A string describing the action they have just done. """
+    def logAction(self, gamePin, teamID, action):
+        # Try the SQL
+        try:
+            # Open the DB
+            with sql.connect("Models/treasure.sqlite") as con:
+                cur = con.cursor()
+
+                # Insert the action
+                cur.execute("INSERT INTO Notifications (GamePin,TeamID,Time,Action) VALUES (?,?,?,?)",(gamePin,teamID,datetime.datetime.now(),action))
+
+                con.commit()
+
+        except Exception as e:
+            print(e)
+
+        finally:
+
+            con.close()
+
+    """Get the latest actions for the admin.
+    
+    :param gamePin: The game pin of the game they are monitoring.
+    
+    :return: A dictionary of data to be returned via ajax. """
+    def getNotifications(self, gamePin):
+        try:
+            # Open the DB
+            with sql.connect("Models/treasure.sqlite") as con:
+                #map the column names to the values returned
+                con.row_factory = makeRowDictionary
+                cur = con.cursor()
+
+                #Get all of the notifications
+                cur.execute("SELECT * FROM Notifications INNER JOIN Teams ON Notifications.TeamID = Teams.TeamID WHERE Notifications.GamePin=? ORDER BY Time DESC LIMIT 15", (gamePin,))
+
+                results = cur.fetchall()
+
+                response = {'status':'1', 'data':results}
+
+        except Exception as e:
+            print(e)
+            response = {'status':'0', 'message':'BAD - Unsuccessful'}
+
+        finally:
+
+            # Return the result
+            return response
+
+            con.close()
 
     """Handle creating of a game.
 

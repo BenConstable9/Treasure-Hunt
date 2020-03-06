@@ -4,6 +4,70 @@
 */
 
 document.addEventListener('DOMContentLoaded', function(){
+
+  /* Handle the response from changing admin password */
+    function changePasswordCallback(response) {
+        if (response.status == "0") {
+            //incorrect response
+            showAlert("changePasswordModalError", "Error in Changing Password - not the same");
+        } else {
+            showAlert("success", "Password change successfully");
+            var passwordForm = document.forms["changePassword"];
+            passwordForm.reset();
+            document.getElementById("changePasswordModal").style.display = "none";
+            console.log(response);
+          }
+        }
+
+    function changePassword(e){
+      e.preventDefault();
+      //validate the password
+      var password1 = document.forms["changePassword"]["password1"].value;
+      var password2 = document.forms["changePassword"]["password2"].value;
+      var id = document.forms["changePassword"]["ID"].value;
+      if (password1 == password2 && password1.length >= 1){
+        //send off the request
+        HTTPPost("/admin/game/changePassword", "password1=" + password1 + "&password2=" + password2 + "&ID=" + id, changePasswordCallback)
+      }
+      else if (password1.length ==0 || password2.length ==0){
+        showAlert("changePasswordModalError", "Error in Changing Password - Empty Password Input")
+      }
+      else{
+        showAlert("changePasswordModalError", "Error in Changing Password - Not The Same");
+      }
+    }
+
+  /* Handle the response from registering new admin */
+    function registerAdminCallback(response) {
+        if (response.status == "1") {
+            //incorrect response
+            showAlert("success", "New admin registered successfully")
+            var registerForm = document.forms["registerAdmin"]
+            registerForm.reset();
+            document.getElementById("registerAdminModal").style.display = "none";
+            console.log(response)
+        } else {
+          showAlert("adminRegisterModalError", "Error in registering");
+          }
+        }
+
+    function registerAdmin(e){
+      e.preventDefault();
+      //validate the password
+      var name = document.forms["registerAdmin"]["name"].value;
+      var username = document.forms["registerAdmin"]["username"].value;
+      var password1 = document.forms["registerAdmin"]["password1"].value;
+      var password2 = document.forms["registerAdmin"]["password2"].value;
+      if (password1 == password2 && password1.length >= 1 && name.length >= 1 && username.length >= 1){
+        //send off the request
+        HTTPPost("/admin/game/register", "password1=" + password1 + "&password2=" + password2 + "&name=" + name + "&username=" + username, registerAdminCallback)
+      }
+      else{
+        showAlert("registerAdminModalError", "Error in your registration");
+      }
+    }
+
+
     /* Handle the callback from creating a game
 
         :param response: The response from the request
@@ -90,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function(){
         :param response: The response from the request
     */
     function handleUploadCallback(response) {
+        document.getElementById("loadingContainer").style.display = "none";
         if (response.status == "1") {
             showAlert("success", response.message);
 
@@ -129,6 +194,8 @@ document.addEventListener('DOMContentLoaded', function(){
         //stop a page reload
         e.preventDefault();
 
+        document.getElementById("loadingContainer").style.display = "block";
+
         //create the form data and send it off
         var form = document.forms["configUpload"];
         var formData = new FormData();
@@ -148,37 +215,41 @@ document.addEventListener('DOMContentLoaded', function(){
     /* Handle opening of a modal
     */
     function openConfigModal() {
-        //close registerAdminModel if opening
-        document.getElementById("registerAdminModel").style.display = "none";
-        document.getElementById("changePasswordModel").style.display = "none";
+        //close registerAdminModal if opening
+        document.getElementById("registerAdminModal").style.display = "none";
+        document.getElementById("changePasswordModal").style.display = "none";
         //open it
         document.getElementById("configModal").style.display = "block";
     }
 
     /* Handle the closing of a modal
     */
-    function closeRegisterAdminModel(e) {
+    function closeRegisterAdminModal(e) {
         e.preventDefault();
+        var registerForm = document.forms["registerAdmin"];
+        registerForm.reset();
         //close it
-        document.getElementById("registerAdminModel").style.display = "none";
+        document.getElementById("registerAdminModal").style.display = "none";
     }
 
     /* Handle opening of a modal
     */
-    function openRegisterAdminModel() {
+    function openRegisterAdminModal() {
         //close configModal if open
         document.getElementById("configModal").style.display = "none";
-        document.getElementById("changePasswordModel").style.display = "none";
+        document.getElementById("changePasswordModal").style.display = "none";
         //open registerAdmin form
-        document.getElementById("registerAdminModel").style.display = "block";
+        document.getElementById("registerAdminModal").style.display = "block";
     }
 
     /* Handle the closing of a modal
     */
-    function closeChangePasswordModel(e) {
+    function closeChangePasswordModal(e) {
         e.preventDefault();
+        var passwordForm = document.forms["changePassword"]
+        passwordForm.reset();
         //close it
-        document.getElementById("changePasswordModel").style.display = "none";
+        document.getElementById("changePasswordModal").style.display = "none";
     }
 
     /* Handle the closing of a modal
@@ -191,12 +262,12 @@ document.addEventListener('DOMContentLoaded', function(){
 
     /* Handle opening of a modal
     */
-    function openChangePasswordModel() {
-        //close registerAdminModel if opening
-        document.getElementById("registerAdminModel").style.display = "none";
+    function openChangePasswordModal() {
+        //close registerAdminModal if opening
+        document.getElementById("registerAdminModal").style.display = "none";
         document.getElementById("configModal").style.display = "none";
         //open it
-        document.getElementById("changePasswordModel").style.display = "block";
+        document.getElementById("changePasswordModal").style.display = "block";
     }
 
     /* Handle submission of clicking print QR codes
@@ -210,17 +281,42 @@ document.addEventListener('DOMContentLoaded', function(){
     /* Handles displaying the QR codes
     */
     function createPrintsCallback(response){
-        console.log(response);
-        document.getElementById("questionsModalList").innerHTML = '';
-        //Loops through data from questions and adds a link to QR code for each location
-        for (i = 0; i < response.data.length; i ++) {
-            var x = document.createElement("LI");
-            x.innerHTML = "<a href='/Static/Images/Codes/" + response.data[i].questionID + ".svg' target='_blank'>" + response.data[i].building + "</a>";
-            document.getElementById("questionsModalList").appendChild(x);
+        if (response.status == "0") {
+            showAlert("error", response.message);
+        } else {
+            document.getElementById("questionsModalList").innerHTML = '';
+            //Loops through data from questions and adds a link to QR code for each location
+            for (i = 0; i < response.data.length; i ++) {
+                var x = document.createElement("LI");
+                x.innerHTML = "<a href='/Static/Images/Codes/" + response.data[i].questionID + ".svg' target='_blank'>" + response.data[i].building + "</a>";
+                document.getElementById("questionsModalList").appendChild(x);
+            }
+            //Closes modals
+            document.getElementById("configModal").style.display = "none";
+            document.getElementById("questionsModal").style.display = "block";
         }
-        //Closes modals
-        document.getElementById("configModal").style.display = "none";
-        document.getElementById("questionsModal").style.display = "block";
+    }
+
+    function fetchNotificationsCallback(response) {
+        document.getElementById("notificationsList").innerHTML = "";
+        if (response.status == "0" && response.message != "No Game Running") {
+            showAlert("error", response.message);
+            document.getElementById("notificationsError").style.display = "block";
+        } else if (response.status == "1" && response.data.length > 0) {
+            document.getElementById("notificationsError").style.display = "none";
+            for (i = 0; i < response.data.length; i ++) {
+                var x = document.createElement("LI");
+                x.innerHTML = "<span class='teamName'>" + response.data[i].TeamName + "</span> " + response.data[i].Action + " <span class='teamName'> @ " + response.data[i].Time.split(" ")[1].substring(0,5) + "</span>";
+                document.getElementById("notificationsList").appendChild(x);
+            }
+        } else {
+            //no game running
+            document.getElementById("notificationsError").style.display = "block";
+        }
+    }
+
+    function fetchNotifications() {
+        HTTPGet("/admin/notifications", fetchNotificationsCallback);
     }
 
 
@@ -242,17 +338,25 @@ document.addEventListener('DOMContentLoaded', function(){
 
     document.getElementById("manageConfigs").addEventListener("click", openConfigModal);
 
-    document.getElementById("registerAdmin").addEventListener("click",openRegisterAdminModel);
+    document.getElementById("registerAdmin").addEventListener("click",openRegisterAdminModal);
 
-    document.forms["registerAdmin"]["cancel"].addEventListener("click", closeRegisterAdminModel);
+    document.forms["registerAdmin"]["cancel"].addEventListener("click", closeRegisterAdminModal);
 
-    document.getElementById("changePassword").addEventListener("click",openChangePasswordModel);
+    document.forms["registerAdmin"]["signUp"].addEventListener("click",registerAdmin);
 
-    document.forms["changePassword"]["cancel"].addEventListener("click", closeChangePasswordModel);
+    document.getElementById("changePassword").addEventListener("click",openChangePasswordModal);
+
+    document.forms["changePassword"]["cancel"].addEventListener("click", closeChangePasswordModal);
+
+    document.forms["changePassword"]["submit"].addEventListener("click",changePassword);
 
     document.getElementById("endGame").addEventListener("click", endGame);
 
     document.getElementById("logout").addEventListener("click", logout);
 
     document.getElementById("cancelQuestionsModal").addEventListener("click", closeQuestionsModal);
+
+    setInterval(function(){ fetchNotifications(); }, 5000);
+
+    fetchNotifications();
 }, false);

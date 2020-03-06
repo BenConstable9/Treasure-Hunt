@@ -15,7 +15,7 @@ body {
     background-size: cover;
     background-attachment: fixed;
     margin: 0;
-    }
+}
 
 h1{
     margin-top: 25px;
@@ -47,6 +47,41 @@ h2{
     background-color: crimson;
 }
 
+#loadingContainer {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    padding-top: 30%;
+    top: 0;
+    left: 0;
+    z-index: 10001;
+    background-color: #666699;
+    text-align: center;
+    display: none;
+}
+
+#loadingWheel {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #666699;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-left: auto ;
+    margin-right: auto ;
+}
+
+#loadingText {
+    color: #fff;
+    font-size: 26px;
+    font-style: italic;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 input[type=text], input[type=password], input[type=file], select {
     padding: 12px 20px;
     margin: 8px 0;
@@ -67,7 +102,9 @@ input {
 }
 
 input[type=text]:disabled {
-    color: #fff;
+    background-color: #E8E8E8;
+    color: #666699;
+    font-weight: bold;
 }
 
 .cancel {
@@ -79,13 +116,13 @@ input[type=text]:disabled {
 }
 
 input[type=submit], button {
-  background-color: #666699;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    background-color: #666699;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 input[type=submit]:hover, button:hover {
@@ -97,35 +134,35 @@ input[type=submit]:hover, button:hover {
 }
 
 .collapsible {
-  color: white;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
 }
 .row::after {
-  content: "";
-  clear: both;
-  display: table;
+    content: "";
+    clear: both;
+    display: table;
 }
 .column{
-  float:left;
-  width:50%;
-  padding:5px;
+    float:left;
+    width:50%;
+    padding:5px;
 }
 
 .active, .collapsible:hover {
-  background-color: #8282c2;
+    background-color: #8282c2;
 }
 
 .content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color:  azure;
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color:  azure;
 }
 
 
@@ -161,17 +198,17 @@ input[type=submit]:hover, button:hover {
 .modalFooter {
     padding: 20px;
     text-align: right;
-    background-color: #f9f9f9;
+    background-color: #E8E8E8;
     border-radius: 0px 0px 5px 5px;
 }
 
-.modalBody input, .authForm input, .authForm select {
+.modalBody input, .authForm input, .authForm select, .boxed input, .boxed button {
     border-color: #666699;
     color: #666699;
     width: 100%;
 }
 
-.authForm input[type=submit] {
+.authForm input[type=submit], .boxed button {
     color: #fff;
 }
 
@@ -189,20 +226,23 @@ input[type=submit]:hover, button:hover {
   content: ": ";
 }
 
-.authForm h4 {
+.authForm h4, .boxed h4 {
     font-size: 18px;
     color: #666699 !important;
     color:#fff;
     margin: 5px 0px;
 }
 
-.authForm {
+.authForm, .boxed {
     background: rgba(255, 255, 0255, 0.73);
-    margin: 0% 30% 3% 30%;
     border: 2px solid #666699;
     border-radius: 5px;
-    width: 40%;
     padding: 25px;
+}
+
+.authForm {
+    margin: 0% 30% 3% 30%;
+    width: 40%;
 }
 
 @media screen and (max-width:680px) {

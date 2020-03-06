@@ -26,6 +26,11 @@
     <div id="success" class="alert success">Success: <span></span></div>
     <div id="error" class="alert error">Error: <span></span></div>
 
+    <div id="loadingContainer">
+        <div id="loadingWheel"></div>
+        <p id="loadingText">Loading...</p>
+    </div>
+
     <h2>Building:</h2>
     <ul id = "building" style="display:inline;">
     </ul>
@@ -58,7 +63,12 @@
             <h2>Scan QR Code</h2>
         </div>
         <div class="modalBody">
-            <video id="preview"></video>
+            <center>
+                <video id="preview"></video>
+            </center>
+        </div>
+        <div class="modalFooter">
+            <button id="closeScanModal" class="cancel">Cancel</button>
         </div>
     </div>
 

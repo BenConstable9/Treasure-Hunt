@@ -1,3 +1,7 @@
 #openScanModal {
     cursor: pointer;
 }
+
+.finalLoc {
+max-width: 5%
+}

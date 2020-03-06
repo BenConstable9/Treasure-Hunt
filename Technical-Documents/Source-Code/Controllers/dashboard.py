@@ -4,6 +4,7 @@ from Models.subjectModel import subjectModel
 from Models.leaderboardModel import leaderboardModel
 from Models.questionModel import questionModel
 from Models.leaderboardModel import leaderboardModel
+from Models.gameModel import gameModel
 from Helpers.utility import escapeInput
 import random
 
@@ -56,8 +57,14 @@ class DashboardController():
         return render_template('leaderboard.html')
 
     def leaderboardData(self):
+        #get current game pin
         gamePin = session.get('gamePin')
-        return leaderboardModel.obtainResults(gamePin)
+
+        #get the leaderboard data from the DB
+        leaderboardResponse = leaderboardModel.obtainResults(gamePin)
+
+        #render html
+        return render_template('leaderboard.html', name = leaderboardResponse[0]["TeamName"], noOfLetters = len(leaderboardResponse[3]["letters"]))
 
     def openMap(self):
         if not session.get('loggedIn'):
@@ -80,13 +87,15 @@ class DashboardController():
         gamePin = session.get('gamePin')
         answer = request.form.get('answer')
         questionId = request.form.get("questionID")
-        response = questionModel.checkAnswer(escapeInput(answer),escapeInput(questionId),escapeInput(teamID) )
+        response = questionModel.checkAnswer(escapeInput(answer.casefold()),escapeInput(questionId),escapeInput(teamID) )
         if response["status"] == "1":
             #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
             data = response["data"]
+            gameModel.logAction(gamePin, teamID, "answered question " + questionId + " successfully")
 
             #ajax call to say passed
         else:
+            gameModel.logAction(gamePin, teamID, "attempted to answer question " + questionId + " successfully")
             #ajax call to say failed
             response = {}
         return response

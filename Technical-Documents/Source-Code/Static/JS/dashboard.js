@@ -3,25 +3,7 @@
 */
 
 document.addEventListener('DOMContentLoaded', function(){
-    /* Handles the QR code scanning */
-    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-    scanner.addListener('scan', function (content) {
-        //once scanned, send data to verifyLocation
-        verifyLocation(content);
-    });
-    Instascan.Camera.getCameras().then(function (cameras) {
-        if (cameras.length > 0) {
-            //always start the first camera
-            scanner.start(cameras[0]);
-        } else {
-            //give them an error
-            showAlert("error", "No Camera Installed - Check Your Settings");
-        }
-    }).catch(function (e) {
-        showAlert("error", e);
-    });
-
-HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
+    HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
 
     function addLocationBlocks(response){
       if (response.status == "0") {
@@ -30,7 +12,7 @@ HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
       } else {
           var ul = document.getElementById("Locations");
           var ul2 = document.getElementById("building")
-          console.log(response)
+
           for (rowNum in response.data){
             var li = document.createElement("li");
             li.id = response.data[rowNum].building
@@ -38,6 +20,9 @@ HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
             ul.appendChild(li);
             var box = document.createElement("input");
             box.id = "letter"+response.data[rowNum].building
+            box.className = "finalLoc"
+            box.disabled = true;
+            box.size = 1;
             ul2.appendChild(box);
 
           }
@@ -78,8 +63,8 @@ HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
               box.value = response.data[rowNum].letter
               var ul2 = document.getElementById(response.data[rowNum].building);
               ul2.innerHTML = "<del>"+response.data[rowNum].building+"</del>";
-
             }
+            scanner.stop();
             //todo add the letter and cross off the list
             //get the index and add at the correct index
         }
@@ -98,13 +83,51 @@ HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
         }
     }
 
+    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+    scanner.addListener('scan', function (content) {
+        //once scanned, send data to verifyLocation
+        verifyLocation(content);
+    });
+
+    scanner.addListener('active', function (content) {
+        document.getElementById("loadingContainer").style.display = "none";
+    });
+
     /*toggles bettween displaying and hiding the scan model*/
     function flipScanModel(e){
-      if (document.getElementById("scanModal").style.display === "block"){
-        document.getElementById("scanModal").style.display = "none";
-      }else{
-        document.getElementById("scanModal").style.display = "block"
-      }
+        if (document.getElementById("scanModal").style.display === "block"){
+            document.getElementById("scanModal").style.display = "none";
+            Instascan.Camera.getCameras().then(function (cameras) {
+            if (cameras.length > 0) {
+                //stop the camera
+                scanner.stop();
+            } else {
+                //give them an error
+                showAlert("error", "No Camera Installed - Check Your Settings");
+            }
+            }).catch(function (e) {
+                showAlert("error", e);
+            });
+        }else{
+            document.getElementById("loadingContainer").style.display = "block";
+            document.getElementById("scanModal").style.display = "block";
+            /* Handles the QR code scanning */
+            Instascan.Camera.getCameras().then(function (cameras) {
+            if (cameras.length == 1) {
+                //always start the first camera
+                scanner.start(cameras[0]);
+            } else if (cameras.length > 1) {
+                //always start the first camera
+                scanner.start(cameras[1]);
+            } else {
+                //give them an error
+                showAlert("error", "No Camera Installed - Check Your Settings");
+            }
+            }).catch(function (e) {
+                document.getElementById("loadingContainer").style.display = "none";
+                showAlert("error", e);
+            });
+        }
     }
 
     /* Handle the closing of a modal
@@ -122,7 +145,7 @@ HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
         document.getElementById("scanModal").style.display = "block";
     }
 
-    /*document.getElementById("closeScanModal").addEventListener("click", flipScanModel);*/
+    document.getElementById("closeScanModal").addEventListener("click", flipScanModel);
 
     document.getElementById("flipScanModel").addEventListener("click", flipScanModel);
 

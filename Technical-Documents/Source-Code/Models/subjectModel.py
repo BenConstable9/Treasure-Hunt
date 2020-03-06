@@ -21,7 +21,7 @@ class SubjectModel():
 
                 otherSubjects = cur.fetchall()
 
-                #now check the username is not already taken
+                #now check the subject is not already taken
                 if (len(otherSubjects) == 0):
                     #shuld we overwite existing configs>
 
@@ -36,7 +36,7 @@ class SubjectModel():
                     response = {'status':'1', 'message':'Subject Creation Successfull', 'ID': lastID}
 
                 else:
-                    response = {'status':'0', 'message':'Subject Creation Unsuccessfull - Name Already Taken. Please Delete Subject Then Try Again.', 'ID': '0'}
+                    response = {'status':'0', 'message':'Subject Creation Unsuccessful - Name Already Taken. Please Delete Subject Then Try Again.', 'ID': '0'}
 
         except Exception as e:
             print(e)

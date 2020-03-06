@@ -34,11 +34,11 @@ def gameEnd():
 def uploadFile():
     return gameController.uploadFile()
 
-@admin.route('/admin/register', methods=['POST'])
+@admin.route('/admin/game/register', methods=['POST'])
 def registerAdmin():
     return adminAuthController.adminRegister()
 
-@admin.route('/admin/changePassword', methods=['POST'])
+@admin.route('/admin/game/changePassword', methods=['POST'])
 def changePassword():
     return adminAuthController.adminChangePassword()
 
@@ -50,4 +50,6 @@ def logout():
 def getQuestions():
     return gameController.getQuestions()
 
-
+@admin.route('/admin/notifications', methods=['GET'])
+def getNotifications():
+    return gameController.getNotifications()

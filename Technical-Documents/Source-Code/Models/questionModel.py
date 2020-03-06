@@ -33,7 +33,7 @@ class QuestionModel():
                     response = {'status':'1', 'message':'Question Creation Successfull', 'ID': lastID}
 
                 else:
-                    response = {'status':'0', 'message':'Question Creationn Unsuccessfull - Subject Already Taken', 'ID': '0'}
+                    response = {'status':'0', 'message':'Question Creationn Unsuccessful - Subject Already Taken', 'ID': '0'}
 
         except Exception as e:
             print(e)
@@ -82,7 +82,7 @@ class QuestionModel():
                  returns = []
 
                  for question in questions:
-                     returns.append({"questionID":question["QuestionID"],"question":question["Question"], "answer":question["Answer"], "building":question["Building"],"letter":question["Letter"],"latitude":question["Latitude"],"longitude":question["Longitude"]})
+                     returns.append({"questionID":question["QuestionID"],"question":question["Question"], "answer":question["Answer"], "building":question["Building"],"letter":question["Letter"],"latitude":question["Latitude"],"longitude":question["Longitude"],"qrLocation":question["QRLocation"]})
                  response = {'status': '1', 'data': returns}
          except Exception as e:
              print(e)
@@ -103,7 +103,7 @@ class QuestionModel():
                 cur.execute("SELECT * FROM Questions WHERE QuestionID=?", questionId)
 
                 question = cur.fetchone()
-                if question["Answer"] == answer:
+                if question["Answer"].casefold() == answer:
                     cur.execute("SELECT * FROM QuestionsAnswered WHERE QuestionID=? AND TeamID=?", (questionId,teamID))
                     result = cur.fetchone()
                     if result is None:
