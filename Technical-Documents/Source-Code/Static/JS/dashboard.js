@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', function(){
             ul.appendChild(li);
             var box = document.createElement("input");
             box.id = "letter"+response.data[rowNum].building
+            box.className = "finalLoc"
+            box.active = false;
             ul2.appendChild(box);
 
           }

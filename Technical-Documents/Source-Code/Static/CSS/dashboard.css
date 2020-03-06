@@ -1,3 +1,8 @@
 #openScanModal {
     cursor: pointer;
 }
+
+.finalLoc {
+  Active: false;
+  size : 1;
+}
