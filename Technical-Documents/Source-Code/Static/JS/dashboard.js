@@ -4,7 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', function(){
     HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
-    HTTPPost("/dashboard/getAnswers", values = "values", answerQuestionCallback)
+    HTTPPost("/dashboard/getAnswers", values = "values", answersCallback)
 
     function addLocationBlocks(response){
       if (response.status == "0") {
@@ -51,11 +51,35 @@ document.addEventListener('DOMContentLoaded', function(){
 
     /* Handle the response from answering a question */
     function answerQuestionCallback(response) {
+      console.log(response)
         if (response.status == "0") {
+          console.log("testestetst")
             //incorrect response
             showAlert("questionAnswerModalError", "Incorrect Answer - Try Again");
         } else {
+            console.log("inside the else")
             showAlert("success", "Question Answer Successfully")
+            document.getElementById("questionAnswerModal").style.display = "none";
+            var ul = document.getElementById("building");
+            console.log(response)
+            console.log("test")
+            for (rowNum in response.data){
+              var box = document.getElementById("letter"+response.data[rowNum].building);
+              console.log(box)
+              console.log(response.data[rowNum].letter);
+              box.value = response.data[rowNum].letter
+              var ul2 = document.getElementById(response.data[rowNum].building);
+              ul2.innerHTML = "<del>"+response.data[rowNum].building+"</del>";
+            }
+
+        }
+    }
+
+    function answersCallback(response) {
+        if (response.status == "0") {
+            //incorrect response
+
+        } else {
             document.getElementById("questionAnswerModal").style.display = "none";
             var ul = document.getElementById("building");
             console.log(response)

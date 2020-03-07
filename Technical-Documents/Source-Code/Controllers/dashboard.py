@@ -83,15 +83,17 @@ class DashboardController():
         questionId = request.form.get("questionID")
         response = questionModel.checkAnswer(escapeInput(answer.casefold()),escapeInput(questionId),escapeInput(teamID) )
         if response["status"] == "1":
+
             #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
             data = response["data"]
             gameModel.logAction(gamePin, teamID, "answered question " + questionId + " successfully")
 
             #ajax call to say passed
         else:
+            print("status was not 1")
             gameModel.logAction(gamePin, teamID, "attempted to answer question " + questionId + " successfully")
             #ajax call to say failed
-            response = {}
+
         return response
 
     def getAnswers(self):

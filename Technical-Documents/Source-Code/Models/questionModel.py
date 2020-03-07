@@ -94,7 +94,6 @@ class QuestionModel():
              con.close()
 
     def getAnswers(self,teamID):
-        print("bigtest the one2")
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
@@ -108,7 +107,7 @@ class QuestionModel():
                     for let in result:
                         returns.append({"letter":let["Letter"], "building":let["Building"]})
                     response = {'status': '1', 'data': returns}
-                    print("bigtest the one and only")
+
         except Exception as e:
             print(e)
             response = {'status':'0'}
@@ -128,22 +127,26 @@ class QuestionModel():
 
                 question = cur.fetchone()
                 if question["Answer"].casefold() == answer:
+
                     cur.execute("SELECT * FROM QuestionsAnswered WHERE QuestionID=? AND TeamID=?", (questionId,teamID))
                     result = cur.fetchone()
                     if result is None:
 
                         cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?,1010-10-10)", (questionId,teamID))
 
-                cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
+                        cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
 
-                res = cur.fetchall()
+                        res = cur.fetchall()
 
-                if res is not None:
-                    returns = []
-                    for let in res:
+                    if res is not None:
+                        returns = []
+                        for let in res:
 
-                        returns.append({"letter":let["Letter"], "building":let["Building"]})
+                            returns.append({"letter":let["Letter"], "building":let["Building"]})
                         response = {'status': '1', 'data': returns}
+                else:
+                    print("they are not equal")
+                    response = {'status':'0'}
         except Exception as e:
             print(e)
             response = {'status':'0'}
