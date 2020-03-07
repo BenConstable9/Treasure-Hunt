@@ -24,7 +24,6 @@ class TeamModel():
 
                 # See if the game pin is valid
                 cur.execute("SELECT * FROM Games WHERE GamePin=? AND Active=?", (int(gamePin),1))
-                print(cur)
 
                 game = cur.fetchone()
 
@@ -54,7 +53,6 @@ class TeamModel():
                             response = {'status':'0', 'message':message, 'ID': '0'}
                         else:
                             # Insert the team data
-                            print (teamName, gamePin, subject, tutorID)
                             cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID,TutorID) VALUES (?,?,?,?)",(teamName,gamePin,subject,tutorID) )
 
                             con.commit()
@@ -97,7 +95,6 @@ class TeamModel():
                 cur.execute("SELECT * FROM Teams WHERE GamePin=? AND TeamName=?", (gamePin,teamName))
 
                 team = cur.fetchone()
-                print(team)
 
                 # Check the game pin
                 if (team is not None):
