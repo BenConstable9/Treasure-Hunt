@@ -68,7 +68,8 @@ class TeamModel():
                 else:
                     response = {'status':'0', 'message':'Team Registration Unsuccessful - Game Pin Invalid', 'ID': '0'}
 
-        except:
+        except Exception as e:
+            print(e)
             con.rollback()
 
             response = {'status':'0', 'message':'Team Registration Unsuccessful - Check All Values', 'ID': '0'}

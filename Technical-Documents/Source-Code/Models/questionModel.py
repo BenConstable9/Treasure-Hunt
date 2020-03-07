@@ -1,4 +1,6 @@
 from flask import request,json
+from Helpers.utility import makeRowDictionary
+import datetime
 import sqlite3 as sql
 
 # Author - Ravi Gohel
@@ -20,7 +22,7 @@ class QuestionModel():
 
                 subjects = cur.fetchall()
 
-                #now check the username is not already taken
+                #now check the subject is in the db
                 if (len(subjects) == 1):
                     # Insert the team data
                     cur.execute("INSERT INTO Questions (SubjectID,Building,QRLocation,QRText,Question,Answer,Letter,LetterIndex,Longitude,Latitude) VALUES (?,?,?,?,?,?,?,?,?,?)",(subjectID,building,QRLocation,QRText,question,answer,letter,letterIndex,longitude,latitude) )
@@ -33,7 +35,7 @@ class QuestionModel():
                     response = {'status':'1', 'message':'Question Creation Successfull', 'ID': lastID}
 
                 else:
-                    response = {'status':'0', 'message':'Question Creationn Unsuccessful - Subject Already Taken', 'ID': '0'}
+                    response = {'status':'0', 'message':'Question Creation Unsuccessful - Subject Not In DB', 'ID': '0'}
 
         except Exception as e:
             print(e)
@@ -48,17 +50,18 @@ class QuestionModel():
 
     def verifyLocation(self, subjectID, qRText):
         try:
-            print(qRText)
             with sql.connect("Models/treasure.sqlite") as con:
                 con.row_factory = sql.Row
                 cur =  con.cursor()
                 cur.execute("SELECT * FROM Questions WHERE QRText=?",(str(qRText),))
 
-                question =  cur.fetchone()
+                questions =  cur.fetchall()
+                print(questions)
 
-                if (len(question) == 0):
+                if (len(questions) == 0):
                     response = {'status':'0', 'message':'Invalid QR Code - try scanning again.'}
                 else:
+                    question = questions[0]
                     response = {'status':'1','message':'QR Code Valid - You Have A New Question.', 'QuestionID': question['QuestionID'], 'Building': question['Building'],'Question': question['Question']}
 
         except Exception as e:
@@ -97,18 +100,21 @@ class QuestionModel():
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
-                con.row_factory = sql.Row
+                con.row_factory = makeRowDictionary
                 cur = con.cursor()
 
-                cur.execute("SELECT * FROM Questions WHERE QuestionID=?", questionId)
+                cur.execute("SELECT * FROM Questions WHERE QuestionID=?", (questionId,))
 
                 question = cur.fetchone()
-                if question["Answer"].casefold() == answer:
+
+                if str(question["Answer"].casefold()) == str(answer.casefold()):
+
                     cur.execute("SELECT * FROM QuestionsAnswered WHERE QuestionID=? AND TeamID=?", (questionId,teamID))
                     result = cur.fetchone()
                     if result is None:
 
-                        cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?,1010-10-10)", (questionId,teamID))
+                        cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?,?)", (questionId,teamID,datetime.datetime.now()))
+                        con.commit()
 
                 cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
 
@@ -119,7 +125,7 @@ class QuestionModel():
                     for let in res:
 
                         returns.append({"letter":let["Letter"], "building":let["Building"]})
-                        response = {'status': '1', 'data': returns}
+                response = {'status': '1', 'data': returns}
         except Exception as e:
             print(e)
             response = {'status':'0'}

@@ -23,7 +23,7 @@ class TestSubjectModel:
         gameModel.endGame("1")
         game = gameModel.createGame("1", "1")
         response = subjectModel.verifyPin(str(game["GamePin"]))
-        assert response["subject"] == "Computer Science"
+        assert response["subject"] == "Test Subject"
 
     """Test Get Building"""
     def testGetBuilding(self):
