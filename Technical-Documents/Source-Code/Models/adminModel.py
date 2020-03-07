@@ -23,7 +23,6 @@ class AdminModel():
             # Open the database
             with sql.connect("Models/treasure.sqlite") as con:
                 cur = con.cursor()
-
                 # See if the username exists
                 cur.execute("SELECT * FROM Keepers WHERE Username=?", (username,))
 
@@ -31,8 +30,6 @@ class AdminModel():
 
                 #now check the username is not already taken
                 if (len(otherKeepers) == 0):
-                    print ("LEN: ", len(otherKeepers))
-
                     if password1 != password2:
                         response = {'status':'0', 'message':'Game Keeper Registration Unsuccessful - Password Do Not Match', 'ID': '0'}
                     else:
@@ -68,7 +65,6 @@ class AdminModel():
             response = {'status':'0', 'message':'Game Keeper Registration Unsuccessful', 'ID': '0'}
 
         finally:
-            print (response)
             return response
 
             con.close()

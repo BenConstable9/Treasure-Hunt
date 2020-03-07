@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function(){
             document.getElementById("changePasswordModal").style.display = "none";
             console.log(response);
           }
-        }
+    }
 
     function changePassword(e){
       e.preventDefault();
@@ -39,17 +39,17 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* Handle the response from registering new admin */
     function registerAdminCallback(response) {
-        if (response.status == "1") {
-            //incorrect response
-            showAlert("success", "New admin registered successfully")
-            var registerForm = document.forms["registerAdmin"]
-            registerForm.reset();
-            document.getElementById("registerAdminModal").style.display = "none";
-            console.log(response)
-        } else {
-          showAlert("adminRegisterModalError", "Error in registering");
-          }
+      if (response.status == "1") {
+          //incorrect response
+          showAlert("success", "New admin registered successfully")
+          var registerForm = document.forms["registerAdmin"]
+          registerForm.reset();
+          document.getElementById("registerAdminModal").style.display = "none";
+      }
+      else {
+        showAlert("adminRegisterModalError", "Error in registering");
         }
+    }
 
     function registerAdmin(e){
       e.preventDefault();

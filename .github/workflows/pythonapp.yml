@@ -36,3 +36,4 @@ jobs:
         pip install pytest
         cd Technical-Documents/Source-Code
         pytest
+        python dbinstall.py
