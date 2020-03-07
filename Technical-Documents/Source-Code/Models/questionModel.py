@@ -2,6 +2,7 @@ from flask import request,json
 import sqlite3 as sql
 
 # Author - Ravi Gohel
+#Edited - zach lavender - geting and checking answers
 # MVC Model for handling user pin
 
 class QuestionModel():

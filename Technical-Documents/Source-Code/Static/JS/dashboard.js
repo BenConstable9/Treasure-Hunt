@@ -1,5 +1,7 @@
 /* Author - Ben Constable
    Handle the dashboard functionality
+
+   edite - Zach Lavender - adding the locatio blocks, getting answers and checking question answers
 */
 
 document.addEventListener('DOMContentLoaded', function(){
