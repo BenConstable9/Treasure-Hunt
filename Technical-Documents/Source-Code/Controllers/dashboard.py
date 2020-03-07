@@ -9,6 +9,7 @@ from Helpers.utility import escapeInput
 import random
 
 # Author - Ben Constable
+# Edited - Zach lavender geting location oepning map, geting and checking answers
 # MVC Controller for the home page
 class DashboardController():
 
@@ -89,13 +90,29 @@ class DashboardController():
         questionId = request.form.get("questionID")
         response = questionModel.checkAnswer(escapeInput(answer.casefold()),escapeInput(questionId),escapeInput(teamID) )
         if response["status"] == "1":
+
             #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
             data = response["data"]
             gameModel.logAction(gamePin, teamID, "answered question " + questionId + " successfully")
 
             #ajax call to say passed
         else:
+            print("status was not 1")
             gameModel.logAction(gamePin, teamID, "attempted to answer question " + questionId + " successfully")
+            #ajax call to say failed
+
+        return response
+
+    def getAnswers(self):
+        print("bigtest the one")
+        teamID = session.get('teamID')
+        response = questionModel.getAnswers(escapeInput(teamID))
+        if response["status"] == "1":
+            #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
+            data = response["data"]
+
+            #ajax call to say passed
+        else:
             #ajax call to say failed
             response = {}
         return response

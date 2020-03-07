@@ -4,6 +4,7 @@ import datetime
 import sqlite3 as sql
 
 # Author - Ravi Gohel
+#Edited - zach lavender - geting and checking answers
 # MVC Model for handling user pin
 
 class QuestionModel():
@@ -96,6 +97,29 @@ class QuestionModel():
 
              con.close()
 
+    def getAnswers(self,teamID):
+        try:
+            # Open the DB
+            with sql.connect("Models/treasure.sqlite") as con:
+                con.row_factory = sql.Row
+                cur = con.cursor()
+
+                cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
+                result = cur.fetchall()
+                if result is not None:
+                    returns = []
+                    for let in result:
+                        returns.append({"letter":let["Letter"], "building":let["Building"]})
+                    response = {'status': '1', 'data': returns}
+
+        except Exception as e:
+            print(e)
+            response = {'status':'0'}
+        finally:
+            # Return the result
+            return response
+            con.close()
+
     def checkAnswer(self,answer,questionId,teamID):
         try:
             # Open the DB
@@ -108,7 +132,6 @@ class QuestionModel():
                 question = cur.fetchone()
 
                 if str(question["Answer"].casefold()) == str(answer.casefold()):
-
                     cur.execute("SELECT * FROM QuestionsAnswered WHERE QuestionID=? AND TeamID=?", (questionId,teamID))
                     result = cur.fetchone()
                     if result is None:
@@ -116,16 +139,19 @@ class QuestionModel():
                         cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?,?)", (questionId,teamID,datetime.datetime.now()))
                         con.commit()
 
-                cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
+                        cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
 
-                res = cur.fetchall()
+                        res = cur.fetchall()
 
-                if res is not None:
-                    returns = []
-                    for let in res:
+                    if res is not None:
+                        returns = []
+                        for let in res:
 
-                        returns.append({"letter":let["Letter"], "building":let["Building"]})
-                response = {'status': '1', 'data': returns}
+                            returns.append({"letter":let["Letter"], "building":let["Building"]})
+                        response = {'status': '1', 'data': returns}
+                else:
+                    response = {'status':'0'}
+
         except Exception as e:
             print(e)
             response = {'status':'0'}

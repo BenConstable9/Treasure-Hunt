@@ -63,8 +63,12 @@ def fetchPins():
     return mapController.getPins()
 
 @front.route('/dashboard/question', methods=['POST'])
-def checkAnswer():
+def checkAnswers():
     return dashboardController.checkAnswer()
+
+@front.route('/dashboard/getAnswers', methods=['POST'])
+def getAnswer():
+    return dashboardController.getAnswers()
 
 @front.route('/dashboard/getLoc', methods=['POST'])
 def getLoc():
@@ -77,4 +81,3 @@ def fetchLeaderboard():
 @front.route('/dashboard/leaderboard/data',methods=['GET'])
 def fetchLeaderboardData():
     return dashboardController.leaderboardData()
-
