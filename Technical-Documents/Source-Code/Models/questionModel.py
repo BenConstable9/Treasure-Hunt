@@ -117,6 +117,37 @@ class QuestionModel():
             return response
             con.close()
 
+    def checkComplete(teamID):
+        try:
+            # Open the DB
+            with sql.connect("Models/treasure.sqlite") as con:
+                con.row_factory = sql.Row
+                cur = con.cursor()
+
+                cur.execute("SELECT * FROM Teams Inner Join Subjects ON Teams.TeamID = Subjects.TeamID WHERE TeamID=?", teamID)
+
+                Subject = cur.fetchone()
+                building = Subject["Building"]
+
+                cur.execute("SELECT * FROM Results where teamID =?",teamID)
+                results = cur.fetchone()
+                numLetters = results["Letters"]
+
+                if building.length() == numLetters:
+                    cur.execute("SELECT * FROM Teams Inner Join Tutors ON Teams.TeamID = Tutors.TeamID WHERE TeamID=?", teamID)
+                    results = cur.fetchone()
+                    room = results["Room"]
+                    return {'status': '1', 'room': room}
+                else:
+                    return {'status':'0'}
+        except Exception as e:
+            print(e)
+            return {'status':'0'}
+        finally:
+            # Return the result
+
+            con.close()
+
     def checkAnswer(self,answer,questionId,teamID):
         try:
             # Open the DB
@@ -132,19 +163,28 @@ class QuestionModel():
                     cur.execute("SELECT * FROM QuestionsAnswered WHERE QuestionID=? AND TeamID=?", (questionId,teamID))
                     result = cur.fetchone()
                     if result is None:
-
+                        cur.execute("UPDATE Results SET Letters = Letters + 1 Where TeamID = ?",(teamID))
                         cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?,1010-10-10)", (questionId,teamID))
 
                         cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
 
                         res = cur.fetchall()
 
-                    if res is not None:
-                        returns = []
-                        for let in res:
+                        if res is not None:
 
-                            returns.append({"letter":let["Letter"], "building":let["Building"]})
-                        response = {'status': '1', 'data': returns}
+                            returns = []
+                            for let in res:
+
+                                returns.append({"letter":let["Letter"], "building":let["Building"]})
+                            won = checkComplete(TeamID)
+                            if won["status"] == '0':
+                                response = {'status': '2', 'data': returns, 'room' : won["room"]}
+                            else:
+                                response = {'status': '1', 'data': returns}
+                        else:
+                            response = {'status':'0'}
+                    else:
+                        response = {'status':'0'}
                 else:
                     print("they are not equal")
                     response = {'status':'0'}

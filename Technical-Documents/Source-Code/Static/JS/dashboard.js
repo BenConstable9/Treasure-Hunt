@@ -55,11 +55,9 @@ document.addEventListener('DOMContentLoaded', function(){
     function answerQuestionCallback(response) {
       console.log(response)
         if (response.status == "0") {
-          console.log("testestetst")
             //incorrect response
             showAlert("questionAnswerModalError", "Incorrect Answer - Try Again");
         } else {
-            console.log("inside the else")
             showAlert("success", "Question Answer Successfully")
             document.getElementById("questionAnswerModal").style.display = "none";
             var ul = document.getElementById("building");
@@ -73,7 +71,10 @@ document.addEventListener('DOMContentLoaded', function(){
               var ul2 = document.getElementById(response.data[rowNum].building);
               ul2.innerHTML = "<del>"+response.data[rowNum].building+"</del>";
             }
-
+            if (response.status == 2){
+              console.log("THE GAME IS DONE")
+              document.getElementById("roomNum").innerHTML = response.room;
+            }
         }
     }
 
