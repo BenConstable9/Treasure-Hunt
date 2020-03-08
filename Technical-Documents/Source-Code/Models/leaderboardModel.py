@@ -15,13 +15,13 @@ class leaderboardModel():
             with sql.connect("Models/treasure.sqlite") as con:
                 con.row_factory = sql.Row
                 cur = con.cursor()
-                cur.execute("SELECT Letters FROM Results WHERE TeamID=?", (int(TeamID)))
+                cur.execute("SELECT Letters FROM Results WHERE TeamID=?", (int(teamID)))
 
                 row = cur.fetchone()
                 if row is not None:
                     numOfLetters = row["Letters"]
                     numOfLetters +=1
-                    cur.execute("UPDATE Results SET Letters =? WHERE TeamID=?", (int(numOfLetters)),(int(TeamID)))
+                    cur.execute("UPDATE Results SET Letters =? WHERE TeamID=?", (int(numOfLetters)),(int(teamID)))
 
                 response = {'status': '1'}
         except Exception as e:

@@ -34,4 +34,6 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest
-        pytest
+        cd Technical-Documents/Source-Code
+        python -m pytest 
+        python dbinstall.py

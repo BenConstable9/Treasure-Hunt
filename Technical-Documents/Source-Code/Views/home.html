@@ -22,7 +22,6 @@
 
     <h1>Welcome To the University of Exeter Freshers Treasure Hunt</h1>
     <!-- If an error is returned then output it -->
-
     {% if status == "0" %}
         <div class="error"><p>{{ message }}</p></div>
     {% endif %}
@@ -48,7 +47,7 @@
         <input type="text" name="GamePin" placeholder="Enter Game Pin">
         <input type="submit" name="Login" value="Login">
     </form>
-    
+
         <script>
         function handleSection(response){
           console.log(response)

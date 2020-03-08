@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function(){
     function answersCallback(response) {
         if (response.status == "0") {
             //incorrect response
-
+            showAlert("error", "Issue Loading");
         } else {
             document.getElementById("questionAnswerModal").style.display = "none";
             var ul = document.getElementById("building");
@@ -95,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function(){
               var ul2 = document.getElementById(response.data[rowNum].building);
               ul2.innerHTML = "<del>"+response.data[rowNum].building+"</del>";
             }
-
         }
     }
 

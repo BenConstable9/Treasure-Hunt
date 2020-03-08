@@ -8,6 +8,13 @@ class TutorModel():
     def __init__(self):
         pass
 
+    """Create a tutor for a given subject
+    
+    :param subjectID: The subjectID for the tutor.
+    :param name: The name of the tutor to be added.
+    :param room: The room the tutor will be located in.
+
+    :return:  A JSON array with status."""
     def createTutor(self, subjectID, name, room):
         # Try the SQL
         try:
@@ -57,6 +64,7 @@ class TutorModel():
                     listOfTutorIDs.append(tutor[0])
                     listOfTutorNames.append(tutor[2])
 
+                #return the list to the user
                 response = {'status':'1', 'message':'Obtained tutors', 'tutorIDs':listOfTutorIDs, 'tutorNames':listOfTutorNames}
 
 
