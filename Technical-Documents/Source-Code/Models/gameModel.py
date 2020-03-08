@@ -163,7 +163,7 @@ class GameModel():
 
     :param subjectID: The subject to generate the QR codes for.
 
-    :return: The list of QR codes. """
+    :return: A json response with details of the success. """
     def genQRCodes(self, subjectID):
         try:
             #Open the DB
@@ -192,6 +192,53 @@ class GameModel():
             return response
 
             con.close()
+
+
+
+
+
+
+
+
+
+    """Handle the deletion of a subject
+
+    :param subjectID: The subject to be deleted.
+
+    :return: A json response with details of the success."""
+    def deleteSubject(self, subejctID):
+        try:
+            #Open the DB
+            with sql.connect("Models/treasure.sqlite") as con:
+                #Map the column names to the values returned
+                con.row_factory = makeRowDictionary
+                cur = con.cursor()
+
+                #Delete the subject from the table
+                cur.execute("DELETE FROM Questions WHERE SubjectID=?", (subjectID))
+
+                response = {'status':'1', 'message':'Subject deleted'}
+
+        except Exception as e:
+            print(e)
+            response = {'status':'0', 'message':'BAD - Unsuccessful'}
+
+        finally:
+
+            # Return the result
+            return response
+
+            con.close()
+
+
+
+
+
+
+
+
+
+
 
     """Handle the ending of a game
 

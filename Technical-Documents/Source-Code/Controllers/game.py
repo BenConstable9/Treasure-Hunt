@@ -90,6 +90,31 @@ class GameController():
 
         return gameModel.endGame(keeperID)
 
+
+
+
+
+
+
+
+
+    """Handle deleting of a subject by a post request
+
+    :return: A redirect or a template. """
+    def deleteSubject(self):
+        #get the data from the session
+        subjectID = session.get("subjectID")
+
+        return gameModel.deleteSubject(subjectID)
+
+
+
+
+
+
+
+
+
     """Handle ending of a game by a post request
 
     :param filename: The name of the file being uploaded

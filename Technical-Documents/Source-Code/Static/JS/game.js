@@ -171,22 +171,41 @@ document.addEventListener('DOMContentLoaded', function(){
             //convert to a format to store
             buttonJSON = JSON.stringify(response);
 
+
+
+
+
+
+
+
+
             //add the cells
             row.insertCell(0).innerHTML = response.SubjectID;
             row.insertCell(1).innerHTML = response.SubjectName;
             row.insertCell(2).innerHTML = response.Building;
             row.insertCell(3).innerHTML = '<button id="create' + response.SubjectID + '" class="createGameButton">Create Game</button>';
             row.insertCell(4).innerHTML = '<button id="print' + response.SubjectID + '" class="printQRCode">Print QR Codes</button>';
+            row.insertCell(5).innerHTML = '<button id="delete' + response.SubjectID + '" class="deleteSubjectButton">Delete Subject</button>';
 
             //add the event listeners
             document.getElementById('create' + response.SubjectID).addEventListener("click", createGame);
             document.getElementById('create' + response.SubjectID).dataset.json = buttonJSON;
             document.getElementById('print' + response.SubjectID).addEventListener("click", createPrints);
             document.getElementById('print' + response.SubjectID).dataset.json = buttonJSON;
+            document.getElementById('delete' + response.SubjectID).addEventListener("click", deleteSubject);
+            document.getElementById('delete' + response.SubjectID).dataset.json = buttonJSON;
         } else {
             showAlert("error", response.message);
         }
     }
+
+
+
+
+
+
+
+    
 
     /* Handle the submission of the game form
     */
@@ -320,6 +339,49 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
 
+
+
+
+
+
+
+
+    function deleteSubject(){
+        //stop a page reload
+        e.preventDefault();
+
+        document.getElementById("loadingContainer").style.display = "block";
+        HTTPPost("/admin/game/end", "", deleteSubjectCallback)
+    }
+
+    /* Handle the callback from ending a game
+
+        :param response: The response from the request
+    */
+    function deleteSubjectCallback(response) {
+        if (response.status == "1") {
+            //let the users use the buttons again
+            document.getElementById('gamePin').value = "No Game Running";
+            creates = document.getElementsByClassName('createGameButton');
+            for (i = 0; i < creates.length; i ++) {
+                creates[i].disabled = false;
+            }
+
+            //show message
+            showAlert("success", response.message);
+            document.getElementById("endGame").disabled = true;
+        } else {
+            showAlert("error", response.message);
+        }
+    }
+
+
+
+
+
+
+
+
     //add the event listeners
 
     creates = document.getElementsByClassName('createGameButton');
@@ -355,6 +417,8 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById("logout").addEventListener("click", logout);
 
     document.getElementById("cancelQuestionsModal").addEventListener("click", closeQuestionsModal);
+
+    document.getElementsByClassName('deleteSubjectButton').addEventListener("click", deleteSubject);
 
     setInterval(function(){ fetchNotifications(); }, 5000);
 
