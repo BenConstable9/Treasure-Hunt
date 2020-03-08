@@ -168,7 +168,7 @@ input[type=submit]:hover, button:hover {
     padding: 0 18px;
     display: none;
     overflow: hidden;
-    background-color:  azure;
+    background: rgba(255, 255, 0255, 0.73);
 }
 
 

@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
     <script type="text/javascript" src="{{url_for('static',filename='JS/ajax.js')}}"> </script>
+    <script type="text/javascript" src="{{url_for('static',filename='JS/common.js')}}"> </script>
     <script type="text/javascript" src="{{url_for('static',filename='JS/home.js')}}"> </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -14,11 +15,12 @@
     <title>Home</title>
 </head>
 <body>
-    <div class="topnav">
-        <a href="/admin">Admin Login</a>
+    <div class="topnav" id="myTopnav">
         <a class ="active">Home</a>
         <a href="/dashboard/faqs">Useful Information</a>
+        <a href="/admin">Admin Login</a>
         <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+        <a class="icon" onclick="showResponsiveMenu()">&#9776;</a>
     </div>
 
     <h1>Welcome To the University of Exeter Freshers Treasure Hunt</h1>
