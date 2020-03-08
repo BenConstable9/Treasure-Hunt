@@ -1,5 +1,6 @@
 from flask import request,json
 import sqlite3 as sql
+import re
 
 # Author - Ben Constable, Debugged with - Ravi Gohel
 # Modified By - Ravi
@@ -43,6 +44,10 @@ class TeamModel():
 
                         if (len(teamName) == 0):
                             message = message + " Team Name is empty - "
+                            toBreak = True
+
+                        if (teamName.isalpha() == False):
+                            message = message + " Only Letters and No Spaces- "
                             toBreak = True
 
                         if (tutorID == "None"):
