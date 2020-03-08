@@ -120,24 +120,27 @@ class QuestionModel():
             return response
             con.close()
 
-    def checkComplete(teamID):
+    def checkComplete(self, teamID):
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
                 con.row_factory = sql.Row
                 cur = con.cursor()
-
-                cur.execute("SELECT * FROM Teams Inner Join Subjects ON Teams.TeamID = Subjects.TeamID WHERE TeamID=?", teamID)
-
+                print("Check")
+                cur.execute("SELECT * FROM Teams Inner Join Subjects ON Teams.SubjectID = Subjects.SubjectID WHERE TeamID=?", (teamID,))
+                print("Check")
                 Subject = cur.fetchone()
+                print("Check")
                 building = Subject["Building"]
-
-                cur.execute("SELECT * FROM Results where teamID =?",teamID)
+                print("Check")
+                cur.execute("SELECT * FROM Results where TeamID=?", (teamID,))
+                print("Check")
                 results = cur.fetchone()
+                print("Check")
                 numLetters = results["Letters"]
-
+                print("Check")
                 if building.length() == numLetters:
-                    cur.execute("SELECT * FROM Teams Inner Join Tutors ON Teams.TeamID = Tutors.TeamID WHERE TeamID=?", teamID)
+                    cur.execute("SELECT * FROM Teams Inner Join Tutors ON Teams.TeamID = Tutors.TeamID WHERE TeamID=?", (teamID,))
                     results = cur.fetchone()
                     room = results["Room"]
                     return {'status': '1', 'room': room}
@@ -161,37 +164,44 @@ class QuestionModel():
                 cur.execute("SELECT * FROM Questions WHERE QuestionID=?", (questionId,))
 
                 question = cur.fetchone()
-
+                print("CHECK CALL")
+                print(question["Answer"].casefold())
+                print(answer.casefold())
                 if str(question["Answer"].casefold()) == str(answer.casefold()):
+                    print("CHECK CALL")
                     cur.execute("SELECT * FROM QuestionsAnswered WHERE QuestionID=? AND TeamID=?", (questionId,teamID))
                     result = cur.fetchone()
+                    print("CHECK CALL")
                     if result is None:
-                        cur.execute("UPDATE Results SET Letters = Letters + 1 Where TeamID = ?",(teamID))
+                        print("nONE")
+                        cur.execute("UPDATE Results SET Letters = Letters + 1 Where TeamID = ?",(teamID,))
+                        print("CHECK CALL")
                         cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?,1010-10-10)", (questionId,teamID))
+                    print("CHECK CALL")
+                    cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
 
-                        cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
+                    res = cur.fetchall()
+                    print("CHECK CALL")
+                    if res is not None:
 
-                        res = cur.fetchall()
+                        returns = []
+                        for let in res:
 
-                        if res is not None:
-
-                            returns = []
-                            for let in res:
-
-                                returns.append({"letter":let["Letter"], "building":let["Building"]})
-                            won = checkComplete(TeamID)
-                            if won["status"] == '0':
-                                response = {'status': '2', 'data': returns, 'room' : won["room"]}
-                            else:
-                                response = {'status': '1', 'data': returns}
+                            returns.append({"letter":let["Letter"], "building":let["Building"]})
+                        print("its here")
+                        won = self.checkComplete(teamID)
+                        print("its here")
+                        if won["status"] == '0':
+                            response = {'status': '2', 'data': returns, 'room' : won["room"]}
                         else:
-                            response = {'status':'0'}
-                    else:
-                        response = {'status':'0'}
+                            response = {'status': '1', 'data': returns}
                 else:
+
+                    print("if3")
                     response = {'status':'0'}
 
         except Exception as e:
+            print("it failed")
             print(e)
             response = {'status':'0'}
         finally:
