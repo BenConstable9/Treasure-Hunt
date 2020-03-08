@@ -24,7 +24,13 @@ h1{
 }
 h2{
     text-align:center;
-    color:#fff;
+    color:#666699;
+}
+
+hr {
+    border: 1px solid #666699;
+    border-radius: 5px;
+    margin: 15px 0px;
 }
 
 .alert {
@@ -240,7 +246,7 @@ input[type=submit]:hover, button:hover {
     padding: 25px;
 }
 
-.authForm {
+.authForm, #locationsBox {
     margin: 0% 30% 3% 30%;
     width: 40%;
 }
@@ -248,7 +254,7 @@ input[type=submit]:hover, button:hover {
 @media screen and (max-width:680px) {
     /* change the modals */
 
-    .authForm {
+    .authForm, #locationsBox {
         padding: 10px;
         margin: 5% auto;
         width: 90%;

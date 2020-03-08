@@ -134,6 +134,6 @@ class DashboardController():
     def requestHelp(self):
         teamID = session.get('teamID')
         gamePin = session.get('gamePin')
-        gameModel.logAction(gamePin, teamID, "requested help. Meet them at final location.")
+        gameModel.logAction(gamePin, teamID, "requested help. Meet them at starting location.")
 
 dashboardController=DashboardController()

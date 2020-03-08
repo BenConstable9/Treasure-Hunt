@@ -110,6 +110,13 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
+    /* Send Help Request */
+    function helpRequest() {
+        //send notification and show banner
+        showAlert("success", "Help Request | Make Way To Starting Location");
+        HTTPGet("/dashboard/help", null)
+    }
+
     let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
     scanner.addListener('scan', function (content) {
         //once scanned, send data to verifyLocation
@@ -171,6 +178,8 @@ document.addEventListener('DOMContentLoaded', function(){
         //open it
         document.getElementById("scanModal").style.display = "block";
     }
+
+    document.getElementById("help").addEventListener("click", helpRequest);
 
     document.getElementById("closeScanModal").addEventListener("click", flipScanModel);
 
