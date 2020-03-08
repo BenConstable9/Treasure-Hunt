@@ -34,6 +34,8 @@
     border-color: #666699;
     color: #666699;
     background: rgba(255, 255, 0255, 0.73);
+    padding: 10px 5px;
+    margin: 2px;
 }
 @media screen and (max-width:680px) {
     /* change the modals */
