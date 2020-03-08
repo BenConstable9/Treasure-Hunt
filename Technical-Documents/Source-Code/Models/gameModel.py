@@ -206,7 +206,8 @@ class GameModel():
     :param subjectID: The subject to be deleted.
 
     :return: A json response with details of the success."""
-    def deleteSubject(self, subejctID):
+    def deleteSubject(self, subjectID):
+        print(subjectID)
         try:
             #Open the DB
             with sql.connect("Models/treasure.sqlite") as con:

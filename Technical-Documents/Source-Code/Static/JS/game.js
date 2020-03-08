@@ -345,13 +345,15 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
-
-    function deleteSubject(){
+    /* Send off a request to delete a subject
+    */
+    function deleteSubject(e){
         //stop a page reload
         e.preventDefault();
-
+        subjectID = JSON.parse(this.dataset.json.replace(/'/g, '"')).SubjectID;
+        console.log("Subject ID:",subjectID);
         document.getElementById("loadingContainer").style.display = "block";
-        HTTPPost("/admin/game/end", "", deleteSubjectCallback)
+        HTTPPost("/admin/deleteSubject", subjectID, deleteSubjectCallback)
     }
 
     /* Handle the callback from ending a game
@@ -359,27 +361,18 @@ document.addEventListener('DOMContentLoaded', function(){
         :param response: The response from the request
     */
     function deleteSubjectCallback(response) {
-
-        //
-        //Copied from endgame NEED TO EDIT
-        //
+        document.getElementById("loadingContainer").style.display = "none";
         if (response.status == "1") {
-            //let the users use the buttons again
-            document.getElementById('gamePin').value = "No Game Running";
-            creates = document.getElementsByClassName('createGameButton');
-            for (i = 0; i < creates.length; i ++) {
-                creates[i].disabled = false;
-            }
+            document.getElementById("loadingContainer").style.display = "none";
+            //Display message telling user to upload a config
+            document.getElementById("configTable").style.display = "none";
+            document.getElementById('noConfigError').style.display = "block";
 
             //show message
             showAlert("success", response.message);
-            document.getElementById("").disabled = true;
         } else {
             showAlert("error", response.message);
         }
-        //
-        //
-        //
     }
 
 
@@ -399,6 +392,11 @@ document.addEventListener('DOMContentLoaded', function(){
     prints = document.getElementsByClassName('printQRCode');
     for (i = 0; i < prints.length; i ++) {
         prints[i].addEventListener("click", createPrints)
+    }
+
+    deletes = document.getElementsByClassName('deleteSubjectButton');
+    for (i = 0; i < deletes.length; i ++) {
+        deletes[i].addEventListener("click", deleteSubject)
     }
 
     document.forms["configUpload"]["upload"].addEventListener("click", handleUpload);
@@ -425,7 +423,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     document.getElementById("cancelQuestionsModal").addEventListener("click", closeQuestionsModal);
 
-    document.getElementsByClassName('deleteSubjectButton').addEventListener("click", deleteSubject);
+    //document.getElementsByClassName('deleteSubjectButton').addEventListener("click", deleteSubject);
 
     setInterval(function(){ fetchNotifications(); }, 5000);
 

@@ -103,9 +103,7 @@ class GameController():
     :return: A redirect or a template. """
     def deleteSubject(self):
         #get the data from the session
-        subjectID = session.get("subjectID")
-
-        return gameModel.deleteSubject(subjectID)
+        return gameModel.deleteSubject(request)
 
 
 
