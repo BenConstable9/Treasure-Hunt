@@ -88,7 +88,7 @@ class DashboardController():
         gamePin = session.get('gamePin')
         answer = request.form.get('answer')
         questionId = request.form.get("questionID")
-        response = questionModel.checkAnswer(escapeInput(answer.casefold()),escapeInput(questionId),escapeInput(teamID) )
+        response = questionModel.checkAnswer(escapeInput(answer),escapeInput(questionId),escapeInput(teamID) )
         if response["status"] == "1":
 
             #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
@@ -129,4 +129,11 @@ class DashboardController():
         else:
             data = {"status" == "0"}
             return data
+
+    """Request Help From Moderator"""
+    def requestHelp(self):
+        teamID = session.get('teamID')
+        gamePin = session.get('gamePin')
+        gameModel.logAction(gamePin, teamID, "requested help. Meet them at final location.")
+
 dashboardController=DashboardController()
