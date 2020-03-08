@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
-    
+
 
     /* Handle the submission of the game form
     */
@@ -359,6 +359,10 @@ document.addEventListener('DOMContentLoaded', function(){
         :param response: The response from the request
     */
     function deleteSubjectCallback(response) {
+
+        //
+        //Copied from endgame NEED TO EDIT
+        //
         if (response.status == "1") {
             //let the users use the buttons again
             document.getElementById('gamePin').value = "No Game Running";
@@ -369,10 +373,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
             //show message
             showAlert("success", response.message);
-            document.getElementById("endGame").disabled = true;
+            document.getElementById("").disabled = true;
         } else {
             showAlert("error", response.message);
         }
+        //
+        //
+        //
     }
 
 
