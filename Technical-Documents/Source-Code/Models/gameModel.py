@@ -210,14 +210,12 @@ class GameModel():
         try:
             #Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
-                #Map the column names to the values returned
-                con.row_factory = makeRowDictionary
                 cur = con.cursor()
 
                 #Delete the subject from the table
                 cur.execute("DELETE FROM Questions WHERE SubjectID=?", (subjectID))
 
-                response = {'status':'1', 'message':'Subject deleted'}
+                response = {'status':'1', 'message':'Subject deleted successfully'}
 
         except Exception as e:
             print(e)
