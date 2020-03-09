@@ -5,7 +5,6 @@ from Models.leaderboardModel import leaderboardModel
 from Models.questionModel import questionModel
 from Models.leaderboardModel import leaderboardModel
 from Models.gameModel import gameModel
-from Models.teamModel import teamModel
 from Helpers.utility import escapeInput
 import random
 
@@ -66,7 +65,8 @@ class DashboardController():
         leaderboardResponse = leaderboardModel.obtainResults(gamePin)
 
         #render html
-        return render_template('leaderboard.html', name = leaderboardResponse[0]["TeamName"], noOfLetters = len(leaderboardResponse[3]["letters"]))
+        print(leaderboardResponse[0]["TeamName"])
+        return render_template('leaderboard.html', name = leaderboardResponse[0]["TeamName"], noOfLetters = leaderboardResponse[1]["Letters"])
 
     def openMap(self):
         if not session.get('loggedIn'):
@@ -137,11 +137,5 @@ class DashboardController():
         teamID = session.get('teamID')
         gamePin = session.get('gamePin')
         gameModel.logAction(gamePin, teamID, "requested help. Meet them at starting location.")
-
-
-    """Allow the team to Logout """
-    def teamLogout(self):
-        response = teamModel.teamLogout()
-        return response
 
 dashboardController=DashboardController()

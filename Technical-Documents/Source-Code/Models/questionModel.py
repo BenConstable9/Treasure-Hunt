@@ -1,6 +1,7 @@
 from flask import request,json
 from Helpers.utility import makeRowDictionary
 import datetime
+from Models.leaderboardModel import leaderboardModel
 import sqlite3 as sql
 
 # Author - Ravi Gohel
@@ -173,15 +174,14 @@ class QuestionModel():
                     result = cur.fetchone()
                     print("CHECK CALL")
                     if result is None:
-                        print("nONE")
-                        cur.execute("UPDATE Results SET Letters = Letters + 1 Where TeamID = ?",(teamID,))
-                        print("CHECK CALL")
-                        cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?,1010-10-10)", (questionId,teamID))
-                    print("CHECK CALL")
-                    cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
 
-                    res = cur.fetchall()
-                    print("CHECK CALL")
+                        cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?,?)", (questionId,teamID,datetime.datetime.now()))
+                        con.commit()
+                        leaderboardModel.addLetter(teamID)
+                        cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
+
+                        res = cur.fetchall()
+
                     if res is not None:
 
                         returns = []

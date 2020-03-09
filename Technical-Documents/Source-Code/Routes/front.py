@@ -89,3 +89,7 @@ def fetchLeaderboardData():
 @front.route('/dashboard/help',methods=['GET'])
 def requestHelp():
     return dashboardController.requestHelp()
+
+@front.route('/dashboard/results', methods=['GET'])
+def getResults():
+    return dashboardController.leaderboardData()
