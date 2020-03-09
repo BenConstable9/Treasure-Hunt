@@ -62,6 +62,10 @@ def fetchMap():
 def logout():
     return dashboardController.teamLogout()
 
+@front.route('/dashboard/privacypolicy', methods=['GET'])
+def fetchPrivacyPolicy():
+    return dashboardController.privacyPolicy()
+
 @front.route('/getPins',methods=['GET'])
 def fetchPins():
     return mapController.getPins()
@@ -82,9 +86,9 @@ def getLoc():
 def fetchLeaderboard():
     return dashboardController.leaderboard()
 
-@front.route('/dashboard/leaderboard/data',methods=['GET'])
-def fetchLeaderboardData():
-    return dashboardController.leaderboardData()
+#@front.route('/dashboard/leaderboard/data',methods=['GET'])
+#def fetchLeaderboardData():
+#ß    return dashboardController.leaderboardData()
 
 @front.route('/dashboard/help',methods=['GET'])
 def requestHelp():
