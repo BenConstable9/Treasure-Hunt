@@ -127,22 +127,17 @@ class QuestionModel():
             with sql.connect("Models/treasure.sqlite") as con:
                 con.row_factory = makeRowDictionary
                 cur = con.cursor()
-                print("Check")
                 cur.execute("SELECT * FROM Teams Inner Join Subjects ON Teams.SubjectID = Subjects.SubjectID WHERE TeamID=?", (teamID,))
-                print("Check")
                 Subject = cur.fetchone()
-                print("Check")
                 building = Subject["Building"]
-                print("Check")
                 cur.execute("SELECT * FROM Results where TeamID=?", (teamID,))
-                print("it output none")
                 results = cur.fetchone()
-                print("Check")
                 numLetters = results["Letters"]
-                print("Check")
                 if len(building) == numLetters:
                     cur.execute("SELECT * FROM Teams Inner Join Tutors ON Teams.TutorID = Tutors.TutorID WHERE TeamID=?", (teamID,))
                     results = cur.fetchone()
+                    cur.execute("UPDATE Results SET FinishTime = ? WHERE TeamID = ?",(datetime.datetime.now(),teamID))
+                    cur.commit()
                     room = results["Room"]
                     return {'status': '1', 'room': room}
                 else:
