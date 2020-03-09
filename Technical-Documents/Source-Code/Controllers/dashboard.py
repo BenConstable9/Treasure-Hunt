@@ -5,6 +5,7 @@ from Models.leaderboardModel import leaderboardModel
 from Models.questionModel import questionModel
 from Models.leaderboardModel import leaderboardModel
 from Models.gameModel import gameModel
+from Models.teamModel import teamModel
 from Helpers.utility import escapeInput
 import random
 
@@ -53,7 +54,7 @@ class DashboardController():
 
     def faq(self):
         return render_template('FAQs.html')
-        
+
     def privacyPolicy(self):
         return render_template('privacypolicy.html')
 
@@ -142,4 +143,9 @@ class DashboardController():
         gamePin = session.get('gamePin')
         gameModel.logAction(gamePin, teamID, "requested help. Meet them at starting location.")
 
+
+    """Allow the team to Logout """
+    def teamLogout(self):
+        response = teamModel.teamLogout()
+        return response
 dashboardController=DashboardController()
