@@ -23,10 +23,15 @@
 
 
 <body>
-  <div class="topnav">
-  <a href="/dashboard">Back</a>
-  <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
-  </div>
+<div class="topnav" id = "myTopnav">
+    <a href="/dashboard"> Home</a>
+    <a href="/dashboard/map">Map</a>
+    <a class = "active">Leaderboard</a>
+    <a href="/dashboard/faqs">FAQ's</a>
+    <a href="/dashboard/privacypolicy">Privacy Policy</a>
+    <image id="logo" src="{{url_for('static',filename='Images/UniLogo.png')}}"></image>
+    <a class="icon" onclick="showResponsiveMenu()">&#9776;</a>
+</div>
 
   <h1>Leaderboard</h1>
 

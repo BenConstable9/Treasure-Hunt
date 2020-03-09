@@ -34,7 +34,6 @@ hr {
 }
 
 .alert {
-    width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     border-radius: 5px;
@@ -51,6 +50,10 @@ hr {
 .error {
     border: 1px solid crimson;
     background-color: crimson;
+}
+
+#success, #error {
+    margin: 10px;
 }
 
 #loadingContainer {
@@ -272,17 +275,15 @@ input[type=submit]:hover, button:hover {
     color: white;
     text-align: center;
     padding: 14px 16px;
+    font-weight: bold;
     text-decoration: none;
-    font-size: 20px;
-    height: 100%;
 }
 .topnav a:hover {
-    background-color: #666699;
+    background-color: #8282c2;
 }
 
 .topnav a.active {
     background-color: #8282c2;
-    color: white;
 }
 
 .topnav a.icon {
@@ -292,6 +293,7 @@ input[type=submit]:hover, button:hover {
 #logo {
     float: right;
     padding: 5px;
+    width: 100px;
 }
 
 /* When the screen is less than 680 pixels wide hides the items in the navigation bar and shows the icon to display them vertivaly*/
@@ -323,6 +325,7 @@ input[type=submit]:hover, button:hover {
 
     #logo {
         float: left;
-        padding: 15px;
+        padding: 7px 16px;
+        width: 120px;
     }
 }

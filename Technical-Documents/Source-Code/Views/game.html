@@ -20,12 +20,13 @@
     <div class="topnav">
         <a class = "active">AdminHome</a>
         <a href="/">PlayerHome</a>
-        <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+        <image id="logo" src="{{url_for('static',filename='Images/UniLogo.png')}}"></image>
     </div>
 
+    <div id="success" class="alert success">Success: <span></span></div>
+    <div id="error" class="alert error">Error: <span></span></div>
+
     <div class="boxed">
-        <div id="success" class="alert success">Success: <span></span></div>
-        <div id="error" class="alert error">Error: <span></span></div>
         <h1>Admin Dashboard</h1>
         <p>Welcome: {{name}}. Below are all of the controls to manage the games - the leaderboard will be automatically populated as the teams complete the questions.</p>
     </div>

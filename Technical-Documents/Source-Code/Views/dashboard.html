@@ -8,8 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
     <script src="{{ url_for('static',filename='JS/instascan.js') }}"></script>
-    <script src="{{ url_for('static',filename='JS/ajax.js') }}"></script>
-    <script src="{{ url_for('static',filename='JS/common.js') }}"></script>
+
     <script src="{{ url_for('static',filename='JS/dashboard.js') }}"></script>
     <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
     <link href="{{ url_for('static',filename='CSS/dashboard.css') }}" rel='stylesheet' type='text/css'/>
@@ -20,8 +19,9 @@
         <a href="/dashboard/map">Map</a>
         <a href="/dashboard/leaderboard">Leaderboard</a>
         <a href="/dashboard/faqs">FAQ's</a>
+        <a href="/dashboard/privacypolicy">Privacy Policy</a>
         <a id="logout" href="#">Logout</a>
-        <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+        <image id="logo" src="{{url_for('static',filename='Images/UniLogo.png')}}"></image>
         <a class="icon" onclick="showResponsiveMenu()">&#9776;</a>
     </div>
 

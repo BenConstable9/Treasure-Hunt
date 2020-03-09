@@ -18,15 +18,16 @@
     <div class="topnav" id="myTopnav">
         <a class ="active">Home</a>
         <a href="/dashboard/faqs">Useful Information</a>
+        <a href="/dashboard/privacypolicy">Privacy Policy</a>
         <a href="/admin">Admin Login</a>
-        <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+        <image id="logo" src="{{url_for('static',filename='Images/UniLogo.png')}}"></image>
         <a class="icon" onclick="showResponsiveMenu()">&#9776;</a>
     </div>
 
-    <h1>Welcome To the University of Exeter Freshers Treasure Hunt</h1>
+    <h1>Welcome To The Great University of Exeter Freshers Treasure Hunt</h1>
     <!-- If an error is returned then output it -->
     {% if status == "0" %}
-        <div class="error"><p>{{ message }}</p></div>
+        <div id="error" class="alert error">{{ message }}</div>
     {% endif %}
 
     <form action="/register" method="post" class="authForm">
