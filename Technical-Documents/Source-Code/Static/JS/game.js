@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function(){
       var username = document.forms["registerAdmin"]["username"].value;
       var password1 = document.forms["registerAdmin"]["password1"].value;
       var password2 = document.forms["registerAdmin"]["password2"].value;
-      if (password1 == password2 && password1.length >= 1 && name.length >= 1 && username.length >= 1){
+      if (password1 == password2 && password1.length >= 1 && name.length >= 1 && username.length >= 1 && /^[a-zA-Z]+$/.test(name) == true){
         //send off the request
         HTTPPost("/admin/game/register", "password1=" + password1 + "&password2=" + password2 + "&name=" + name + "&username=" + username, registerAdminCallback)
       }
