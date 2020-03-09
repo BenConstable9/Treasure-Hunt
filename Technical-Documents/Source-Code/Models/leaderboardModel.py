@@ -50,6 +50,7 @@ class leaderboardModel():
                 # Get the appropriate results
                 cur.execute("SELECT t.TeamName, r.StartTime, r.FinishTime, r.Letters, t.GamePin FROM Teams t INNER JOIN Results r ON t.TeamID = r.TeamID WHERE t.Gamepin=?", (gamePin,))
                 results = cur.fetchall()
+                print(results)
                 response = {'status':'1', 'data':results}
 
         except Exception as e:

@@ -35,22 +35,9 @@
 
   <h1>Leaderboard</h1>
 
-  <table id="leaderboardTable" align="center">
-    <thead>
-      <tr>
-      <th>Rank</th>
-      <th>Team Name</th>
-      <th>Number of Letters Collected</th>
-    </tr>
-  </thead>
-  <tbody>
-      {% for leaderboardRow in leaderboardData %}
-      <tr>
-        {% for value in leaderboardRow.values() %}
-        <td>{{ value }}</td>
-        {% endfor %}
-      </tr>
-      {% endfor %}
-  </tbody>
-  </table>
+        <div id="leaderboard" class="columnTwo boxed">
+            <h4>Leaderboard</h4>
+            <div id="scoresError" class="alert error">No Scores</div>
+            <ul id="scores"></ul>
+        </div>
   </body>
