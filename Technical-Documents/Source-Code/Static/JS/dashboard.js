@@ -11,25 +11,25 @@ document.addEventListener('DOMContentLoaded', function(){
     function addLocationBlocks(response){
       if (response.status == "0") {
           //incorrect response
-          showAlert("Unable to load database");
+          showAlert("error", "Unable to load database");
       } else {
             speechSynthesis.speak(new SpeechSynthesisUtterance("You need to visit the following locations."));
-          var ul = document.getElementById("Locations");
-          var ul2 = document.getElementById("building")
+            var ul = document.getElementById("Locations");
+            var ul2 = document.getElementById("building")
 
-          for (rowNum in response.data){
-            var li = document.createElement("li");
-            li.id = response.data[rowNum].building
-            li.appendChild(document.createTextNode(response.data[rowNum].building));
-            ul.appendChild(li);
-            var box = document.createElement("input");
-            box.id = "letter"+response.data[rowNum].building
-            box.className = "finalLoc"
-            box.disabled = true;
-            box.size = 1;
-            ul2.appendChild(box);
-            speechSynthesis.speak(new SpeechSynthesisUtterance(response.data[rowNum].building));
-          }
+            for (rowNum in response.data){
+                var li = document.createElement("li");
+                li.id = response.data[rowNum].building
+                li.appendChild(document.createTextNode(response.data[rowNum].building));
+                ul.appendChild(li);
+                var box = document.createElement("input");
+                box.id = "letter"+response.data[rowNum].building
+                box.className = "finalLoc"
+                box.disabled = true;
+                box.size = 1;
+                ul2.appendChild(box);
+                speechSynthesis.speak(new SpeechSynthesisUtterance(response.data[rowNum].building));
+            }
     }}
 
     function verifyLocationCallback(response) {
@@ -57,28 +57,22 @@ document.addEventListener('DOMContentLoaded', function(){
 
     /* Handle the response from answering a question */
     function answerQuestionCallback(response) {
-      console.log(response)
         if (response.status == "0") {
-          console.log("testestetst")
             //incorrect response
             showAlert("questionAnswerModalError", "Incorrect Answer - Try Again");
         } else {
             console.log("inside the else")
             showAlert("success", "Question Answer Successfully")
             document.getElementById("questionAnswerModal").style.display = "none";
-            var ul = document.getElementById("building");
-            console.log(response)
-            console.log("test")
+
             for (rowNum in response.data){
               var box = document.getElementById("letter"+response.data[rowNum].building);
-              console.log(box)
-              console.log(response.data[rowNum].letter);
               box.value = response.data[rowNum].letter
               var ul2 = document.getElementById(response.data[rowNum].building);
               ul2.innerHTML = "<del>"+response.data[rowNum].building+"</del>";
             }
-            scanner.stop();
         }
+        scanner.stop();
     }
 
     function answersCallback(response) {
@@ -87,13 +81,9 @@ document.addEventListener('DOMContentLoaded', function(){
             showAlert("error", "Issue Loading");
         } else {
             document.getElementById("questionAnswerModal").style.display = "none";
-            var ul = document.getElementById("building");
-            console.log(response)
-            console.log("test")
+
             for (rowNum in response.data){
               var box = document.getElementById("letter"+response.data[rowNum].building);
-              console.log(box)
-              console.log(response.data[rowNum].letter);
               box.value = response.data[rowNum].letter
               var ul2 = document.getElementById(response.data[rowNum].building);
               ul2.innerHTML = "<del>"+response.data[rowNum].building+"</del>";
