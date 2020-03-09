@@ -78,6 +78,10 @@ document.addEventListener('DOMContentLoaded', function(){
               var ul2 = document.getElementById(response.data[i].building);
               ul2.innerHTML = "<del>"+response.data[i].building+"</del>";
             }
+            if (response.status == 2){
+              console.log("THE GAME IS DONE")
+              document.getElementById("roomNum").innerHTML = response.room;
+            }
         }
         scanner.stop();
     }

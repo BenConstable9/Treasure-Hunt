@@ -15,6 +15,7 @@
     <script type="text/javascript" src="{{ url_for('static',filename='JS/ajax.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='JS/common.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='JS/game.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='JS/leaderboard.js') }}"></script>
 </head>
 <body>
     <div class="topnav">
@@ -59,7 +60,7 @@
             <ul id="notificationsList"></ul>
         </div>
 
-        <div id="leaderboard" class="columnTwo boxed">
+        <div id="leaderboardGrid" class="columnTwo boxed">
             <h4>Leaderboard</h4>
             <div id="scoresError" class="alert error">No Scores</div>
             <ul id="scores"></ul>

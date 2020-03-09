@@ -135,6 +135,37 @@ class QuestionModel():
             return response
             con.close()
 
+    def checkComplete(self, teamID):
+        try:
+            # Open the DB
+            with sql.connect("Models/treasure.sqlite") as con:
+                con.row_factory = makeRowDictionary
+                cur = con.cursor()
+                cur.execute("SELECT * FROM Teams Inner Join Subjects ON Teams.SubjectID = Subjects.SubjectID WHERE TeamID=?", (teamID,))
+                Subject = cur.fetchone()
+                building = Subject["Building"]
+                cur.execute("SELECT * FROM Results where TeamID=?", (teamID,))
+                results = cur.fetchone()
+                numLetters = results["Letters"]
+                if len(building) == numLetters:
+                    cur.execute("SELECT * FROM Teams Inner Join Tutors ON Teams.TutorID = Tutors.TutorID WHERE TeamID=?", (teamID,))
+                    results = cur.fetchone()
+                    cur.execute("UPDATE Results SET FinishTime = ? WHERE TeamID = ?",(datetime.datetime.now(),teamID))
+                    cur.commit()
+                    room = results["Room"]
+                    return {'status': '1', 'room': room}
+                else:
+                    print("pass")
+                    return {'status':'0'}
+        except Exception as e:
+            print("fail")
+            print(e)
+            return {'status':'0'}
+        finally:
+            # Return the result
+
+            con.close()
+
     def checkAnswer(self,answer,questionId,teamID):
         try:
             # Open the DB
@@ -145,10 +176,15 @@ class QuestionModel():
                 cur.execute("SELECT * FROM Questions WHERE QuestionID=?", (questionId,))
 
                 question = cur.fetchone()
-
+                print("CHECK CALL")
+                print(question["Answer"].casefold())
+                print(answer.casefold())
                 if str(question["Answer"].casefold()) == str(answer.casefold()):
+                    print("CHECK CALL")
                     cur.execute("SELECT * FROM QuestionsAnswered WHERE QuestionID=? AND TeamID=?", (questionId,teamID))
                     result = cur.fetchone()
+                    print("CHECK CALL")
+                    res = None
                     if result is None:
 
                         cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?,?)", (questionId,teamID,datetime.datetime.now()))
@@ -159,15 +195,28 @@ class QuestionModel():
                         res = cur.fetchall()
 
                     if res is not None:
+
                         returns = []
                         for let in res:
 
-                            returns.append({"letter":let["Letter"], "building":let["Building"], "questionID":let["QuestionID"]})
-                        response = {'status': '1', 'data': returns}
+                            returns.append({"letter":let["Letter"], "building":let["Building"]})
+                        print("its here")
+                        won = self.checkComplete(teamID)
+                        print("its here")
+                        print(won)
+                        if won["status"] == '1':
+                            print("stat 2")
+                            response = {'status': '2', 'data': returns, 'room' : won["room"]}
+                        else:
+                            print("stat 1")
+                            response = {'status': '1', 'data': returns}
                 else:
+
+                    print("if3")
                     response = {'status':'0'}
 
         except Exception as e:
+            print("it failed")
             print(e)
             response = {'status':'0'}
         finally:
