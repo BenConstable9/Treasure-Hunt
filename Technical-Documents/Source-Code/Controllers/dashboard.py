@@ -58,7 +58,11 @@ class DashboardController():
         return render_template('privacypolicy.html')
 
     def leaderboard(self):
-        return render_template('leaderboard.html')
+        # Check if logged in
+        if not session.get('loggedIn'):
+            return redirect("/", code=302)
+        else:
+            return render_template('leaderboard.html')
 
     def leaderboardData(self):
         #get current game pin
