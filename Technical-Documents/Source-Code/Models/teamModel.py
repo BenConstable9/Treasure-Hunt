@@ -1,5 +1,6 @@
 from flask import request,json
 import sqlite3 as sql
+import re
 
 # Author - Ben Constable, Debugged with - Ravi Gohel
 # Modified By - Ravi
@@ -24,7 +25,6 @@ class TeamModel():
 
                 # See if the game pin is valid
                 cur.execute("SELECT * FROM Games WHERE GamePin=? AND Active=?", (int(gamePin),1))
-                print(cur)
 
                 game = cur.fetchone()
 
@@ -46,6 +46,12 @@ class TeamModel():
                             message = message + " Team Name is empty - "
                             toBreak = True
 
+
+                        team2 = teamName.replace(" ","")
+                        if (team2.isalpha()== False):
+                            message = message + " Only Letters and Spaces"
+                            toBreak = True
+
                         if (tutorID == "None"):
                             message = message + "Tutor is empty."
                             toBreak = True
@@ -54,7 +60,6 @@ class TeamModel():
                             response = {'status':'0', 'message':message, 'ID': '0'}
                         else:
                             # Insert the team data
-                            print (teamName, gamePin, subject, tutorID)
                             cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID,TutorID) VALUES (?,?,?,?)",(teamName,gamePin,subject,tutorID) )
 
                             con.commit()
@@ -70,7 +75,8 @@ class TeamModel():
                 else:
                     response = {'status':'0', 'message':'Team Registration Unsuccessful - Game Pin Invalid', 'ID': '0'}
 
-        except:
+        except Exception as e:
+            print(e)
             con.rollback()
 
             response = {'status':'0', 'message':'Team Registration Unsuccessful - Check All Values', 'ID': '0'}
@@ -97,7 +103,6 @@ class TeamModel():
                 cur.execute("SELECT * FROM Teams WHERE GamePin=? AND TeamName=?", (gamePin,teamName))
 
                 team = cur.fetchone()
-                print(team)
 
                 # Check the game pin
                 if (team is not None):

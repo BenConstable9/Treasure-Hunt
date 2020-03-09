@@ -108,7 +108,6 @@ class SubjectModel():
                 if (gamePin == obtained_row["GamePin"]):
                     # Formulate the response
                     response = {'status':'1', 'message':'Team Logged In Successfully', 'subjectID': obtained_row["SubjectID"], 'subject': obtained_row["SubjectName"], 'gamePin': obtained_row["GamePin"]}
-                    print (response)
 
                 else:
                     response = {'status':'0', 'message':'BAD - Invalid Game Pin', 'ID': '0'}
@@ -123,13 +122,13 @@ class SubjectModel():
 
             con.close()
 
-    def getBuilding(self, gamePin):
+    def getBuilding(self, subjectID):
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
                 con.row_factory = sql.Row
                 cur = con.cursor()
-            cur.execute("SELECT * FROM Subjects WHERE SubjectID=?", (int(gamePin),))
+            cur.execute("SELECT * FROM Subjects WHERE SubjectID=?", (int(subjectID),))
 
             subject = cur.fetchone()
             if (subject is not None):

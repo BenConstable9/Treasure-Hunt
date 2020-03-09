@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function(){
             document.getElementById("changePasswordModal").style.display = "none";
             console.log(response);
           }
-        }
+    }
 
     function changePassword(e){
       e.preventDefault();
@@ -39,17 +39,17 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* Handle the response from registering new admin */
     function registerAdminCallback(response) {
-        if (response.status == "1") {
-            //incorrect response
-            showAlert("success", "New admin registered successfully")
-            var registerForm = document.forms["registerAdmin"]
-            registerForm.reset();
-            document.getElementById("registerAdminModal").style.display = "none";
-            console.log(response)
-        } else {
-          showAlert("adminRegisterModalError", "Error in registering");
-          }
+      if (response.status == "1") {
+          //incorrect response
+          showAlert("success", "New admin registered successfully")
+          var registerForm = document.forms["registerAdmin"]
+          registerForm.reset();
+          document.getElementById("registerAdminModal").style.display = "none";
+      }
+      else {
+        showAlert("adminRegisterModalError", "Error in registering");
         }
+    }
 
     function registerAdmin(e){
       e.preventDefault();
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function(){
       var username = document.forms["registerAdmin"]["username"].value;
       var password1 = document.forms["registerAdmin"]["password1"].value;
       var password2 = document.forms["registerAdmin"]["password2"].value;
-      if (password1 == password2 && password1.length >= 1 && name.length >= 1 && username.length >= 1){
+      if (password1 == password2 && password1.length >= 1 && name.length >= 1 && username.length >= 1 && /^[a-zA-Z]+$/.test(name) == true){
         //send off the request
         HTTPPost("/admin/game/register", "password1=" + password1 + "&password2=" + password2 + "&name=" + name + "&username=" + username, registerAdminCallback)
       }

@@ -1,9 +1,12 @@
 /* Author - Ben Constable
    Handle the dashboard functionality
+
+   edite - Zach Lavender - adding the locatio blocks, getting answers and checking question answers
 */
 
 document.addEventListener('DOMContentLoaded', function(){
     HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
+    HTTPPost("/dashboard/getAnswers", values = "values", answersCallback)
 
     function addLocationBlocks(response){
       if (response.status == "0") {
@@ -50,23 +53,47 @@ document.addEventListener('DOMContentLoaded', function(){
 
     /* Handle the response from answering a question */
     function answerQuestionCallback(response) {
+      console.log(response)
         if (response.status == "0") {
+          console.log("testestetst")
             //incorrect response
             showAlert("questionAnswerModalError", "Incorrect Answer - Try Again");
         } else {
+            console.log("inside the else")
             showAlert("success", "Question Answer Successfully")
             document.getElementById("questionAnswerModal").style.display = "none";
             var ul = document.getElementById("building");
             console.log(response)
+            console.log("test")
             for (rowNum in response.data){
               var box = document.getElementById("letter"+response.data[rowNum].building);
+              console.log(box)
+              console.log(response.data[rowNum].letter);
               box.value = response.data[rowNum].letter
               var ul2 = document.getElementById(response.data[rowNum].building);
               ul2.innerHTML = "<del>"+response.data[rowNum].building+"</del>";
             }
             scanner.stop();
-            //todo add the letter and cross off the list
-            //get the index and add at the correct index
+        }
+    }
+
+    function answersCallback(response) {
+        if (response.status == "0") {
+            //incorrect response
+            showAlert("error", "Issue Loading");
+        } else {
+            document.getElementById("questionAnswerModal").style.display = "none";
+            var ul = document.getElementById("building");
+            console.log(response)
+            console.log("test")
+            for (rowNum in response.data){
+              var box = document.getElementById("letter"+response.data[rowNum].building);
+              console.log(box)
+              console.log(response.data[rowNum].letter);
+              box.value = response.data[rowNum].letter
+              var ul2 = document.getElementById(response.data[rowNum].building);
+              ul2.innerHTML = "<del>"+response.data[rowNum].building+"</del>";
+            }
         }
     }
 
@@ -81,6 +108,13 @@ document.addEventListener('DOMContentLoaded', function(){
         } else {
             showAlert("questionAnswerModalError", "Fill In An Answer Before Submitting");
         }
+    }
+
+    /* Send Help Request */
+    function helpRequest() {
+        //send notification and show banner
+        showAlert("success", "Help Request | Make Way To Starting Location");
+        HTTPGet("/dashboard/help", null)
     }
 
     let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
@@ -144,6 +178,8 @@ document.addEventListener('DOMContentLoaded', function(){
         //open it
         document.getElementById("scanModal").style.display = "block";
     }
+
+    document.getElementById("help").addEventListener("click", helpRequest);
 
     document.getElementById("closeScanModal").addEventListener("click", flipScanModel);
 

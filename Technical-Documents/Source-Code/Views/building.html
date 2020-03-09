@@ -4,17 +4,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="../Static/CSS/common.css" rel='stylesheet' type='text/css'/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="{{ url_for('static',filename='JS/common.js') }}"></script>
+        <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
         <!-- Add Navigation to other pages -->
         <title>Useful Information Page</title>
     </head>
     <body>
-<div class="topnav">
-<a href="/">Home</a>
-<a class="active" >Buildings</a>
-<a href="lecturers">Lecturers</a>
-<a href="faqs">FAQs</a>
-<a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+<div class="topnav" id="myTopnav">
+    <a href="/">Home</a>
+    <a class="active" >Buildings</a>
+    <a href="lecturers">Lecturers</a>
+    <a href="faqs">FAQs</a>
+    <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+    <a class="icon" onclick="showResponsiveMenu()">&#9776;</a>
 </div>
 
 <h2>Buildings</h2>

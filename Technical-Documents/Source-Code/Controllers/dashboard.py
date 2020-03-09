@@ -9,6 +9,7 @@ from Helpers.utility import escapeInput
 import random
 
 # Author - Ben Constable
+# Edited - Zach lavender geting location oepning map, geting and checking answers
 # MVC Controller for the home page
 class DashboardController():
 
@@ -87,15 +88,31 @@ class DashboardController():
         gamePin = session.get('gamePin')
         answer = request.form.get('answer')
         questionId = request.form.get("questionID")
-        response = questionModel.checkAnswer(escapeInput(answer.casefold()),escapeInput(questionId),escapeInput(teamID) )
+        response = questionModel.checkAnswer(escapeInput(answer),escapeInput(questionId),escapeInput(teamID) )
         if response["status"] == "1":
+
             #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
             data = response["data"]
             gameModel.logAction(gamePin, teamID, "answered question " + questionId + " successfully")
 
             #ajax call to say passed
         else:
+            print("status was not 1")
             gameModel.logAction(gamePin, teamID, "attempted to answer question " + questionId + " successfully")
+            #ajax call to say failed
+
+        return response
+
+    def getAnswers(self):
+        print("bigtest the one")
+        teamID = session.get('teamID')
+        response = questionModel.getAnswers(escapeInput(teamID))
+        if response["status"] == "1":
+            #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
+            data = response["data"]
+
+            #ajax call to say passed
+        else:
             #ajax call to say failed
             response = {}
         return response
@@ -112,4 +129,11 @@ class DashboardController():
         else:
             data = {"status" == "0"}
             return data
+
+    """Request Help From Moderator"""
+    def requestHelp(self):
+        teamID = session.get('teamID')
+        gamePin = session.get('gamePin')
+        gameModel.logAction(gamePin, teamID, "requested help. Meet them at starting location.")
+
 dashboardController=DashboardController()

@@ -49,10 +49,10 @@ class AdminAuthController():
     :return: A redirect or a template. """
     def adminRegister(self):
         # Get the values from the form
-        name = request.form.get('Name')
-        username = request.form.get('Username')
-        givenPassword = request.form.get('Password1')
-        repeatedPassword = request.form.get('Password2')
+        name = request.form.get('name')
+        username = request.form.get('username')
+        givenPassword = request.form.get('password1')
+        repeatedPassword = request.form.get('password2')
 
         # Get the response from the model
         response = adminModel.adminRegister(escapeInput(name),escapeInput(username), escapeInput(givenPassword), escapeInput(repeatedPassword))

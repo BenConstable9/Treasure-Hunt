@@ -7,17 +7,20 @@
     <meta charset="UTF-8">
     <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
     <script type="text/javascript" src="{{url_for('static',filename='JS/ajax.js')}}"> </script>
+    <script type="text/javascript" src="{{url_for('static',filename='JS/common.js')}}"> </script>
+    <script type="text/javascript" src="{{url_for('static',filename='JS/home.js')}}"> </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="{{ url_for('static',filename='CSS/home.css')}}" rel='stylesheet' type='text/css'/>
+
     <title>Home</title>
 </head>
 <body>
-    <div class="topnav">
-        <a href="/admin">Admin Login</a>
+    <div class="topnav" id="myTopnav">
         <a class ="active">Home</a>
         <a href="/dashboard/faqs">Useful Information</a>
+        <a href="/admin">Admin Login</a>
         <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+        <a class="icon" onclick="showResponsiveMenu()">&#9776;</a>
     </div>
 
     <h1>Welcome To the University of Exeter Freshers Treasure Hunt</h1>
@@ -31,7 +34,7 @@
         <label for="TeamName">Team Name</label>
         <input type="text" name="TeamName" placeholder="Enter Team Name">
         <label for="GamePin">Game Pin</label>
-        <input type="text" id="GamePin" name="GamePin" onchange="gameFunction()" placeholder="Enter Game Pin">
+        <input type="text" id="GamePin" name="GamePin" placeholder="Enter Game Pin">
         <label for="tutors">Select Your Tutor</label>
         <select id="tutorsNames" name="TutorID">
             <option value="" selected disabled id="disabledSelect">Select...</option>
@@ -47,39 +50,5 @@
         <input type="text" name="GamePin" placeholder="Enter Game Pin">
         <input type="submit" name="Login" value="Login">
     </form>
-
-        <script>
-        function handleSection(response){
-          console.log(response)
-          var options = document.getElementById("tutorsNames");
-          if (response.tutorNames){
-            for(var i = 0; i < response.tutorNames.length; i++) {
-                var tutor = response.tutorNames[i];
-                var option = document.createElement("option"); //creates html option
-                option.textContent = tutor; //what the user sees
-                option.value = response.tutorIDs[i]; //the value which is associated with the option
-                options.appendChild(option); //adds the new option to bottom of the select
-            }
-          }
-          else{
-            var options = document.getElementById("tutorsNames");
-            document.getElementById("tutorsNames").innerHTML = "";
-            var option = document.createElement("option"); //creates html option
-            //gives it the properties of an "empty" non selectable dropdown option
-            option.value = "";
-            option.disabled = true;
-            option.selected = true;
-            option.textContent = "Select"
-            options.appendChild(option);
-          }
-        }
-
-        function gameFunction(){
-          var pin = document.getElementById("GamePin").value;
-
-          HTTPGet("/verifyPin?GamePin=" + pin, handleSection)
-        }
-
-    </script>
 </body>
 </html>
