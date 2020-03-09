@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function(){
           //incorrect response
           showAlert("Unable to load database");
       } else {
+            speechSynthesis.speak(new SpeechSynthesisUtterance("You need to visit the following locations."));
           var ul = document.getElementById("Locations");
           var ul2 = document.getElementById("building")
 
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function(){
             box.disabled = true;
             box.size = 1;
             ul2.appendChild(box);
-
+            speechSynthesis.speak(new SpeechSynthesisUtterance(response.data[rowNum].building));
           }
     }}
 
@@ -189,13 +190,6 @@ document.addEventListener('DOMContentLoaded', function(){
         e.preventDefault();
         //close it
         document.getElementById("questionAnswerModal").style.display = "none";
-    }
-
-    /* Handle opening of a modal
-    */
-    function openScanModal() {
-        //open it
-        document.getElementById("scanModal").style.display = "block";
     }
 
     document.getElementById("help").addEventListener("click", helpRequest);
