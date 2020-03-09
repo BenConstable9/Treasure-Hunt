@@ -14,6 +14,15 @@ del {
     margin-top: 20px;
 }
 
+.hint {
+    color: #fff;
+    border: 2px solid crimson;
+    background-color: crimson;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 10px;
+}
+
 #help {
     border: 2px solid crimson;
     border-radius: 5px;

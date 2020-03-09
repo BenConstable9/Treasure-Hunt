@@ -7,6 +7,10 @@
 document.addEventListener('DOMContentLoaded', function(){
     HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
 
+    function revealHint() {
+        showAlert("success", "Hint Revealed. The QR code can be found: " + this.dataset.hint);
+    }
+
     function addLocationBlocks(response){
         if (response.status == "0") {
             //incorrect response
@@ -19,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function(){
             for (i = 0; i < response.data.length; i ++){
                 var li = document.createElement("li");
                 li.id = response.data[i].building
-                li.appendChild(document.createTextNode(response.data[i].building));
+                li.innerHTML = response.data[i].building + " <span id='hint" + response.data[i].questionID + "' class='hint' data-hint='" + response.data[i].qrLocation + "'>Location Hint?</span>";
                 ul.appendChild(li);
                 var box = document.createElement("input");
                 box.id = "letter"+response.data[i].questionID;
@@ -28,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function(){
                 box.size = 1;
                 ul2.appendChild(box);
                 speechSynthesis.speak(new SpeechSynthesisUtterance(response.data[i].building));
+
+                document.getElementById("hint" + response.data[i].questionID).addEventListener("click", revealHint);
             }
             HTTPPost("/dashboard/getAnswers", values = "values", answersCallback)
         }
