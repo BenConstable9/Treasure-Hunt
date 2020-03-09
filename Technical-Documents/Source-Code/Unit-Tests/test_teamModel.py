@@ -40,7 +40,7 @@ class TestTeamModel:
 
         #try registering
         response = teamModel.registerTeam("", game["GamePin"], "1")
-        assert response["message"] == "Team Registration Unsuccessful -  Team Name is empty - "
+        assert response["message"] == "Team Registration Unsuccessful -  Team Name is empty -  Only Letters and Spaces"
 
     """Test Team Logging In"""
     def testLoginTeam(self):
