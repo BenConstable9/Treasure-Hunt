@@ -34,7 +34,6 @@ hr {
 }
 
 .alert {
-    width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     border-radius: 5px;
@@ -51,6 +50,10 @@ hr {
 .error {
     border: 1px solid crimson;
     background-color: crimson;
+}
+
+#success, #error {
+    margin: 10px;
 }
 
 #loadingContainer {
