@@ -6,31 +6,32 @@
 
 document.addEventListener('DOMContentLoaded', function(){
     HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
-    HTTPPost("/dashboard/getAnswers", values = "values", answersCallback)
 
     function addLocationBlocks(response){
-      if (response.status == "0") {
-          //incorrect response
-          showAlert("error", "Unable to load database");
-      } else {
+        if (response.status == "0") {
+            //incorrect response
+            showAlert("error", "Unable to load database");
+        } else {
             speechSynthesis.speak(new SpeechSynthesisUtterance("You need to visit the following locations."));
             var ul = document.getElementById("Locations");
             var ul2 = document.getElementById("building")
 
-            for (rowNum in response.data){
+            for (i = 0; i < response.data.length; i ++){
                 var li = document.createElement("li");
-                li.id = response.data[rowNum].building
-                li.appendChild(document.createTextNode(response.data[rowNum].building));
+                li.id = response.data[i].building
+                li.appendChild(document.createTextNode(response.data[i].building));
                 ul.appendChild(li);
                 var box = document.createElement("input");
-                box.id = "letter"+response.data[rowNum].building
+                box.id = "letter"+response.data[i].questionID;
                 box.className = "finalLoc"
                 box.disabled = true;
                 box.size = 1;
                 ul2.appendChild(box);
-                speechSynthesis.speak(new SpeechSynthesisUtterance(response.data[rowNum].building));
+                speechSynthesis.speak(new SpeechSynthesisUtterance(response.data[i].building));
             }
-    }}
+            HTTPPost("/dashboard/getAnswers", values = "values", answersCallback)
+        }
+    }
 
     function verifyLocationCallback(response) {
         if (response.status == "1") {
@@ -61,15 +62,14 @@ document.addEventListener('DOMContentLoaded', function(){
             //incorrect response
             showAlert("questionAnswerModalError", "Incorrect Answer - Try Again");
         } else {
-            console.log("inside the else")
             showAlert("success", "Question Answer Successfully")
             document.getElementById("questionAnswerModal").style.display = "none";
 
-            for (rowNum in response.data){
-              var box = document.getElementById("letter"+response.data[rowNum].building);
-              box.value = response.data[rowNum].letter
-              var ul2 = document.getElementById(response.data[rowNum].building);
-              ul2.innerHTML = "<del>"+response.data[rowNum].building+"</del>";
+            for (i = 0; i < response.data.length; i ++){
+              var box = document.getElementById("letter"+response.data[i].questionID);
+              box.value = response.data[i].letter
+              var ul2 = document.getElementById(response.data[i].building);
+              ul2.innerHTML = "<del>"+response.data[i].building+"</del>";
             }
         }
         scanner.stop();
@@ -82,11 +82,11 @@ document.addEventListener('DOMContentLoaded', function(){
         } else {
             document.getElementById("questionAnswerModal").style.display = "none";
 
-            for (rowNum in response.data){
-              var box = document.getElementById("letter"+response.data[rowNum].building);
-              box.value = response.data[rowNum].letter
-              var ul2 = document.getElementById(response.data[rowNum].building);
-              ul2.innerHTML = "<del>"+response.data[rowNum].building+"</del>";
+            for (i = 0; i < response.data.length; i ++){
+              var box = document.getElementById("letter"+response.data[i].questionID);
+              box.value = response.data[i].letter
+              var ul2 = document.getElementById(response.data[i].building);
+              ul2.innerHTML = "<del>"+response.data[i].building+"</del>";
             }
         }
     }

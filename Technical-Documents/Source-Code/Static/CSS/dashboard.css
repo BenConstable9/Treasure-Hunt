@@ -6,6 +6,14 @@
     margin: 25px;
 }
 
+del {
+    color: crimson;
+}
+
+#locationsBox {
+    margin-top: 20px;
+}
+
 #help {
     border: 2px solid crimson;
     border-radius: 5px;
@@ -26,13 +34,15 @@
 }
 
 #building {
-    margin: 0% 30% 3% 30%;
+    margin: 0% 30% 10% 30%;
     width: 40%;
 }
 
 #building input {
     border-color: #666699;
-    color: #666699;
+    color: crimson;
+    font-weight: bold;
+    text-align: center;
     background: rgba(255, 255, 0255, 0.73);
     padding: 10px 5px;
     margin: 2px;
