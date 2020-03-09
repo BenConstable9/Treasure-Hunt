@@ -113,6 +113,22 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
+    /* Handle the callback from logging out
+
+        :param response: The response from the request
+    */
+    function logoutCallback(response) {
+        if (response.status == "1"){
+          window.location.replace("/");
+
+        }
+    }
+
+    function logout() {
+        HTTPPost("/dashboard/logout", "", logoutCallback)
+    }
+
+
     /* Send Help Request */
     function helpRequest() {
         //send notification and show banner
@@ -183,6 +199,8 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     document.getElementById("help").addEventListener("click", helpRequest);
+
+    document.getElementById("logout").addEventListener("click", logout);
 
     document.getElementById("closeScanModal").addEventListener("click", flipScanModel);
 

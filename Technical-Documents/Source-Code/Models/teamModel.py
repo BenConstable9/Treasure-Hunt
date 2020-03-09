@@ -1,6 +1,5 @@
-from flask import request,json
+from flask import request,json,session
 import sqlite3 as sql
-import re
 
 # Author - Ben Constable, Debugged with - Ravi Gohel
 # Modified By - Ravi
@@ -122,5 +121,11 @@ class TeamModel():
             return response
 
             con.close()
+
+    """Handing the logging out of an team"""
+    def teamLogout(self):
+        session.clear() #Clears the session
+        response = {'status':'1', 'message':'Logged Out Successfully'}
+        return response
 
 teamModel=TeamModel()
