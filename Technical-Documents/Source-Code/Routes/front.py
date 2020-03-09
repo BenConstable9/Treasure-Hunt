@@ -58,6 +58,10 @@ def fetchFaqs():
 def fetchMap():
     return dashboardController.openMap()
 
+@front.route('/dashboard/privacypolicy', methods=['GET'])
+def fetchPrivacyPolicy():
+    return dashboardController.privacyPolicy()
+
 @front.route('/getPins',methods=['GET'])
 def fetchPins():
     return mapController.getPins()
