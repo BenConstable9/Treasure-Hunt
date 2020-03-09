@@ -82,9 +82,9 @@ def getLoc():
 def fetchLeaderboard():
     return dashboardController.leaderboard()
 
-@front.route('/dashboard/leaderboard/data',methods=['GET'])
-def fetchLeaderboardData():
-    return dashboardController.leaderboardData()
+#@front.route('/dashboard/leaderboard/data',methods=['GET'])
+#def fetchLeaderboardData():
+#ß    return dashboardController.leaderboardData()
 
 @front.route('/dashboard/help',methods=['GET'])
 def requestHelp():

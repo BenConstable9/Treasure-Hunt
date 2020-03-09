@@ -64,9 +64,7 @@ class DashboardController():
         #get the leaderboard data from the DB
         leaderboardResponse = leaderboardModel.obtainResults(gamePin)
 
-        #render html
-        print(leaderboardResponse[0]["TeamName"])
-        return render_template('leaderboard.html', name = leaderboardResponse[0]["TeamName"], noOfLetters = leaderboardResponse[1]["Letters"])
+        return leaderboardResponse
 
     def openMap(self):
         if not session.get('loggedIn'):
