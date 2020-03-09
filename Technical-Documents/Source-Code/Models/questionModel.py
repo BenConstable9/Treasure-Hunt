@@ -124,7 +124,7 @@ class QuestionModel():
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
-                con.row_factory = sql.Row
+                con.row_factory = makeRowDictionary
                 cur = con.cursor()
                 print("Check")
                 cur.execute("SELECT * FROM Teams Inner Join Subjects ON Teams.SubjectID = Subjects.SubjectID WHERE TeamID=?", (teamID,))
@@ -134,7 +134,7 @@ class QuestionModel():
                 building = Subject["Building"]
                 print("Check")
                 cur.execute("SELECT * FROM Results where TeamID=?", (teamID,))
-                print("Check")
+                print("it output none")
                 results = cur.fetchone()
                 print("Check")
                 numLetters = results["Letters"]
