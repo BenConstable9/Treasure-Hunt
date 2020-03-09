@@ -4,6 +4,7 @@ from Models.adminModel import adminModel
 from Helpers.utility import escapeInput
 
 # Author - Ben Constable
+# Modified By - Ravi Gohel
 # MVC Controller for handling admin login/signup
 class AdminAuthController():
 
@@ -68,7 +69,7 @@ class AdminAuthController():
 
     """Handle the form for the changing the password of an Admin
 
-    :return: A redirect or a template. """
+    :return: The response"""
     def adminChangePassword(self):
         # Get the values from the form
         givenPassword = request.form.get('password1')
@@ -86,7 +87,9 @@ class AdminAuthController():
             response = {}
         return response
 
-    """Allow the gamekeeper to Logout """
+    """Allow the gamekeeper to Logout
+
+    :return: The response"""
     def adminLogout(self):
         response = adminModel.adminLogout()
         return response

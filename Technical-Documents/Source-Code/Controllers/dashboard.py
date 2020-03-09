@@ -11,6 +11,7 @@ import random
 
 # Author - Ben Constable
 # Edited - Zach lavender geting location oepning map, geting and checking answers
+# Modified By - Ravi Gohel
 # MVC Controller for the home page
 class DashboardController():
 
@@ -25,7 +26,8 @@ class DashboardController():
         if not session.get('loggedIn'):
             return redirect("/", code=302)
         else:
-            teamID = session.get('teamID') #pass this to a model
+            #Obtain session data
+            teamID = session.get('teamID')
             gamePin = session.get('gamePin')
             subject = session.get('subject')
             response = questionModel.getQuestions(escapeInput(subject))

@@ -38,6 +38,8 @@ class TeamModel():
                     #now check the team name and pin combo by checking the length of the return
                     if (otherTeam is None):
                         subject = game["SubjectID"]
+
+                        #Set variables for error checking in registration
                         message = "Team Registration Unsuccessful - "
                         toBreak = False
 
@@ -58,6 +60,7 @@ class TeamModel():
 
                         if (toBreak == True):
                             response = {'status':'0', 'message':message, 'ID': '0'}
+                        #If there are no errors
                         else:
                             # Insert the team data
                             cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID,TutorID) VALUES (?,?,?,?)",(teamName,gamePin,subject,tutorID) )

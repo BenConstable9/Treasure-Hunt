@@ -4,6 +4,7 @@ from Models.subjectModel import subjectModel
 from Models.questionModel import questionModel
 from Helpers.utility import escapeInput
 import random
+
 # Author - Zach Lavender
 # MVC Controller for the map page
 class MapController():

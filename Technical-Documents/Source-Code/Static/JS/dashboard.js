@@ -1,7 +1,8 @@
 /* Author - Ben Constable
-   Handle the dashboard functionality
+   Modified By - Ravi Gohel
+   Edited - Zach Lavender - adding the locatio blocks, getting answers and checking question answers
 
-   edite - Zach Lavender - adding the locatio blocks, getting answers and checking question answers
+   Handle the dashboard functionality
 */
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -121,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
+    /* When the team tries to logout */
     function logout() {
         HTTPPost("/dashboard/logout", "", logoutCallback)
     }

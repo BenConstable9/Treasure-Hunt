@@ -9,7 +9,7 @@ class TutorModel():
         pass
 
     """Create a tutor for a given subject
-    
+
     :param subjectID: The subjectID for the tutor.
     :param name: The name of the tutor to be added.
     :param room: The room the tutor will be located in.
@@ -46,7 +46,9 @@ class TutorModel():
 
     """Obtains the list of tutors from a given subjectID
 
-    :return: A JSON array with the status. """
+    :param subjectID: the given subjectID
+
+    :return: A response. """
     def obtainTutors(self, subjectID):
         # Try the SQL
         try:
@@ -60,6 +62,7 @@ class TutorModel():
                 tutors = cur.fetchall()
                 listOfTutorIDs = []
                 listOfTutorNames = []
+                # For all tutors from the given subjectID, store their ID and Names
                 for tutor in tutors:
                     listOfTutorIDs.append(tutor[0])
                     listOfTutorNames.append(tutor[2])

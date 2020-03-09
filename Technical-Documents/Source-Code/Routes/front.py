@@ -4,6 +4,7 @@ from Controllers.auth import authController
 from Controllers.dashboard import dashboardController
 from Controllers.map import mapController
 # Author - Ben Constable
+# Modified By - Ravi Gohel
 # MVC Router for handling all front end routes
 #Edited by Freddie Woods added routes for building, lecturerers and faq.
 

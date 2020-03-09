@@ -5,13 +5,27 @@ from Models.leaderboardModel import leaderboardModel
 import sqlite3 as sql
 
 # Author - Ravi Gohel
-#Edited - zach lavender - geting and checking answers
+# Edited - Zach Lavender - getting and checking answers
 # MVC Model for handling user pin
 
 class QuestionModel():
     def __init__(self):
         pass
 
+    """Create a question given the question details
+
+    :param subjectID: The subject name.
+    :param building: The name of the building.
+    :param QRLocation: The QR Location.
+    :param QRText: The QR text.
+    :param question: The question to be asked.
+    :param answer: The answer to the question.
+    :param letter: The letter associated with the question for the hangman game.
+    :param letterIndex: The index of the letter in the building word.
+    :param longitude: The longitude.
+    :param latitude: The latitude.
+
+    :return:  A JSON array with status."""
     def createQuestion(self, subjectID, building, QRLocation, QRText, question, answer, letter, letterIndex, longitude, latitude):
         # Try the SQL
         try:
