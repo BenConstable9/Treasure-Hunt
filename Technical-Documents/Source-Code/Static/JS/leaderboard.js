@@ -1,4 +1,4 @@
-/* Author - Adam Bannister
+/* Author - Freddie Woods
 */
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function(){
             document.getElementById("scoresError").style.display = "none";
             for (i = 0; i < response.data.length; i ++) {
                 var x = document.createElement("LI");
-                x.innerHTML = "<span class='teamName'>" + response.data[i].TeamName + "</span> " + response.data[i].Letters + " <span class='teamName'> @ " + response.data[i].Time.split(" ")[1].substring(0,5) + "</span>";
+                x.innerHTML = "Rank: "+(i+1)+" "+ "<span class='teamName'>" + response.data[i].TeamName + "</span> " + response.data[i].Letters + " <span class='teamName'> " +"</span>";
                 document.getElementById("scores").appendChild(x);
             }
         } else {
@@ -33,4 +33,7 @@ document.addEventListener('DOMContentLoaded', function(){
     function fetchLeaderboard() {
         HTTPGet("/dashboard/results", fetchLeaderboardCallback);
     }
-});
+    setInterval(function(){ fetchLeaderboard(); }, 5000);
+
+    fetchLeaderboard();
+}, false);

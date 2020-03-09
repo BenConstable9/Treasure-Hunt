@@ -1,5 +1,6 @@
 from flask import request,json
 import sqlite3 as sql
+from Helpers.utility import makeRowDictionary
 
 # Author - Adam Bannister
 # MVC Model for handling leaderboard
@@ -44,12 +45,13 @@ class leaderboardModel():
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
                 #map the column names to the values returned
-                #con.row_factory = makeRowDictionary
+                con.row_factory = makeRowDictionary
                 cur = con.cursor()
 
                 # Get the appropriate results
-                cur.execute("SELECT t.TeamName, r.StartTime, r.FinishTime, r.Letters, t.GamePin FROM Teams t INNER JOIN Results r ON t.TeamID = r.TeamID WHERE t.Gamepin=?", (gamePin,))
+                cur.execute("SELECT t.TeamName, r.StartTime, r.FinishTime, r.Letters, t.GamePin FROM Teams t INNER JOIN Results r ON t.TeamID = r.TeamID WHERE t.Gamepin=? ORDER BY r.Letters DESC, r.StartTime ASC", (gamePin,))
                 results = cur.fetchall()
+
                 print(results)
                 response = {'status':'1', 'data':results}
 
