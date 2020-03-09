@@ -5,6 +5,7 @@ from Models.leaderboardModel import leaderboardModel
 from Models.questionModel import questionModel
 from Models.leaderboardModel import leaderboardModel
 from Models.gameModel import gameModel
+from Models.teamModel import teamModel
 from Helpers.utility import escapeInput
 import random
 
@@ -130,4 +131,17 @@ class DashboardController():
         else:
             data = {"status" == "0"}
             return data
+
+    """Request Help From Moderator"""
+    def requestHelp(self):
+        teamID = session.get('teamID')
+        gamePin = session.get('gamePin')
+        gameModel.logAction(gamePin, teamID, "requested help. Meet them at starting location.")
+
+
+    """Allow the team to Logout """
+    def teamLogout(self):
+        response = teamModel.teamLogout()
+        return response
+
 dashboardController=DashboardController()

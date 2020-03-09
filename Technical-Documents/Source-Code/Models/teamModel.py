@@ -1,4 +1,4 @@
-from flask import request,json
+from flask import request,json,session
 import sqlite3 as sql
 
 # Author - Ben Constable, Debugged with - Ravi Gohel
@@ -43,6 +43,12 @@ class TeamModel():
 
                         if (len(teamName) == 0):
                             message = message + " Team Name is empty - "
+                            toBreak = True
+
+
+                        team2 = teamName.replace(" ","")
+                        if (team2.isalpha()== False):
+                            message = message + " Only Letters and Spaces"
                             toBreak = True
 
                         if (tutorID == "None"):
@@ -115,5 +121,11 @@ class TeamModel():
             return response
 
             con.close()
+
+    """Handing the logging out of an team"""
+    def teamLogout(self):
+        session.clear() #Clears the session
+        response = {'status':'1', 'message':'Logged Out Successfully'}
+        return response
 
 teamModel=TeamModel()

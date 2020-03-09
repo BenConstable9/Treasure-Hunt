@@ -109,7 +109,7 @@ class QuestionModel():
                 if result is not None:
                     returns = []
                     for let in result:
-                        returns.append({"letter":let["Letter"], "building":let["Building"]})
+                        returns.append({"letter":let["Letter"], "building":let["Building"], "questionID":let["QuestionID"]})
                     response = {'status': '1', 'data': returns}
 
         except Exception as e:

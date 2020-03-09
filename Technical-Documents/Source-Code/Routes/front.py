@@ -58,6 +58,10 @@ def fetchFaqs():
 def fetchMap():
     return dashboardController.openMap()
 
+@front.route('/dashboard/logout',methods=['POST'])
+def logout():
+    return dashboardController.teamLogout()
+
 @front.route('/getPins',methods=['GET'])
 def fetchPins():
     return mapController.getPins()
@@ -81,3 +85,7 @@ def fetchLeaderboard():
 @front.route('/dashboard/leaderboard/data',methods=['GET'])
 def fetchLeaderboardData():
     return dashboardController.leaderboardData()
+
+@front.route('/dashboard/help',methods=['GET'])
+def requestHelp():
+    return dashboardController.requestHelp()
