@@ -38,6 +38,9 @@ document.addEventListener('DOMContentLoaded', function(){
             document.getElementById("scanModal").style.display = "none";
             document.getElementById("questionAnswerModal").style.display = "block";
 
+            //speak the question outloud
+            speechSynthesis.speak(new SpeechSynthesisUtterance("Your question is. " + response.Question));
+
             document.forms["questionAnswer"]["questionID"].value = response.QuestionID;
             showAlert("success", response.message);
         } else {
