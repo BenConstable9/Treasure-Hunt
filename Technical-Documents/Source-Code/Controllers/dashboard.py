@@ -53,6 +53,9 @@ class DashboardController():
 
     def faq(self):
         return render_template('FAQs.html')
+        
+    def privacyPolicy(self):
+        return render_template('privacypolicy.html')
 
     def leaderboard(self):
         return render_template('leaderboard.html')
