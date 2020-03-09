@@ -1,5 +1,6 @@
 from flask import request,json,session
 import sqlite3 as sql
+import datetime
 
 # Author - Ben Constable, Debugged with - Ravi Gohel
 # Modified By - Ravi
@@ -60,9 +61,10 @@ class TeamModel():
                         else:
                             # Insert the team data
                             cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID,TutorID) VALUES (?,?,?,?)",(teamName,gamePin,subject,tutorID) )
-
                             con.commit()
-
+                            teamID = cur.lastrowid
+                            cur.execute("INSERT INTO Results (TeamID,StartTime,Letters) VALUES (?,?,?)",(teamID,datetime.datetime.now(),0))
+                            con.commit()
                             # Get the last id
                             lastID = cur.lastrowid
 

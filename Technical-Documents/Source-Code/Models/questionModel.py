@@ -1,6 +1,7 @@
 from flask import request,json
 from Helpers.utility import makeRowDictionary
 import datetime
+from Models.leaderboardModel import leaderboardModel
 import sqlite3 as sql
 
 # Author - Ravi Gohel
@@ -138,7 +139,7 @@ class QuestionModel():
 
                         cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?,?)", (questionId,teamID,datetime.datetime.now()))
                         con.commit()
-
+                        leaderboardModel.addLetter(teamID)
                         cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
 
                         res = cur.fetchall()
