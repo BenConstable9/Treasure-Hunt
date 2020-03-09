@@ -140,14 +140,16 @@ class QuestionModel():
                 print("Check")
                 numLetters = results["Letters"]
                 print("Check")
-                if building.length() == numLetters:
-                    cur.execute("SELECT * FROM Teams Inner Join Tutors ON Teams.TeamID = Tutors.TeamID WHERE TeamID=?", (teamID,))
+                if len(building) == numLetters:
+                    cur.execute("SELECT * FROM Teams Inner Join Tutors ON Teams.TutorID = Tutors.TutorID WHERE TeamID=?", (teamID,))
                     results = cur.fetchone()
                     room = results["Room"]
                     return {'status': '1', 'room': room}
                 else:
+                    print("pass")
                     return {'status':'0'}
         except Exception as e:
+            print("fail")
             print(e)
             return {'status':'0'}
         finally:
@@ -173,6 +175,7 @@ class QuestionModel():
                     cur.execute("SELECT * FROM QuestionsAnswered WHERE QuestionID=? AND TeamID=?", (questionId,teamID))
                     result = cur.fetchone()
                     print("CHECK CALL")
+                    res = None
                     if result is None:
 
                         cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?,?)", (questionId,teamID,datetime.datetime.now()))
@@ -191,9 +194,12 @@ class QuestionModel():
                         print("its here")
                         won = self.checkComplete(teamID)
                         print("its here")
-                        if won["status"] == '0':
+                        print(won)
+                        if won["status"] == '1':
+                            print("stat 2")
                             response = {'status': '2', 'data': returns, 'room' : won["room"]}
                         else:
+                            print("stat 1")
                             response = {'status': '1', 'data': returns}
                 else:
 
