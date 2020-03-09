@@ -45,8 +45,10 @@ class TeamModel():
                             message = message + " Team Name is empty - "
                             toBreak = True
 
-                        if (teamName.isalpha() == False):
-                            message = message + " Only Letters and No Spaces- "
+
+                        team2 = teamName.replace(" ","")
+                        if (team2.isalpha()== False):
+                            message = message + " Only Letters and Spaces"
                             toBreak = True
 
                         if (tutorID == "None"):
