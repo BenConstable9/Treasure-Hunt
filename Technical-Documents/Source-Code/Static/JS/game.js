@@ -347,13 +347,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
     /* Send off a request to delete a subject
     */
-    function deleteSubject(e){
-        //stop a page reload
-        e.preventDefault();
+    function deleteSubject(){
         subjectID = JSON.parse(this.dataset.json.replace(/'/g, '"')).SubjectID;
-        console.log("Subject ID:",subjectID);
         document.getElementById("loadingContainer").style.display = "block";
-        HTTPPost("/admin/deleteSubject", subjectID, deleteSubjectCallback)
+        var params = "SubjectID=" + subjectID;
+        HTTPPost("/admin/deleteSubject", params, deleteSubjectCallback)
     }
 
     /* Handle the callback from ending a game
