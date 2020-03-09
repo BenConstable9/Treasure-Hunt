@@ -297,14 +297,21 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
+    /* Handle the callback getting the notifications
+
+        :param response: The response from the request
+    */
     function fetchNotificationsCallback(response) {
         document.getElementById("notificationsList").innerHTML = "";
         if (response.status == "0" && response.message != "No Game Running") {
+            //set the error as this
             showAlert("error", response.message);
             document.getElementById("notificationsError").style.display = "block";
         } else if (response.status == "1" && response.data.length > 0) {
+            //output the notifications
             document.getElementById("notificationsError").style.display = "none";
             for (i = 0; i < response.data.length; i ++) {
+                //put the data in
                 var x = document.createElement("LI");
                 x.innerHTML = "<span class='teamName'>" + response.data[i].TeamName + "</span> " + response.data[i].Action + " <span class='teamName'> @ " + response.data[i].Time.split(" ")[1].substring(0,5) + "</span>";
                 document.getElementById("notificationsList").appendChild(x);
@@ -315,6 +322,7 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
+    /* Fetch Notifications */
     function fetchNotifications() {
         HTTPGet("/admin/notifications", fetchNotificationsCallback);
     }

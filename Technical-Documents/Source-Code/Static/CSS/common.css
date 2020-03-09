@@ -56,6 +56,20 @@ hr {
     margin: 10px;
 }
 
+#scores {
+    padding: 0;
+    list-style-type: none;
+}
+
+#scores li {
+    padding-bottom: 5px;
+}
+
+.teamName {
+    color: crimson;
+    font-weight: bold;
+}
+
 #loadingContainer {
     height: 100%;
     width: 100%;
@@ -249,7 +263,7 @@ input[type=submit]:hover, button:hover {
     padding: 25px;
 }
 
-.authForm, #locationsBox {
+.authForm, #locationsBox, #leaderboard {
     margin: 0% 30% 3% 30%;
     width: 40%;
 }
@@ -257,11 +271,15 @@ input[type=submit]:hover, button:hover {
 @media screen and (max-width:680px) {
     /* change the modals */
 
-    .authForm, #locationsBox {
+    .authForm, #locationsBox, #leaderboard {
         padding: 10px;
         margin: 5% auto;
         width: 90%;
     }
+}
+
+#leaderboard {
+    margin-top: 16px;
 }
 
 .topnav {
