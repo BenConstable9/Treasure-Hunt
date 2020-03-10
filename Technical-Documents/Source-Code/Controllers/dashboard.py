@@ -6,6 +6,7 @@ from Models.questionModel import questionModel
 from Models.leaderboardModel import leaderboardModel
 from Models.gameModel import gameModel
 from Helpers.utility import escapeInput
+from Models.teamModel import teamModel
 import random
 
 # Author - Ben Constable
@@ -64,7 +65,7 @@ class DashboardController():
 
     :return: An array of the data."""
     def leaderboardData(self):
-        
+
         #get current game pin
         gamePin = session.get('gamePin')
 
@@ -142,5 +143,10 @@ class DashboardController():
         teamID = session.get('teamID')
         gamePin = session.get('gamePin')
         gameModel.logAction(gamePin, teamID, "requested help. Meet them at starting location.")
+
+    """Allow the team to Logout """
+    def teamLogout(self):
+        response = teamModel.teamLogout()
+        return response
 
 dashboardController=DashboardController()
