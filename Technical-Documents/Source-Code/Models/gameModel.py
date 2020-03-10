@@ -198,19 +198,21 @@ class GameModel():
     :param subjectID: The subject to be deleted.
 
     :return: A json response with details of the success."""
-    def deleteSubject(self, SubjectID):
+    def deleteSubject(self, subjectID):
         try:
             #Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
                 cur = con.cursor()
 
                 #Delete the subject from the table
-                cur.execute("DELETE FROM Questions WHERE SubjectID=?", (SubjectID))
-                cur.execute("DELETE FROM Subjects WHERE SubjectID=?", (SubjectID))
+                cur.execute("DELETE FROM Questions WHERE SubjectID=?", (subjectID,))
+                cur.execute("DELETE FROM Subjects WHERE SubjectID=?", (subjectID,))
+                cur.execute("DELETE FROM Tutors WHERE SubjectID=?", (subjectID,))
+                cur.execute("DELETE FROM Games WHERE SubjectID=?", (subjectID,))
 
                 con.commit();
 
-                response = {'status':'1', 'message':'Subject deleted successfully'}
+                response = {'status':'1', 'message':'Subject deleted successfully', 'subjectID':subjectID}
 
         except Exception as e:
             #Incorrect Repsonse

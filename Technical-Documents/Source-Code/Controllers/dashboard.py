@@ -129,7 +129,6 @@ class DashboardController():
         return response
 
     def getAnswers(self):
-        print("bigtest the one")
         teamID = session.get('teamID')
         response = questionModel.getAnswers(escapeInput(teamID))
         if response["status"] == "1":
