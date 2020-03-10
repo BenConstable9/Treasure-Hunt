@@ -44,9 +44,9 @@ class GameModel():
             con.close()
 
     """Get the latest actions for the admin.
-    
+
     :param gamePin: The game pin of the game they are monitoring.
-    
+
     :return: A dictionary of data to be returned via ajax. """
     def getNotifications(self, gamePin):
         try:
@@ -206,15 +206,16 @@ class GameModel():
     :param subjectID: The subject to be deleted.
 
     :return: A json response with details of the success."""
-    def deleteSubject(self, subjectID):
-        print(subjectID)
+    def deleteSubject(self, SubjectID):
+        print(SubjectID)
         try:
             #Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
                 cur = con.cursor()
 
                 #Delete the subject from the table
-                cur.execute("DELETE FROM Questions WHERE SubjectID=?", (subjectID))
+                print("SUBJECTID", SubjectID)
+                cur.execute("DELETE FROM Questions WHERE SubjectID=?", (SubjectID))
 
                 response = {'status':'1', 'message':'Subject deleted successfully'}
 

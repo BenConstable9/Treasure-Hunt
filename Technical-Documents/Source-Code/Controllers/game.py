@@ -40,7 +40,7 @@ class GameController():
                 return render_template('game.html',name = keeperName, ID = keeperID, status = subjectResponse["status"],subjectLength = len(subjectResponse["data"]),subjectData = subjectResponse["data"],gameStatus = 1, gamePin = gameResponse[0]["GamePin"])
 
     """Get the latest notifications for a given game pin.
-    
+
     :return: A JSON object full of the latest actions."""
     def getNotifications(self):
         if not session.get('adminLoggedIn'):
@@ -50,7 +50,7 @@ class GameController():
 
             keeperID = session.get("keeperID")
             gameResponse = gameModel.getGames(keeperID, 1)
-            
+
             if (len(gameResponse) == 0):
                 return {'status':'0', 'message':'No Game Running'}
             else:
@@ -59,7 +59,7 @@ class GameController():
             return response
 
     """Get the questions for the current subject.
-    
+
     :return: Array of questions. """
     def getQuestions(self):
         # Check if logged in
@@ -103,7 +103,8 @@ class GameController():
     :return: A redirect or a template. """
     def deleteSubject(self):
         #get the data from the session
-        return gameModel.deleteSubject(request)
+        SubjectID = request.form.get('SubjectID')
+        return gameModel.deleteSubject(SubjectID)
 
 
 
