@@ -199,7 +199,7 @@ class QuestionModel():
                         returns = []
                         for let in res:
 
-                            returns.append({"letter":let["Letter"], "building":let["Building"]})
+                            returns.append({"letter":let["Letter"], "building":let["Building"], "questionID":let["QuestionID"]})
                         print("its here")
                         won = self.checkComplete(teamID)
                         print("its here")
