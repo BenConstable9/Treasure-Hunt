@@ -6,6 +6,7 @@ from Models.questionModel import questionModel
 from Models.leaderboardModel import leaderboardModel
 from Models.gameModel import gameModel
 from Helpers.utility import escapeInput
+from Models.teamModel import teamModel
 import random
 
 # Author - Ben Constable
@@ -54,6 +55,12 @@ class DashboardController():
     def faq(self):
         return render_template('FAQs.html')
 
+    """Loads the privacy webpage.
+
+    :return: The html page"""
+    def privacyPolicy(self):
+        return render_template('privacypolicy.html')
+
     """Loads the leaderboard webpage.
 
     :return: The html page"""
@@ -64,9 +71,19 @@ class DashboardController():
 
     :return: An array of the data."""
     def leaderboardData(self):
-
-        #get current game pin
-        gamePin = session.get('gamePin')
+        #check if they are an admin or not by looking at referrrer
+        if ("admin" in request.referrer):
+            #get their details and find their active game
+            keeperID = session.get("keeperID")
+            gameResponse = gameModel.getGames(keeperID, 1)
+            #handle them not having an active game
+            if (len(gameResponse) == 1):
+                gamePin = gameResponse[0]["GamePin"]
+            else:
+                return {'status':'0', 'message':'No Scores'}
+        else:
+            #they are player so get the data from the session
+            gamePin = session.get('gamePin')
 
         #get the leaderboard data from the DB
         leaderboardResponse = leaderboardModel.obtainResults(gamePin)
@@ -143,5 +160,10 @@ class DashboardController():
         teamID = session.get('teamID')
         gamePin = session.get('gamePin')
         gameModel.logAction(gamePin, teamID, "requested help. Meet them at starting location.")
+
+    """Allow the team to Logout """
+    def teamLogout(self):
+        response = teamModel.teamLogout()
+        return response
 
 dashboardController=DashboardController()

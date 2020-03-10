@@ -44,9 +44,9 @@ class GameModel():
             con.close()
 
     """Get the latest actions for the admin.
-    
+
     :param gamePin: The game pin of the game they are monitoring.
-    
+
     :return: A dictionary of data to be returned via ajax. """
     def getNotifications(self, gamePin):
         try:
@@ -163,7 +163,7 @@ class GameModel():
 
     :param subjectID: The subject to generate the QR codes for.
 
-    :return: The list of QR codes. """
+    :return: A json response with details of the success. """
     def genQRCodes(self, subjectID):
         try:
             #Open the DB
@@ -183,6 +183,37 @@ class GameModel():
                 response = {'status':'1', 'message':'QR Codes Created'}
 
         except Exception as e:
+            print(e)
+            response = {'status':'0', 'message':'BAD - Unsuccessful'}
+
+        finally:
+
+            # Return the result
+            return response
+
+            con.close()
+
+    """Handle the deletion of a subject
+
+    :param subjectID: The subject to be deleted.
+
+    :return: A json response with details of the success."""
+    def deleteSubject(self, SubjectID):
+        try:
+            #Open the DB
+            with sql.connect("Models/treasure.sqlite") as con:
+                cur = con.cursor()
+
+                #Delete the subject from the table
+                cur.execute("DELETE FROM Questions WHERE SubjectID=?", (SubjectID))
+                cur.execute("DELETE FROM Subjects WHERE SubjectID=?", (SubjectID))
+
+                con.commit();
+
+                response = {'status':'1', 'message':'Subject deleted successfully'}
+
+        except Exception as e:
+            #Incorrect Repsonse
             print(e)
             response = {'status':'0', 'message':'BAD - Unsuccessful'}
 
@@ -262,6 +293,7 @@ class GameModel():
 
                         self.genQRCodes(subjectID)
                     else:
+                        #Incorrect Repsonse
                         response = {'status':'0', 'message':'Game not added successfully - length of locations is not the same as the final building.', 'ID': '0'}
 
                 else:
