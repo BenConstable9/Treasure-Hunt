@@ -7,11 +7,11 @@ on:
   push:
     branches:
       - master
-      - deployment
+      - Deployment
   pull_request:
     branches: 
       - master
-      - deployment
+      - Deployment
 jobs:
   build:
 
