@@ -11,7 +11,7 @@ app.register_blueprint(admin)
 # MVC Entry point for handling the site
 
 # Make a secret key for the sessions
-app.config["SECRET_KEY"] = secrets.token_urlsafe(16)
+app.config["SECRET_KEY"] = "tSSmSuHrOjcNAsbV"
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(threaded=True, debug = True)
