@@ -176,6 +176,7 @@ class GameModel():
                 cur.execute("SELECT * FROM Questions WHERE SubjectID=?", (subjectID,))
                 questions = cur.fetchall()
 
+                #Generate and save questions for each of the questions
                 for question in questions:
                     img = pyqrcode.create(question["QRText"])
                     img.svg("Static/Images/Codes/" + str(question["QuestionID"]) + ".svg", scale = 8)

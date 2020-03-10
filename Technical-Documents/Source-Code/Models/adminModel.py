@@ -129,8 +129,10 @@ class AdminModel():
             with sql.connect("Models/treasure.sqlite") as con:
                 cur = con.cursor()
 
+                #Check if passwords are the same
                 if password1 != password2:
                     response = {'status':'0', 'message':'Game Keeper Password Change Unsuccessful - Password Do Not Match'}
+                #Check if password is of valid length
                 elif len(password1 or password2) == 0:
                     response = {'status':'0', 'message':'Game Keeper Password Change Unsuccessful - Empty password input'}
                 else:

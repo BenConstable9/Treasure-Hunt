@@ -43,17 +43,18 @@ class TeamModel():
                         message = "Team Registration Unsuccessful - "
                         toBreak = False
 
-
+                        #Check the team name is a valid length
                         if (len(teamName) == 0):
                             message = message + " Team Name is empty - "
                             toBreak = True
 
-
+                        #Checks if the name is only standard characters
                         team2 = teamName.replace(" ","")
                         if (team2.isalpha()== False):
                             message = message + " Only Letters and Spaces"
                             toBreak = True
 
+                        #Checks if the tutor has been filled in
                         if (tutorID == "None"):
                             message = message + "Tutor is empty."
                             toBreak = True
@@ -80,6 +81,7 @@ class TeamModel():
                     response = {'status':'0', 'message':'Team Registration Unsuccessful - Game Pin Invalid', 'ID': '0'}
 
         except Exception as e:
+            #Error handling
             print(e)
             con.rollback()
 
