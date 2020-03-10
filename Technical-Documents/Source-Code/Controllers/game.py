@@ -90,14 +90,6 @@ class GameController():
 
         return gameModel.endGame(keeperID)
 
-
-
-
-
-
-
-
-
     """Handle deleting of a subject by a post request
 
     :return: A redirect or a template. """
@@ -105,14 +97,6 @@ class GameController():
         #get the data from the session
         SubjectID = request.form.get('SubjectID')
         return gameModel.deleteSubject(SubjectID)
-
-
-
-
-
-
-
-
 
     """Handle ending of a game by a post request
 

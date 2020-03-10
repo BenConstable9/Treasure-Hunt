@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function(){
             //incorrect response
             showAlert("changePasswordModalError", "Error in Changing Password - not the same");
         } else {
+            //Tell user password has been changed
             showAlert("success", "Password change successfully");
             var passwordForm = document.forms["changePassword"];
             passwordForm.reset();
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function(){
   /* Handle the response from registering new admin */
     function registerAdminCallback(response) {
       if (response.status == "1") {
-          //incorrect response
+          //Tell the user the admin has been added
           showAlert("success", "New admin registered successfully")
           var registerForm = document.forms["registerAdmin"]
           registerForm.reset();
@@ -171,14 +172,6 @@ document.addEventListener('DOMContentLoaded', function(){
             //convert to a format to store
             buttonJSON = JSON.stringify(response);
 
-
-
-
-
-
-
-
-
             //add the cells
             row.insertCell(0).innerHTML = response.SubjectID;
             row.insertCell(1).innerHTML = response.SubjectName;
@@ -199,15 +192,7 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
-
-
-
-
-
-
-
-
-    /* Handle the submission of the game form
+  /* Handle the submission of the game form
     */
     function handleUpload(e) {
         //stop a page reload
@@ -319,10 +304,12 @@ document.addEventListener('DOMContentLoaded', function(){
     function fetchNotificationsCallback(response) {
         document.getElementById("notificationsList").innerHTML = "";
         if (response.status == "0" && response.message != "No Game Running") {
+            //Incorrect response
             showAlert("error", response.message);
             document.getElementById("notificationsError").style.display = "block";
         } else if (response.status == "1" && response.data.length > 0) {
             document.getElementById("notificationsError").style.display = "none";
+            //Add all the teams to the lists
             for (i = 0; i < response.data.length; i ++) {
                 var x = document.createElement("LI");
                 x.innerHTML = "<span class='teamName'>" + response.data[i].TeamName + "</span> " + response.data[i].Action + " <span class='teamName'> @ " + response.data[i].Time.split(" ")[1].substring(0,5) + "</span>";
@@ -338,16 +325,10 @@ document.addEventListener('DOMContentLoaded', function(){
         HTTPGet("/admin/notifications", fetchNotificationsCallback);
     }
 
-
-
-
-
-
-
-
     /* Send off a request to delete a subject
     */
     function deleteSubject(){
+        //Get the subject ID to pass to the request
         subjectID = JSON.parse(this.dataset.json.replace(/'/g, '"')).SubjectID;
         document.getElementById("loadingContainer").style.display = "block";
         var params = "SubjectID=" + subjectID;
@@ -359,26 +340,18 @@ document.addEventListener('DOMContentLoaded', function(){
         :param response: The response from the request
     */
     function deleteSubjectCallback(response) {
-        document.getElementById("loadingContainer").style.display = "none";
         if (response.status == "1") {
             document.getElementById("loadingContainer").style.display = "none";
-            //Display message telling user to upload a config
-            document.getElementById("configTable").style.display = "none";
+            //Delete subject row from table
+            document.getElementById("configTable").deleteRow(1);
             document.getElementById('noConfigError').style.display = "block";
-
             //show message
             showAlert("success", response.message);
+            document.reload();
         } else {
             showAlert("error", response.message);
         }
     }
-
-
-
-
-
-
-
 
     //add the event listeners
 

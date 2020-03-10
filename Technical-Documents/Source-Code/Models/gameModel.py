@@ -193,33 +193,27 @@ class GameModel():
 
             con.close()
 
-
-
-
-
-
-
-
-
     """Handle the deletion of a subject
 
     :param subjectID: The subject to be deleted.
 
     :return: A json response with details of the success."""
     def deleteSubject(self, SubjectID):
-        print(SubjectID)
         try:
             #Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
                 cur = con.cursor()
 
                 #Delete the subject from the table
-                print("SUBJECTID", SubjectID)
                 cur.execute("DELETE FROM Questions WHERE SubjectID=?", (SubjectID))
+                cur.execute("DELETE FROM Subjects WHERE SubjectID=?", (SubjectID))
+
+                con.commit();
 
                 response = {'status':'1', 'message':'Subject deleted successfully'}
 
         except Exception as e:
+            #Incorrect Repsonse
             print(e)
             response = {'status':'0', 'message':'BAD - Unsuccessful'}
 
@@ -229,16 +223,6 @@ class GameModel():
             return response
 
             con.close()
-
-
-
-
-
-
-
-
-
-
 
     """Handle the ending of a game
 
@@ -309,6 +293,7 @@ class GameModel():
 
                         self.genQRCodes(subjectID)
                     else:
+                        #Incorrect Repsonse
                         response = {'status':'0', 'message':'Game not added successfully - length of locations is not the same as the final building.', 'ID': '0'}
 
                 else:
