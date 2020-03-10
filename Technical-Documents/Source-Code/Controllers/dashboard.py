@@ -131,14 +131,6 @@ class DashboardController():
     def getAnswers(self):
         teamID = session.get('teamID')
         response = questionModel.getAnswers(escapeInput(teamID))
-        if response["status"] == "1":
-            #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
-            data = response["data"]
-
-            #ajax call to say passed
-        else:
-            #ajax call to say failed
-            response = {}
         return response
 
     def getLoc(self):
