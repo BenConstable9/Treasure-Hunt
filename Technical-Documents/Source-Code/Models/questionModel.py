@@ -64,15 +64,24 @@ class QuestionModel():
 
             con.close()
 
+    """Verify the location by the QR code.
+
+    :param subjectID: The subject ID.
+    :param qRText: The text from the scanned QR code.
+
+    :return:  A JSON array with status and question details."""
     def verifyLocation(self, subjectID, qRText):
         try:
+            #Opens the database
             with sql.connect("Models/treasure.sqlite") as con:
                 con.row_factory = sql.Row
                 cur =  con.cursor()
+                #Find the question for the given QR code
                 cur.execute("SELECT * FROM Questions WHERE QRText=?",(str(qRText),))
 
                 questions =  cur.fetchall()
 
+                #Checks if a question was found for the code
                 if (len(questions) == 0):
                     response = {'status':'0', 'message':'Invalid QR Code - try scanning again.'}
                 else:
@@ -80,29 +89,37 @@ class QuestionModel():
                     response = {'status':'1','message':'QR Code Valid - You Have A New Question.', 'QuestionID': question['QuestionID'], 'Building': question['Building'],'Question': question['Question']}
 
         except Exception as e:
+            #Error handling
             print(e)
             response = {'status':'0', 'message':'Unable to fetch question.'}
         finally:
 
-            #to be finished off
             return response
             con.close()
 
+    """Get the questions for the given subject.
+
+    :param subjectID: The subject's unique ID.
+
+    :return:  A JSON array with status and questions."""
     def getQuestions(self, subjectID):
          try:
              # Open the DB
              with sql.connect("Models/treasure.sqlite") as con:
                  con.row_factory = sql.Row
                  cur = con.cursor()
+                 #Find all the questions for the given subject
                  cur.execute("SELECT * FROM Questions WHERE SubjectID=?", (int(subjectID),))
 
                  questions = cur.fetchall()
                  returns = []
 
+                 #Appends all of the data from each of the questions to an array
                  for question in questions:
                      returns.append({"questionID":question["QuestionID"],"question":question["Question"], "answer":question["Answer"], "building":question["Building"],"letter":question["Letter"],"latitude":question["Latitude"],"longitude":question["Longitude"],"qrLocation":question["QRLocation"]})
                  response = {'status': '1', 'data': returns}
          except Exception as e:
+            #Error handling
              print(e)
              response = {'status':'0'}
          finally:
@@ -111,7 +128,11 @@ class QuestionModel():
 
              con.close()
 
-# takes in a team id when the page is refresed gets and returns any of the letters for the questions they have answered.
+    """Get the answers for a given team.
+
+    :param teamID: The team's unique ID.
+
+    :return:  A JSON array with status and letters achieved."""
     def getAnswers(self,teamID):
         try:
             # Open the DB
@@ -119,20 +140,25 @@ class QuestionModel():
                 con.row_factory = sql.Row
                 cur = con.cursor()
 
+                #Find all the questions answered for the given team
                 cur.execute("SELECT * FROM QuestionsAnswered Inner Join Questions ON QuestionsAnswered.QuestionID = Questions.QuestionID WHERE TeamID=?", (teamID,))
                 result = cur.fetchall()
+
+                #Checks if the team has got any letters yet
                 if result is not None:
                     returns = []
                     for let in result:
                         returns.append({"letter":let["Letter"], "building":let["Building"], "questionID":let["QuestionID"]})
-                    won = self.checkComplete(teamID)
 
+                    #Checks if the team has got the final letter and won.
+                    won = self.checkComplete(teamID)
                     if won["status"] == '1':
                         response = {'status': '2', 'data': returns, 'room' : won["room"]}
                     else:
                         response = {'status': '1', 'data': returns}
 
         except Exception as e:
+            #Error handling
             print(e)
             response = {'status':'0'}
         finally:
@@ -140,21 +166,26 @@ class QuestionModel():
             return response
             con.close()
 
-# takes in the id of a team
-# retures a json object with a 1 if they have completed the game and a 0 if they have not
-# Uses the team name to check the length of the name of the building they need to get to if its the same as the number of correct answers theyve given then retuns that have won and sets there finish time
+    """Check if a team has achieved all of the letters needed.
+
+    :param teamID: The team's unique ID.
+
+    :return:  A JSON array with status and the room once finsished."""
     def checkComplete(self, teamID):
         try:
             # Open the DB
             with sql.connect("Models/treasure.sqlite") as con:
                 con.row_factory = makeRowDictionary
                 cur = con.cursor()
+                #Find all data on the current team
                 cur.execute("SELECT * FROM Teams Inner Join Subjects ON Teams.SubjectID = Subjects.SubjectID WHERE TeamID=?", (teamID,))
                 Subject = cur.fetchone()
                 building = Subject["Building"]
+                #Find how far the team has progressed
                 cur.execute("SELECT * FROM Results where TeamID=?", (teamID,))
                 results = cur.fetchone()
                 numLetters = results["Letters"]
+                #Check if the team has completed the letters of the building
                 if len(building) == numLetters:
                     cur.execute("SELECT * FROM Teams Inner Join Tutors ON Teams.TutorID = Tutors.TutorID WHERE TeamID=?", (teamID,))
                     results = cur.fetchone()
@@ -165,6 +196,7 @@ class QuestionModel():
                 else:
                     return {'status':'0'}
         except Exception as e:
+            #Error handling
             print(e)
             return {'status':'0'}
         finally:
@@ -172,9 +204,13 @@ class QuestionModel():
 
             con.close()
 
-# takes the answers to a question the id of that question and the teamId of the team answering the question
-# returns a json object with varing status depending if there answer was correct or if they have won the game. Inside the object is the letters they have collected the bulding they were in and the question id of the question they QuestionsAnswered
-# checks there answers agains the one in the database for a given question id. also calls to check if they have completed the game if there answer was correct
+    """Get the answers for a given team.
+
+    :param answer: The answer given by the team.
+    :param questionId: The unique ID for the question.
+    :param teamID: The team's unique ID.
+
+    :return:  A JSON array with status and letters achieved."""
     def checkAnswer(self,answer,questionId,teamID):
         try:
             # Open the DB

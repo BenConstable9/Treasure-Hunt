@@ -9,7 +9,11 @@ class leaderboardModel():
     def __init__(self):
         pass
 
+    """Add a letter to a certain team's score
 
+    :param teamID: The team ID of the team to add the letter to
+
+    :return: a json response containing the status of the execution"""
     def addLetter(self, teamID):
         try:
             # Open the DB
@@ -38,7 +42,6 @@ class leaderboardModel():
     :param gamePin: the gamePin to create results for
 
     :return: a json response containing leaderboard data"""
-
     def obtainResults(self, gamePin):
         #try the sql
         try:

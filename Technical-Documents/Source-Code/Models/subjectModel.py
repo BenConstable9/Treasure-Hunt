@@ -136,6 +136,11 @@ class SubjectModel():
 
             con.close()
 
+    """Verifies a pin
+
+    :param subjectID: The given unique subject ID.
+
+    :return: A JSON array response with the status. """
     def getBuilding(self, subjectID):
         try:
             # Open the DB
