@@ -55,10 +55,14 @@ public link: [https://treasure-hunt-groupb.herokuapp.com/]
 2) Click on the 'Admin Login' button on the navigation bar
 3) Login with Username: admin and Password: admin
 4)  A) If a game is already created, it will tell you the Current Game Pin - go to Step 5
+    
     B) If a game is not already created, you can demo the system by uploading the provided Computer Science config within the Config folder
+    
     C) Click on 'Manage Existing Game Config'
+    
     D) Click on 'Create Game' if Computer Science is already there, if not, then click on 'Choose File' and upload the Computer Science config that can be found within the Configs folder in Source Code.
     NOTE: Once you click "Upload Config", you may have to wait for a few moments for the upload to occur.
+    
     E) Once the config is uploaded, click on the "Create Game" button on the new Computer Science row
 5) Copy the generated Game Pin and return to the main-page by clicking on 'PlayerHome' on the navigation bar
 6) Register a new team, entering in the copied game pin
