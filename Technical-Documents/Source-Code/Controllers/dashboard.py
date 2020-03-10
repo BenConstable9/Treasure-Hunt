@@ -148,7 +148,7 @@ class DashboardController():
             #ajax call to say passed
         else:
             print("status was not 1")
-            gameModel.logAction(gamePin, teamID, "attempted to answer question " + questionId + " successfully")
+            gameModel.logAction(gamePin, teamID, "attempted to answer question " + questionId)
             #ajax call to say failed
 
         return response

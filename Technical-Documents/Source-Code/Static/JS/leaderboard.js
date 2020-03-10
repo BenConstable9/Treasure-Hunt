@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function(){
             for (i = 0; i < response.data.length; i ++) {
                 var x = document.createElement("LI");
                 //outputs the data in a list view.
-                x.innerHTML = "Rank: <b>"+(i+1)+"</b> "+ "| <span class='teamName'>" + response.data[i].TeamName + "</span> | Letters: <b>" + response.data[i].Letters + "</b><span class='teamName'> | StartTime: <b>" + response.data[i].StartTime +"</b><span class='teamName'>"+"</span>";
+                x.innerHTML = "Rank: <b>"+(i+1)+"</b> "+ "| <span class='teamName'>" + response.data[i].TeamName + "</span> | Letters: <b>" + response.data[i].Letters + "</b><span class='teamName'> | StartTime: <b>" + response.data[i].StartTime.split(" ")[1].substring(0,5) +"</b><span class='teamName'>"+"</span>";
                 document.getElementById("scores").appendChild(x);
             }
         } else {

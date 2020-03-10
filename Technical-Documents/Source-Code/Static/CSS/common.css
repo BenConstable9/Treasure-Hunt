@@ -276,6 +276,16 @@ input[type=submit]:hover, button:hover {
         margin: 5% auto;
         width: 90%;
     }
+
+    .modal {
+        margin: 2% auto;
+        width: 96%;
+        position: fixed;
+        z-index: 10000;
+        left: 2%;
+        right: 2%;
+        top: 10%;
+    }
 }
 
 #leaderboard {
