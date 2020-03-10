@@ -6,6 +6,7 @@ from Models.questionModel import questionModel
 from Models.leaderboardModel import leaderboardModel
 from Models.gameModel import gameModel
 from Helpers.utility import escapeInput
+from Models.teamModel import teamModel
 import random
 
 # Author - Ben Constable
@@ -53,6 +54,12 @@ class DashboardController():
 
     def faq(self):
         return render_template('FAQs.html')
+
+    """Loads the privacy webpage.
+
+    :return: The html page"""
+    def privacyPolicy(self):
+        return render_template('privacypolicy.html')
 
     """Loads the leaderboard webpage.
 
@@ -143,5 +150,10 @@ class DashboardController():
         teamID = session.get('teamID')
         gamePin = session.get('gamePin')
         gameModel.logAction(gamePin, teamID, "requested help. Meet them at starting location.")
+
+    """Allow the team to Logout """
+    def teamLogout(self):
+        response = teamModel.teamLogout()
+        return response
 
 dashboardController=DashboardController()

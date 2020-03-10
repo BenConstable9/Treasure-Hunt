@@ -53,3 +53,7 @@ def getQuestions():
 @admin.route('/admin/notifications', methods=['GET'])
 def getNotifications():
     return gameController.getNotifications()
+
+@admin.route('/admin/deleteSubject', methods=['POST'])
+def subjectDelete():
+    return gameController.deleteSubject()

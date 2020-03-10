@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function(){
             //incorrect response
             showAlert("changePasswordModalError", "Error in Changing Password - not the same");
         } else {
+            //Tell user password has been changed
             showAlert("success", "Password change successfully");
             var passwordForm = document.forms["changePassword"];
             passwordForm.reset();
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function(){
   /* Handle the response from registering new admin */
     function registerAdminCallback(response) {
       if (response.status == "1") {
-          //incorrect response
+          //Tell the user the admin has been added
           showAlert("success", "New admin registered successfully")
           var registerForm = document.forms["registerAdmin"]
           registerForm.reset();
@@ -177,18 +178,21 @@ document.addEventListener('DOMContentLoaded', function(){
             row.insertCell(2).innerHTML = response.Building;
             row.insertCell(3).innerHTML = '<button id="create' + response.SubjectID + '" class="createGameButton">Create Game</button>';
             row.insertCell(4).innerHTML = '<button id="print' + response.SubjectID + '" class="printQRCode">Print QR Codes</button>';
+            row.insertCell(5).innerHTML = '<button id="delete' + response.SubjectID + '" class="deleteSubjectButton">Delete Subject</button>';
 
             //add the event listeners
             document.getElementById('create' + response.SubjectID).addEventListener("click", createGame);
             document.getElementById('create' + response.SubjectID).dataset.json = buttonJSON;
             document.getElementById('print' + response.SubjectID).addEventListener("click", createPrints);
             document.getElementById('print' + response.SubjectID).dataset.json = buttonJSON;
+            document.getElementById('delete' + response.SubjectID).addEventListener("click", deleteSubject);
+            document.getElementById('delete' + response.SubjectID).dataset.json = buttonJSON;
         } else {
             showAlert("error", response.message);
         }
     }
 
-    /* Handle the submission of the game form
+  /* Handle the submission of the game form
     */
     function handleUpload(e) {
         //stop a page reload
@@ -310,6 +314,7 @@ document.addEventListener('DOMContentLoaded', function(){
         } else if (response.status == "1" && response.data.length > 0) {
             //output the notifications
             document.getElementById("notificationsError").style.display = "none";
+            //Add all the teams to the lists
             for (i = 0; i < response.data.length; i ++) {
                 //put the data in
                 var x = document.createElement("LI");
@@ -327,6 +332,33 @@ document.addEventListener('DOMContentLoaded', function(){
         HTTPGet("/admin/notifications", fetchNotificationsCallback);
     }
 
+    /* Send off a request to delete a subject
+    */
+    function deleteSubject(){
+        //Get the subject ID to pass to the request
+        subjectID = JSON.parse(this.dataset.json.replace(/'/g, '"')).SubjectID;
+        document.getElementById("loadingContainer").style.display = "block";
+        var params = "SubjectID=" + subjectID;
+        HTTPPost("/admin/deleteSubject", params, deleteSubjectCallback)
+    }
+
+    /* Handle the callback from ending a game
+
+        :param response: The response from the request
+    */
+    function deleteSubjectCallback(response) {
+        if (response.status == "1") {
+            document.getElementById("loadingContainer").style.display = "none";
+            //Delete subject row from table
+            document.getElementById("configTable").deleteRow(1);
+            document.getElementById('noConfigError').style.display = "block";
+            //show message
+            showAlert("success", response.message);
+            document.reload();
+        } else {
+            showAlert("error", response.message);
+        }
+    }
 
     //add the event listeners
 
@@ -338,6 +370,11 @@ document.addEventListener('DOMContentLoaded', function(){
     prints = document.getElementsByClassName('printQRCode');
     for (i = 0; i < prints.length; i ++) {
         prints[i].addEventListener("click", createPrints)
+    }
+
+    deletes = document.getElementsByClassName('deleteSubjectButton');
+    for (i = 0; i < deletes.length; i ++) {
+        deletes[i].addEventListener("click", deleteSubject)
     }
 
     document.forms["configUpload"]["upload"].addEventListener("click", handleUpload);
@@ -363,6 +400,8 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById("logout").addEventListener("click", logout);
 
     document.getElementById("cancelQuestionsModal").addEventListener("click", closeQuestionsModal);
+
+    //document.getElementsByClassName('deleteSubjectButton').addEventListener("click", deleteSubject);
 
     setInterval(function(){ fetchNotifications(); }, 5000);
 
