@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Author - Ben Constable -->
+<!-- Author - Ben Constable and Ravi Gohel-->
 <!-- Render the admin dashboard pages -->
 <html lang="en">
 <head>
@@ -15,17 +15,19 @@
     <script type="text/javascript" src="{{ url_for('static',filename='JS/ajax.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='JS/common.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='JS/game.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='JS/leaderboard.js') }}"></script>
 </head>
 <body>
     <div class="topnav">
         <a class = "active">AdminHome</a>
         <a href="/">PlayerHome</a>
-        <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+        <image id="logo" src="{{url_for('static',filename='Images/UniLogo.png')}}"></image>
     </div>
 
+    <div id="success" class="alert success">Success: <span></span></div>
+    <div id="error" class="alert error">Error: <span></span></div>
+
     <div class="boxed">
-        <div id="success" class="alert success">Success: <span></span></div>
-        <div id="error" class="alert error">Error: <span></span></div>
         <h1>Admin Dashboard</h1>
         <p>Welcome: {{name}}. Below are all of the controls to manage the games - the leaderboard will be automatically populated as the teams complete the questions.</p>
     </div>
@@ -58,8 +60,10 @@
             <ul id="notificationsList"></ul>
         </div>
 
-        <div id="leaderboard" class="columnThree boxed">
+        <div id="leaderboardGrid" class="columnTwo boxed">
             <h4>Leaderboard</h4>
+            <div id="scoresError" class="alert error">No Scores</div>
+            <ul id="scores"></ul>
         </div>
     </div>
 
@@ -132,6 +136,7 @@
         </div>
     </div>
 
+    <!-- For registering new admin -->
     <div id="registerAdminModal" class="modal">
         <div class="modalHeader">
             <h2>Register New Admin</h2>
@@ -155,6 +160,7 @@
             </form>
     </div>
 
+    <!-- For admin changing their password-->
     <div id="changePasswordModal" class="modal">
         <div class="modalHeader">
             <h2>Change Password</h2>

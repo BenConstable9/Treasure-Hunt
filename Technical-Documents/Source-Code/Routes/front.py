@@ -4,6 +4,7 @@ from Controllers.auth import authController
 from Controllers.dashboard import dashboardController
 from Controllers.map import mapController
 # Author - Ben Constable
+# Modified By - Ravi Gohel
 # MVC Router for handling all front end routes
 #Edited by Freddie Woods added routes for building, lecturerers and faq.
 
@@ -58,13 +59,25 @@ def fetchFaqs():
 def fetchMap():
     return dashboardController.openMap()
 
+@front.route('/dashboard/logout',methods=['POST'])
+def logout():
+    return dashboardController.teamLogout()
+
+@front.route('/dashboard/privacypolicy', methods=['GET'])
+def fetchPrivacyPolicy():
+    return dashboardController.privacyPolicy()
+
 @front.route('/getPins',methods=['GET'])
 def fetchPins():
     return mapController.getPins()
 
 @front.route('/dashboard/question', methods=['POST'])
-def checkAnswer():
+def checkAnswers():
     return dashboardController.checkAnswer()
+
+@front.route('/dashboard/getAnswers', methods=['POST'])
+def getAnswer():
+    return dashboardController.getAnswers()
 
 @front.route('/dashboard/getLoc', methods=['POST'])
 def getLoc():
@@ -74,7 +87,14 @@ def getLoc():
 def fetchLeaderboard():
     return dashboardController.leaderboard()
 
-@front.route('/dashboard/leaderboard/data',methods=['GET'])
-def fetchLeaderboardData():
-    return dashboardController.leaderboardData()
+#@front.route('/dashboard/leaderboard/data',methods=['GET'])
+#def fetchLeaderboardData():
+#ß    return dashboardController.leaderboardData()
 
+@front.route('/dashboard/help',methods=['GET'])
+def requestHelp():
+    return dashboardController.requestHelp()
+
+@front.route('/dashboard/results', methods=['GET'])
+def getResults():
+    return dashboardController.leaderboardData()

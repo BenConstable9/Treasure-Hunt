@@ -57,7 +57,7 @@ class GameModel():
                 cur = con.cursor()
 
                 #Get all of the notifications
-                cur.execute("SELECT * FROM Notifications INNER JOIN Teams ON Notifications.TeamID = Teams.TeamID WHERE Notifications.GamePin=? ORDER BY Time DESC LIMIT 15", (gamePin,))
+                cur.execute("SELECT * FROM Notifications INNER JOIN Teams ON Notifications.TeamID = Teams.TeamID WHERE Notifications.GamePin=? ORDER BY Time DESC LIMIT 10", (gamePin,))
 
                 results = cur.fetchall()
 

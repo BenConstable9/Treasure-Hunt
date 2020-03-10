@@ -1,32 +1,44 @@
 /* Author - Ben Constable
+   Modified By - Ravi Gohel
+   Edited - Zach Lavender - adding the locatio blocks, getting answers and checking question answers
+
    Handle the dashboard functionality
 */
 
 document.addEventListener('DOMContentLoaded', function(){
     HTTPPost("/dashboard/getLoc", values = "values", addLocationBlocks)
 
+    function revealHint() {
+        showAlert("success", "Hint Revealed. The QR code can be found: " + this.dataset.hint);
+    }
+
     function addLocationBlocks(response){
-      if (response.status == "0") {
-          //incorrect response
-          showAlert("Unable to load database");
-      } else {
-          var ul = document.getElementById("Locations");
-          var ul2 = document.getElementById("building")
+        if (response.status == "0") {
+            //incorrect response
+            showAlert("error", "Unable to load database");
+        } else {
+            speechSynthesis.speak(new SpeechSynthesisUtterance("You need to visit the following locations."));
+            var ul = document.getElementById("Locations");
+            var ul2 = document.getElementById("building")
 
-          for (rowNum in response.data){
-            var li = document.createElement("li");
-            li.id = response.data[rowNum].building
-            li.appendChild(document.createTextNode(response.data[rowNum].building));
-            ul.appendChild(li);
-            var box = document.createElement("input");
-            box.id = "letter"+response.data[rowNum].building
-            box.className = "finalLoc"
-            box.disabled = true;
-            box.size = 1;
-            ul2.appendChild(box);
+            for (i = 0; i < response.data.length; i ++){
+                var li = document.createElement("li");
+                li.id = response.data[i].building
+                li.innerHTML = response.data[i].building + " <span id='hint" + response.data[i].questionID + "' class='hint' data-hint='" + response.data[i].qrLocation + "'>Location Hint?</span>";
+                ul.appendChild(li);
+                var box = document.createElement("input");
+                box.id = "letter"+response.data[i].questionID;
+                box.className = "finalLoc"
+                box.disabled = true;
+                box.size = 1;
+                ul2.appendChild(box);
+                speechSynthesis.speak(new SpeechSynthesisUtterance(response.data[i].building));
 
-          }
-    }}
+                document.getElementById("hint" + response.data[i].questionID).addEventListener("click", revealHint);
+            }
+            HTTPPost("/dashboard/getAnswers", values = "values", answersCallback)
+        }
+    }
 
     function verifyLocationCallback(response) {
         if (response.status == "1") {
@@ -34,6 +46,9 @@ document.addEventListener('DOMContentLoaded', function(){
             document.getElementById("questionText").innerHTML = response.Question;
             document.getElementById("scanModal").style.display = "none";
             document.getElementById("questionAnswerModal").style.display = "block";
+
+            //speak the question outloud
+            speechSynthesis.speak(new SpeechSynthesisUtterance("Your question is. " + response.Question));
 
             document.forms["questionAnswer"]["questionID"].value = response.QuestionID;
             showAlert("success", response.message);
@@ -56,17 +71,34 @@ document.addEventListener('DOMContentLoaded', function(){
         } else {
             showAlert("success", "Question Answer Successfully")
             document.getElementById("questionAnswerModal").style.display = "none";
-            var ul = document.getElementById("building");
-            console.log(response)
-            for (rowNum in response.data){
-              var box = document.getElementById("letter"+response.data[rowNum].building);
-              box.value = response.data[rowNum].letter
-              var ul2 = document.getElementById(response.data[rowNum].building);
-              ul2.innerHTML = "<del>"+response.data[rowNum].building+"</del>";
+
+            for (i = 0; i < response.data.length; i ++){
+              var box = document.getElementById("letter"+response.data[i].questionID);
+              box.value = response.data[i].letter
+              var ul2 = document.getElementById(response.data[i].building);
+              ul2.innerHTML = "<del>"+response.data[i].building+"</del>";
             }
-            scanner.stop();
-            //todo add the letter and cross off the list
-            //get the index and add at the correct index
+            if (response.status == 2){
+              console.log("THE GAME IS DONE")
+              document.getElementById("roomNum").innerHTML = response.room;
+            }
+        }
+        scanner.stop();
+    }
+
+    function answersCallback(response) {
+        if (response.status == "0") {
+            //incorrect response
+            showAlert("error", "Issue Loading");
+        } else {
+            document.getElementById("questionAnswerModal").style.display = "none";
+
+            for (i = 0; i < response.data.length; i ++){
+              var box = document.getElementById("letter"+response.data[i].questionID);
+              box.value = response.data[i].letter
+              var ul2 = document.getElementById(response.data[i].building);
+              ul2.innerHTML = "<del>"+response.data[i].building+"</del>";
+            }
         }
     }
 
@@ -81,6 +113,30 @@ document.addEventListener('DOMContentLoaded', function(){
         } else {
             showAlert("questionAnswerModalError", "Fill In An Answer Before Submitting");
         }
+    }
+
+    /* Handle the callback from logging out
+
+        :param response: The response from the request
+    */
+    function logoutCallback(response) {
+        if (response.status == "1"){
+          window.location.replace("/");
+
+        }
+    }
+
+    /* When the team tries to logout */
+    function logout() {
+        HTTPPost("/dashboard/logout", "", logoutCallback)
+    }
+
+
+    /* Send Help Request */
+    function helpRequest() {
+        //send notification and show banner
+        showAlert("success", "Help Request | Make Way To Starting Location");
+        HTTPGet("/dashboard/help", null)
     }
 
     let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
@@ -138,12 +194,9 @@ document.addEventListener('DOMContentLoaded', function(){
         document.getElementById("questionAnswerModal").style.display = "none";
     }
 
-    /* Handle opening of a modal
-    */
-    function openScanModal() {
-        //open it
-        document.getElementById("scanModal").style.display = "block";
-    }
+    document.getElementById("help").addEventListener("click", helpRequest);
+
+    document.getElementById("logout").addEventListener("click", logout);
 
     document.getElementById("closeScanModal").addEventListener("click", flipScanModel);
 

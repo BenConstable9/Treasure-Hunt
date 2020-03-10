@@ -9,6 +9,14 @@ class SubjectModel():
     def __init__(self):
         pass
 
+    """Create a subject given subject details
+
+    :param subjectName: The subject name.
+    :param building: The name of the building.
+    :param longitude: The longitude of the building.
+    :param latitude: The latitude of the building.
+
+    :return:  A JSON array with status."""
     def createSubject(self, subjectName, building, longitude, latitude):
         # Try the SQL
         try:
@@ -49,6 +57,10 @@ class SubjectModel():
 
             con.close()
 
+
+    """Obtain details of subjects
+
+    :return:  A JSON array with status."""
     def getSubjects(self):
         # Try the SQL
         try:
@@ -81,7 +93,10 @@ class SubjectModel():
             con.close()
 
     """Verifies a pin
-    :return: A JSON array with the status. """
+
+    :param gamePin: the given gamePin.
+
+    :return: A JSON array response with the status. """
     def verifyPin(self, gamePin):
         # Try the SQL
         try:
@@ -101,7 +116,6 @@ class SubjectModel():
                 game = cur.fetchall()
                 for row in game:
                     subject = row[0]
-                    print ("Subject", subject)
                     obtained_row = row
 
                 # Check the game pin

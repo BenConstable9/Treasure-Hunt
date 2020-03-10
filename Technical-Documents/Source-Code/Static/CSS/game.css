@@ -36,11 +36,6 @@
     padding-bottom: 5px;
 }
 
-.teamName {
-    color: crimson;
-    font-weight: bold;
-}
-
 .boxed h1, .boxed p {
     margin: 2px;
 }

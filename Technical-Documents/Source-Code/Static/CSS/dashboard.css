@@ -1,7 +1,72 @@
-#openScanModal {
+#flipScanModel {
     cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 25px;
 }
 
-.finalLoc {
-max-width: 5%
+del {
+    color: crimson;
+}
+
+#locationsBox {
+    margin-top: 20px;
+}
+
+.hint {
+    color: #fff;
+    border: 2px solid crimson;
+    background-color: crimson;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 10px;
+}
+
+#help {
+    border: 2px solid crimson;
+    border-radius: 5px;
+    background-color: crimson;
+    color: #fff;
+    padding: 15px 20px;
+    cursor: pointer;
+    position: absolute;
+    font-weight: bold;
+    bottom: 0;
+    right: 0;
+    margin: 25px;
+}
+
+#locationsBox p {
+    color: crimson;
+    text-align: justify;
+}
+
+#building {
+    margin: 0% 30% 10% 30%;
+    width: 40%;
+}
+
+#building input {
+    border-color: #666699;
+    color: crimson;
+    font-weight: bold;
+    text-align: center;
+    background: rgba(255, 255, 0255, 0.73);
+    padding: 10px 5px;
+    margin: 2px;
+}
+@media screen and (max-width:680px) {
+    /* change the modals */
+
+    #building {
+        padding: 10px;
+        margin: 5% auto;
+        width: 90%;
+    }
+
+    #building input {
+        padding: 3px 1px;
+        margin: 0.5px;
+    }
 }

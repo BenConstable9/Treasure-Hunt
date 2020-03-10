@@ -23,29 +23,19 @@
 
 
 <body>
-  <div class="topnav">
-  <a href="/dashboard">Back</a>
-  <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
-  </div>
+<div class="topnav" id = "myTopnav">
+    <a href="/dashboard"> Home</a>
+    <a href="/dashboard/map">Map</a>
+    <a class = "active">Leaderboard</a>
+    <a href="/dashboard/faqs">FAQ's</a>
+    <a href="/dashboard/privacypolicy">Privacy Policy</a>
+    <image id="logo" src="{{url_for('static',filename='Images/UniLogo.png')}}"></image>
+    <a class="icon" onclick="showResponsiveMenu()">&#9776;</a>
+</div>
 
-  <h1>Leaderboard</h1>
-
-  <table id="leaderboardTable" align="center">
-    <thead>
-      <tr>
-      <th>Rank</th>
-      <th>Team Name</th>
-      <th>Number of Letters Collected</th>
-    </tr>
-  </thead>
-  <tbody>
-      {% for leaderboardRow in leaderboardData %}
-      <tr>
-        {% for value in leaderboardRow.values() %}
-        <td>{{ value }}</td>
-        {% endfor %}
-      </tr>
-      {% endfor %}
-  </tbody>
-  </table>
+    <div id="leaderboard" class="boxed">
+        <h4>Leaderboard</h4>
+        <div id="scoresError" class="alert error">No Scores</div>
+        <ul id="scores"></ul>
+    </div>
   </body>

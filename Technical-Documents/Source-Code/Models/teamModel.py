@@ -1,5 +1,6 @@
-from flask import request,json
+from flask import request,json,session
 import sqlite3 as sql
+import datetime
 
 # Author - Ben Constable, Debugged with - Ravi Gohel
 # Modified By - Ravi
@@ -24,7 +25,6 @@ class TeamModel():
 
                 # See if the game pin is valid
                 cur.execute("SELECT * FROM Games WHERE GamePin=? AND Active=?", (int(gamePin),1))
-                print(cur)
 
                 game = cur.fetchone()
 
@@ -38,6 +38,8 @@ class TeamModel():
                     #now check the team name and pin combo by checking the length of the return
                     if (otherTeam is None):
                         subject = game["SubjectID"]
+
+                        #Set variables for error checking in registration
                         message = "Team Registration Unsuccessful - "
                         toBreak = False
 
@@ -46,19 +48,26 @@ class TeamModel():
                             message = message + " Team Name is empty - "
                             toBreak = True
 
+
+                        team2 = teamName.replace(" ","")
+                        if (team2.isalpha()== False):
+                            message = message + " Only Letters and Spaces"
+                            toBreak = True
+
                         if (tutorID == "None"):
                             message = message + "Tutor is empty."
                             toBreak = True
 
                         if (toBreak == True):
                             response = {'status':'0', 'message':message, 'ID': '0'}
+                        #If there are no errors
                         else:
                             # Insert the team data
-                            print (teamName, gamePin, subject, tutorID)
                             cur.execute("INSERT INTO Teams (TeamName,GamePin,SubjectID,TutorID) VALUES (?,?,?,?)",(teamName,gamePin,subject,tutorID) )
-
                             con.commit()
-
+                            teamID = cur.lastrowid
+                            cur.execute("INSERT INTO Results (TeamID,StartTime,Letters) VALUES (?,?,?)",(teamID,datetime.datetime.now(),0))
+                            con.commit()
                             # Get the last id
                             lastID = cur.lastrowid
 
@@ -70,7 +79,8 @@ class TeamModel():
                 else:
                     response = {'status':'0', 'message':'Team Registration Unsuccessful - Game Pin Invalid', 'ID': '0'}
 
-        except:
+        except Exception as e:
+            print(e)
             con.rollback()
 
             response = {'status':'0', 'message':'Team Registration Unsuccessful - Check All Values', 'ID': '0'}
@@ -97,7 +107,6 @@ class TeamModel():
                 cur.execute("SELECT * FROM Teams WHERE GamePin=? AND TeamName=?", (gamePin,teamName))
 
                 team = cur.fetchone()
-                print(team)
 
                 # Check the game pin
                 if (team is not None):
@@ -117,5 +126,11 @@ class TeamModel():
             return response
 
             con.close()
+
+    """Handing the logging out of an team"""
+    def teamLogout(self):
+        session.clear() #Clears the session
+        response = {'status':'1', 'message':'Logged Out Successfully'}
+        return response
 
 teamModel=TeamModel()
