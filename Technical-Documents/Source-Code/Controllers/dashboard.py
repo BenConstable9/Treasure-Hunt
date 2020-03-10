@@ -54,6 +54,12 @@ class DashboardController():
     def faq(self):
         return render_template('FAQs.html')
 
+    """Loads the privacy webpage.
+
+    :return: The html page"""
+    def privacyPolicy(self):
+        return render_template('privacypolicy.html')
+
     """Loads the leaderboard webpage.
 
     :return: The html page"""
