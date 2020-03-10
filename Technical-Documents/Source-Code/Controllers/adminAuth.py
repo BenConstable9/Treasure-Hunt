@@ -91,6 +91,7 @@ class AdminAuthController():
 
     :return: The response"""
     def adminLogout(self):
+        #Get the response from the model
         response = adminModel.adminLogout()
         return response
 

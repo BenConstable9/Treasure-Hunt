@@ -22,6 +22,7 @@ class AuthController():
         if not session.get('loggedIn'):
             return render_template('home.html')
         else:
+            #Redirect
             return redirect("/dashboard", code=302)
 
     """Handle the form for the registering a team

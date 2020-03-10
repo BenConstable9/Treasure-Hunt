@@ -25,45 +25,60 @@ class DashboardController():
         if not session.get('loggedIn'):
             return redirect("/", code=302)
         else:
+            #Get the information from the session
             teamID = session.get('teamID') #pass this to a model
             gamePin = session.get('gamePin')
             subject = session.get('subject')
             response = questionModel.getQuestions(escapeInput(subject))
 
             if response["status"] == "1":
+                #Shuffle the data
                 data = response["data"]
                 random.shuffle(data)
                 return render_template('dashboard.html',info = data)
             else:
                 return render_template('home.html')
 
+    """Check the location.
+
+    :return: A redirect or a template. """
     def verifyLocation(self):
         # Check if logged in
         if not session.get('loggedIn'):
             return {'status':'0', 'message':'Not Logged In - Refresh Page and Login'}
         else:
+            #Get data from the session for the model
             subject = session.get('subject')
             value = request.form.get('value')
             return questionModel.verifyLocation(subject, value)
 
+    """Loads the building page.
+
+    :return: A template. """
     def  building(self):
         return render_template('building.html')
 
+    """Loads the lecturers page.
+
+    :return: A template. """
     def lecturer(self):
         return render_template('lecturers.html')
 
+    """Loads the FAQs page.
+
+    :return: A template. """
     def faq(self):
         return render_template('FAQs.html')
 
     """Loads the privacy webpage.
 
-    :return: The html page"""
+    :return: A template."""
     def privacyPolicy(self):
         return render_template('privacypolicy.html')
 
     """Loads the leaderboard webpage.
 
-    :return: The html page"""
+    :return: A template."""
     def leaderboard(self):
         return render_template('leaderboard.html')
 
@@ -91,23 +106,33 @@ class DashboardController():
         #return array of scores.
         return leaderboardResponse
 
+    """Opens the map.
+
+    :return: A redirect or a template. """
     def openMap(self):
+        #Check if logged in
         if not session.get('loggedIn'):
             return redirect("/", code=302)
         else:
+            #Get data from session for the model
             teamID = session.get('teamID') #pass this to a model
             gamePin = session.get('gamePin')
             subject = session.get('subject')
             response = questionModel.getQuestions(escapeInput(subject))
 
             if response["status"] == "1":
+                #Shuffle the data
                 data = response["data"]
                 random.shuffle(data)
                 return render_template('map.html',info = data)
             else:
                 return render_template('home.html')
 
+    """Check the answer.
+
+    :return: A response message and status."""
     def checkAnswer(self):
+        #Get the data from the session
         teamID = session.get('teamID')
         gamePin = session.get('gamePin')
         answer = request.form.get('answer')
@@ -128,16 +153,25 @@ class DashboardController():
 
         return response
 
+    """Get the answers.
+
+    :return: A response message and status."""
     def getAnswers(self):
+        #Get the data from the session for the model
         teamID = session.get('teamID')
         response = questionModel.getAnswers(escapeInput(teamID))
         return response
 
+    """Get the location.
+
+    :return: A response message and status."""
     def getLoc(self):
+        #Get the data from the session for the model
         subject = session.get('subject')
         response = questionModel.getQuestions(escapeInput(subject))
         print("test")
         if response["status"] == "1":
+            #Shuffle the data
             data = response["data"]
             random.shuffle(data)
             print(data)
@@ -148,11 +182,14 @@ class DashboardController():
 
     """Request Help From Moderator"""
     def requestHelp(self):
+        #Get the data from the session for the model
         teamID = session.get('teamID')
         gamePin = session.get('gamePin')
         gameModel.logAction(gamePin, teamID, "requested help. Meet them at starting location.")
 
-    """Allow the team to Logout """
+    """Allow the team to Logout 
+
+    :return: A response message and status."""
     def teamLogout(self):
         response = teamModel.teamLogout()
         return response
