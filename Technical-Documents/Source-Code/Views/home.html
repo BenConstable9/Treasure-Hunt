@@ -27,7 +27,7 @@
     <h1>Welcome To The Great University of Exeter Freshers Treasure Hunt</h1>
     <!-- If an error is returned then output it -->
     {% if status == "0" %}
-        <div id="error" class="alert error">{{ message }}</div>
+        <div id="error" class="alert error" style="display: block">{{ message }}</div>
     {% endif %}
 
     <form action="/register" method="post" class="authForm">
