@@ -55,6 +55,12 @@ class DashboardController():
     def faq(self):
         return render_template('FAQs.html')
 
+    """Loads the privacy webpage.
+
+    :return: The html page"""
+    def privacyPolicy(self):
+        return render_template('privacypolicy.html')
+
     """Loads the leaderboard webpage.
 
     :return: The html page"""
@@ -97,6 +103,7 @@ class DashboardController():
         answer = request.form.get('answer')
         questionId = request.form.get("questionID")
         response = questionModel.checkAnswer(escapeInput(answer),escapeInput(questionId),escapeInput(teamID) )
+        print(response)
         if response["status"] == "1":
 
             #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))

@@ -12,6 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <link rel="shortcut icon" href="{{url_for('static',filename='Images/favicon.ico')}}" type="image/x-icon" />
+
     <title>Home</title>
 </head>
 <body>
@@ -27,7 +29,7 @@
     <h1>Welcome To The Great University of Exeter Freshers Treasure Hunt</h1>
     <!-- If an error is returned then output it -->
     {% if status == "0" %}
-        <div id="error" class="alert error">{{ message }}</div>
+        <div id="error" class="alert error" style="display: block">{{ message }}</div>
     {% endif %}
 
     <form action="/register" method="post" class="authForm">
