@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function(){
         } else if (response.status == "1" && response.data.length > 0) {
             //if no error then don't display anything.
             document.getElementById("scoresError").style.display = "none";
-            sortedResponse = sorted(reponse.data,key=lambda x:[2] )
             for (i = 0; i < response.data.length; i ++) {
                 var x = document.createElement("LI");
                 //outputs the data in a list view.
