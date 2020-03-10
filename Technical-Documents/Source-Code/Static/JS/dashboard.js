@@ -100,6 +100,10 @@ document.addEventListener('DOMContentLoaded', function(){
               ul2.innerHTML = "<del>"+response.data[i].building+"</del>";
             }
         }
+        if (response.status == 2){
+          console.log("THE GAME IS DONE")
+          document.getElementById("roomNum").innerHTML = response.room;
+        }
     }
 
     /* Answer the given question */
