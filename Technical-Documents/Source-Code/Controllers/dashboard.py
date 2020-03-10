@@ -71,9 +71,19 @@ class DashboardController():
 
     :return: An array of the data."""
     def leaderboardData(self):
-
-        #get current game pin
-        gamePin = session.get('gamePin')
+        #check if they are an admin or not by looking at referrrer
+        if ("admin" in request.referrer):
+            #get their details and find their active game
+            keeperID = session.get("keeperID")
+            gameResponse = gameModel.getGames(keeperID, 1)
+            #handle them not having an active game
+            if (len(gameResponse) == 1):
+                gamePin = gameResponse[0]["GamePin"]
+            else:
+                return {'status':'0', 'message':'No Scores'}
+        else:
+            #they are player so get the data from the session
+            gamePin = session.get('gamePin')
 
         #get the leaderboard data from the DB
         leaderboardResponse = leaderboardModel.obtainResults(gamePin)

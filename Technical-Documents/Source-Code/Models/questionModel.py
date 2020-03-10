@@ -72,7 +72,6 @@ class QuestionModel():
                 cur.execute("SELECT * FROM Questions WHERE QRText=?",(str(qRText),))
 
                 questions =  cur.fetchall()
-                print(questions)
 
                 if (len(questions) == 0):
                     response = {'status':'0', 'message':'Invalid QR Code - try scanning again.'}
@@ -112,6 +111,7 @@ class QuestionModel():
 
              con.close()
 
+# takes in a team id when the page is refresed gets and returns any of the letters for the questions they have answered.
     def getAnswers(self,teamID):
         try:
             # Open the DB
@@ -135,6 +135,9 @@ class QuestionModel():
             return response
             con.close()
 
+# takes in the id of a team
+# retures a json object with a 1 if they have completed the game and a 0 if they have not
+# Uses the team name to check the length of the name of the building they need to get to if its the same as the number of correct answers theyve given then retuns that have won and sets there finish time
     def checkComplete(self, teamID):
         try:
             # Open the DB
@@ -151,14 +154,12 @@ class QuestionModel():
                     cur.execute("SELECT * FROM Teams Inner Join Tutors ON Teams.TutorID = Tutors.TutorID WHERE TeamID=?", (teamID,))
                     results = cur.fetchone()
                     cur.execute("UPDATE Results SET FinishTime = ? WHERE TeamID = ?",(datetime.datetime.now(),teamID))
-                    cur.commit()
+                    con.commit()
                     room = results["Room"]
                     return {'status': '1', 'room': room}
                 else:
-                    print("pass")
                     return {'status':'0'}
         except Exception as e:
-            print("fail")
             print(e)
             return {'status':'0'}
         finally:
@@ -166,6 +167,9 @@ class QuestionModel():
 
             con.close()
 
+# takes the answers to a question the id of that question and the teamId of the team answering the question
+# returns a json object with varing status depending if there answer was correct or if they have won the game. Inside the object is the letters they have collected the bulding they were in and the question id of the question they QuestionsAnswered
+# checks there answers agains the one in the database for a given question id. also calls to check if they have completed the game if there answer was correct
     def checkAnswer(self,answer,questionId,teamID):
         try:
             # Open the DB
@@ -176,17 +180,14 @@ class QuestionModel():
                 cur.execute("SELECT * FROM Questions WHERE QuestionID=?", (questionId,))
 
                 question = cur.fetchone()
-                print("CHECK CALL")
-                print(question["Answer"].casefold())
-                print(answer.casefold())
+                #checks if the given answers is the one in the database - with any capitals ignored
                 if str(question["Answer"].casefold()) == str(answer.casefold()):
-                    print("CHECK CALL")
                     cur.execute("SELECT * FROM QuestionsAnswered WHERE QuestionID=? AND TeamID=?", (questionId,teamID))
                     result = cur.fetchone()
-                    print("CHECK CALL")
                     res = None
+                    #if the question hasnt already been answered
                     if result is None:
-
+                        #adds the fact that they have copleted the question to the db
                         cur.execute("INSERT INTO QuestionsAnswered VALUES (?,?,?)", (questionId,teamID,datetime.datetime.now()))
                         con.commit()
                         leaderboardModel.addLetter(teamID)
@@ -195,28 +196,23 @@ class QuestionModel():
                         res = cur.fetchall()
 
                     if res is not None:
-
+                        # for each question theve answered it adds the requred infomation to the output
                         returns = []
                         for let in res:
 
                             returns.append({"letter":let["Letter"], "building":let["Building"], "questionID":let["QuestionID"]})
-                        print("its here")
+                        #if they have completed the game then also returns the final room for them to go to
                         won = self.checkComplete(teamID)
-                        print("its here")
-                        print(won)
+
                         if won["status"] == '1':
-                            print("stat 2")
                             response = {'status': '2', 'data': returns, 'room' : won["room"]}
                         else:
-                            print("stat 1")
                             response = {'status': '1', 'data': returns}
                 else:
 
-                    print("if3")
                     response = {'status':'0'}
 
         except Exception as e:
-            print("it failed")
             print(e)
             response = {'status':'0'}
         finally:
