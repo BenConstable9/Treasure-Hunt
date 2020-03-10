@@ -151,7 +151,7 @@ class QuestionModel():
                     cur.execute("SELECT * FROM Teams Inner Join Tutors ON Teams.TutorID = Tutors.TutorID WHERE TeamID=?", (teamID,))
                     results = cur.fetchone()
                     cur.execute("UPDATE Results SET FinishTime = ? WHERE TeamID = ?",(datetime.datetime.now(),teamID))
-                    cur.commit()
+                    con.commit()
                     room = results["Room"]
                     return {'status': '1', 'room': room}
                 else:
