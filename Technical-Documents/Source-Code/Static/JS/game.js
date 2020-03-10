@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function(){
           }
     }
 
+  /* Handles the changing of admin password */
     function changePassword(e){
       e.preventDefault();
       //validate the password
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
+  /* Handle the registering of a new admin */
     function registerAdmin(e){
       e.preventDefault();
       //validate the password

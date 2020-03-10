@@ -1,6 +1,6 @@
 /* Author - Ben Constable
    Modified By - Ravi Gohel
-   Edited - Zach Lavender - adding the locatio blocks, getting answers and checking question answers
+   Edited - Zach Lavender - adding the location blocks, getting answers and checking question answers
 
    Handle the dashboard functionality
 */
@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function(){
         showAlert("success", "Hint Revealed. The QR code can be found: " + this.dataset.hint);
     }
 
+    /* Handle the response from adding locations */
     function addLocationBlocks(response){
         if (response.status == "0") {
             //incorrect response
@@ -40,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
+    /* Handle the response from verifying the location */
     function verifyLocationCallback(response) {
         if (response.status == "1") {
             document.getElementById("questionBuilding").innerHTML = response.Building;
@@ -72,12 +74,14 @@ document.addEventListener('DOMContentLoaded', function(){
             showAlert("success", "Question Answer Successfully")
             document.getElementById("questionAnswerModal").style.display = "none";
 
+            //Go through all response data and get the corresponding letters
             for (i = 0; i < response.data.length; i ++){
               var box = document.getElementById("letter"+response.data[i].questionID);
               box.value = response.data[i].letter
               var ul2 = document.getElementById(response.data[i].building);
               ul2.innerHTML = "<del>"+response.data[i].building+"</del>";
             }
+            //Check if the game is completed
             if (response.status == 2){
               console.log("THE GAME IS DONE")
               document.getElementById("roomNum").innerHTML = response.room;
@@ -86,13 +90,14 @@ document.addEventListener('DOMContentLoaded', function(){
         scanner.stop();
     }
 
+    /* Handle the response from answering a question */
     function answersCallback(response) {
         if (response.status == "0") {
             //incorrect response
             showAlert("error", "Issue Loading");
         } else {
             document.getElementById("questionAnswerModal").style.display = "none";
-
+            //Go through all response data and get the corresponding letters
             for (i = 0; i < response.data.length; i ++){
               var box = document.getElementById("letter"+response.data[i].questionID);
               box.value = response.data[i].letter
@@ -100,6 +105,7 @@ document.addEventListener('DOMContentLoaded', function(){
               ul2.innerHTML = "<del>"+response.data[i].building+"</del>";
             }
         }
+        //Checks if the game is completed
         if (response.status == 2){
           console.log("THE GAME IS DONE")
           document.getElementById("roomNum").innerHTML = response.room;

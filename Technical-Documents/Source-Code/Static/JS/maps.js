@@ -6,12 +6,14 @@ var options = {
   zoom: 16,
   center: uni
 };
+//Generates a map using Google maps
 function createMap() {
 
   map = new google.maps.Map(document.getElementById('map'), options);
   HTTPGet("/getPins", handleSection)
 }
 
+//Adds the markers to the map for the building locations
 function handleSection(res){
   response = res.data;
   for (var i = 0; i < response.length; i++) {
