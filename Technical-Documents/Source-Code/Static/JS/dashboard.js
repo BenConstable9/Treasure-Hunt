@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 //always start the first camera
                 scanner.start(cameras[0]);
             } else if (cameras.length > 1) {
-                //always start the first camera
+                //always start the second camera
                 scanner.start(cameras[1]);
             } else {
                 //give them an error
