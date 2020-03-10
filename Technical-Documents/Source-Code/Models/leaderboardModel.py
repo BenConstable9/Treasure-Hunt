@@ -49,7 +49,7 @@ class leaderboardModel():
                 cur = con.cursor()
 
                 # Get the appropriate results
-                cur.execute("SELECT t.TeamName, r.StartTime, r.FinishTime, r.Letters, t.GamePin FROM Teams t INNER JOIN Results r ON t.TeamID = r.TeamID WHERE t.Gamepin=? ORDER BY r.Letters DESC, r.StartTime DESC", (gamePin,))
+                cur.execute("SELECT t.TeamName, r.StartTime, r.FinishTime, r.Letters, t.GamePin FROM Teams t INNER JOIN Results r ON t.TeamID = r.TeamID WHERE t.Gamepin=? ORDER BY r.Letters DESC, (r.StartTime - r.FinishTime) DESC", (gamePin,))
                 results = cur.fetchall()
 
                 print(results)

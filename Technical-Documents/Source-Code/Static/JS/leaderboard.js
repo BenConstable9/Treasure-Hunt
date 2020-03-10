@@ -15,10 +15,11 @@ document.addEventListener('DOMContentLoaded', function(){
         } else if (response.status == "1" && response.data.length > 0) {
             //if no error then don't display anything.
             document.getElementById("scoresError").style.display = "none";
+            sortedResponse = sorted(reponse.data,key=lambda x:[2] )
             for (i = 0; i < response.data.length; i ++) {
                 var x = document.createElement("LI");
                 //outputs the data in a list view.
-                x.innerHTML = "Rank: <b>"+(i+1)+"</b> "+ "| <span class='teamName'>" + response.data[i].TeamName + "</span> | Points: <b>" + response.data[i].Letters + "</b><span class='teamName'> | StartTime: <b>" + response.data[i].StartTime +"</b><span class='teamName'>"+"</span>";
+                x.innerHTML = "Rank: <b>"+(i+1)+"</b> "+ "| <span class='teamName'>" + response.data[i].TeamName + "</span> | Letters: <b>" + response.data[i].Letters + "</b><span class='teamName'> | StartTime: <b>" + response.data[i].StartTime +"</b><span class='teamName'>"+"</span>";
                 document.getElementById("scores").appendChild(x);
             }
         } else {
