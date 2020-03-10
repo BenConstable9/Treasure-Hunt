@@ -64,7 +64,7 @@ class DashboardController():
 
     :return: An array of the data."""
     def leaderboardData(self):
-        
+
         #get current game pin
         gamePin = session.get('gamePin')
 
@@ -96,6 +96,7 @@ class DashboardController():
         answer = request.form.get('answer')
         questionId = request.form.get("questionID")
         response = questionModel.checkAnswer(escapeInput(answer),escapeInput(questionId),escapeInput(teamID) )
+        print(response)
         if response["status"] == "1":
 
             #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
