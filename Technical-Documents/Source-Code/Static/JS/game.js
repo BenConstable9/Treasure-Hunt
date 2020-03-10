@@ -4,6 +4,71 @@
 */
 
 document.addEventListener('DOMContentLoaded', function(){
+
+  /* Handle the response from changing admin password */
+    function changePasswordCallback(response) {
+        if (response.status == "0") {
+            //incorrect response
+            showAlert("changePasswordModalError", "Error in Changing Password - not the same");
+        } else {
+            //Tell user password has been changed
+            showAlert("success", "Password change successfully");
+            var passwordForm = document.forms["changePassword"];
+            passwordForm.reset();
+            document.getElementById("changePasswordModal").style.display = "none";
+            console.log(response);
+          }
+    }
+
+    function changePassword(e){
+      e.preventDefault();
+      //validate the password
+      var password1 = document.forms["changePassword"]["password1"].value;
+      var password2 = document.forms["changePassword"]["password2"].value;
+      var id = document.forms["changePassword"]["ID"].value;
+      if (password1 == password2 && password1.length >= 1){
+        //send off the request
+        HTTPPost("/admin/game/changePassword", "password1=" + password1 + "&password2=" + password2 + "&ID=" + id, changePasswordCallback)
+      }
+      else if (password1.length ==0 || password2.length ==0){
+        showAlert("changePasswordModalError", "Error in Changing Password - Empty Password Input")
+      }
+      else{
+        showAlert("changePasswordModalError", "Error in Changing Password - Not The Same");
+      }
+    }
+
+  /* Handle the response from registering new admin */
+    function registerAdminCallback(response) {
+      if (response.status == "1") {
+          //Tell the user the admin has been added
+          showAlert("success", "New admin registered successfully")
+          var registerForm = document.forms["registerAdmin"]
+          registerForm.reset();
+          document.getElementById("registerAdminModal").style.display = "none";
+      }
+      else {
+        showAlert("adminRegisterModalError", "Error in registering");
+        }
+    }
+
+    function registerAdmin(e){
+      e.preventDefault();
+      //validate the password
+      var name = document.forms["registerAdmin"]["name"].value;
+      var username = document.forms["registerAdmin"]["username"].value;
+      var password1 = document.forms["registerAdmin"]["password1"].value;
+      var password2 = document.forms["registerAdmin"]["password2"].value;
+      if (password1 == password2 && password1.length >= 1 && name.length >= 1 && username.length >= 1 && /^[a-zA-Z]+$/.test(name) == true){
+        //send off the request
+        HTTPPost("/admin/game/register", "password1=" + password1 + "&password2=" + password2 + "&name=" + name + "&username=" + username, registerAdminCallback)
+      }
+      else{
+        showAlert("registerAdminModalError", "Error in your registration");
+      }
+    }
+
+
     /* Handle the callback from creating a game
 
         :param response: The response from the request
@@ -90,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function(){
         :param response: The response from the request
     */
     function handleUploadCallback(response) {
+        document.getElementById("loadingContainer").style.display = "none";
         if (response.status == "1") {
             showAlert("success", response.message);
 
@@ -112,22 +178,27 @@ document.addEventListener('DOMContentLoaded', function(){
             row.insertCell(2).innerHTML = response.Building;
             row.insertCell(3).innerHTML = '<button id="create' + response.SubjectID + '" class="createGameButton">Create Game</button>';
             row.insertCell(4).innerHTML = '<button id="print' + response.SubjectID + '" class="printQRCode">Print QR Codes</button>';
+            row.insertCell(5).innerHTML = '<button id="delete' + response.SubjectID + '" class="deleteSubjectButton">Delete Subject</button>';
 
             //add the event listeners
             document.getElementById('create' + response.SubjectID).addEventListener("click", createGame);
             document.getElementById('create' + response.SubjectID).dataset.json = buttonJSON;
             document.getElementById('print' + response.SubjectID).addEventListener("click", createPrints);
             document.getElementById('print' + response.SubjectID).dataset.json = buttonJSON;
+            document.getElementById('delete' + response.SubjectID).addEventListener("click", deleteSubject);
+            document.getElementById('delete' + response.SubjectID).dataset.json = buttonJSON;
         } else {
             showAlert("error", response.message);
         }
     }
 
-    /* Handle the submission of the game form
+  /* Handle the submission of the game form
     */
     function handleUpload(e) {
         //stop a page reload
         e.preventDefault();
+
+        document.getElementById("loadingContainer").style.display = "block";
 
         //create the form data and send it off
         var form = document.forms["configUpload"];
@@ -148,37 +219,41 @@ document.addEventListener('DOMContentLoaded', function(){
     /* Handle opening of a modal
     */
     function openConfigModal() {
-        //close registerAdminModel if opening
-        document.getElementById("registerAdminModel").style.display = "none";
-        document.getElementById("changePasswordModel").style.display = "none";
+        //close registerAdminModal if opening
+        document.getElementById("registerAdminModal").style.display = "none";
+        document.getElementById("changePasswordModal").style.display = "none";
         //open it
         document.getElementById("configModal").style.display = "block";
     }
 
     /* Handle the closing of a modal
     */
-    function closeRegisterAdminModel(e) {
+    function closeRegisterAdminModal(e) {
         e.preventDefault();
+        var registerForm = document.forms["registerAdmin"];
+        registerForm.reset();
         //close it
-        document.getElementById("registerAdminModel").style.display = "none";
+        document.getElementById("registerAdminModal").style.display = "none";
     }
 
     /* Handle opening of a modal
     */
-    function openRegisterAdminModel() {
+    function openRegisterAdminModal() {
         //close configModal if open
         document.getElementById("configModal").style.display = "none";
-        document.getElementById("changePasswordModel").style.display = "none";
+        document.getElementById("changePasswordModal").style.display = "none";
         //open registerAdmin form
-        document.getElementById("registerAdminModel").style.display = "block";
+        document.getElementById("registerAdminModal").style.display = "block";
     }
 
     /* Handle the closing of a modal
     */
-    function closeChangePasswordModel(e) {
+    function closeChangePasswordModal(e) {
         e.preventDefault();
+        var passwordForm = document.forms["changePassword"]
+        passwordForm.reset();
         //close it
-        document.getElementById("changePasswordModel").style.display = "none";
+        document.getElementById("changePasswordModal").style.display = "none";
     }
 
     /* Handle the closing of a modal
@@ -191,12 +266,12 @@ document.addEventListener('DOMContentLoaded', function(){
 
     /* Handle opening of a modal
     */
-    function openChangePasswordModel() {
-        //close registerAdminModel if opening
-        document.getElementById("registerAdminModel").style.display = "none";
+    function openChangePasswordModal() {
+        //close registerAdminModal if opening
+        document.getElementById("registerAdminModal").style.display = "none";
         document.getElementById("configModal").style.display = "none";
         //open it
-        document.getElementById("changePasswordModel").style.display = "block";
+        document.getElementById("changePasswordModal").style.display = "block";
     }
 
     /* Handle submission of clicking print QR codes
@@ -210,19 +285,80 @@ document.addEventListener('DOMContentLoaded', function(){
     /* Handles displaying the QR codes
     */
     function createPrintsCallback(response){
-        console.log(response);
-        document.getElementById("questionsModalList").innerHTML = '';
-        //Loops through data from questions and adds a link to QR code for each location
-        for (i = 0; i < response.data.length; i ++) {
-            var x = document.createElement("LI");
-            x.innerHTML = "<a href='/Static/Images/Codes/" + response.data[i].questionID + ".svg' target='_blank'>" + response.data[i].building + "</a>";
-            document.getElementById("questionsModalList").appendChild(x);
+        if (response.status == "0") {
+            showAlert("error", response.message);
+        } else {
+            document.getElementById("questionsModalList").innerHTML = '';
+            //Loops through data from questions and adds a link to QR code for each location
+            for (i = 0; i < response.data.length; i ++) {
+                var x = document.createElement("LI");
+                x.innerHTML = "<a href='/Static/Images/Codes/" + response.data[i].questionID + ".svg' target='_blank'>" + response.data[i].building + "</a>";
+                document.getElementById("questionsModalList").appendChild(x);
+            }
+            //Closes modals
+            document.getElementById("configModal").style.display = "none";
+            document.getElementById("questionsModal").style.display = "block";
         }
-        //Closes modals
-        document.getElementById("configModal").style.display = "none";
-        document.getElementById("questionsModal").style.display = "block";
     }
 
+    /* Handle the callback getting the notifications
+
+        :param response: The response from the request
+    */
+    function fetchNotificationsCallback(response) {
+        document.getElementById("notificationsList").innerHTML = "";
+        if (response.status == "0" && response.message != "No Game Running") {
+            //set the error as this
+            showAlert("error", response.message);
+            document.getElementById("notificationsError").style.display = "block";
+        } else if (response.status == "1" && response.data.length > 0) {
+            //output the notifications
+            document.getElementById("notificationsError").style.display = "none";
+            //Add all the teams to the lists
+            for (i = 0; i < response.data.length; i ++) {
+                //put the data in
+                var x = document.createElement("LI");
+                x.innerHTML = "<span class='teamName'>" + response.data[i].TeamName + "</span> " + response.data[i].Action + " <span class='teamName'> @ " + response.data[i].Time.split(" ")[1].substring(0,5) + "</span>";
+                document.getElementById("notificationsList").appendChild(x);
+            }
+        } else {
+            //no game running
+            document.getElementById("notificationsError").style.display = "block";
+        }
+    }
+
+    /* Fetch Notifications */
+    function fetchNotifications() {
+        HTTPGet("/admin/notifications", fetchNotificationsCallback);
+    }
+
+    /* Send off a request to delete a subject
+    */
+    function deleteSubject(){
+        //Get the subject ID to pass to the request
+        subjectID = JSON.parse(this.dataset.json.replace(/'/g, '"')).SubjectID;
+        document.getElementById("loadingContainer").style.display = "block";
+        var params = "SubjectID=" + subjectID;
+        HTTPPost("/admin/deleteSubject", params, deleteSubjectCallback)
+    }
+
+    /* Handle the callback from ending a game
+
+        :param response: The response from the request
+    */
+    function deleteSubjectCallback(response) {
+        if (response.status == "1") {
+            document.getElementById("loadingContainer").style.display = "none";
+            //Delete subject row from table
+            document.getElementById("configTable").deleteRow(1);
+            document.getElementById('noConfigError').style.display = "block";
+            //show message
+            showAlert("success", response.message);
+            document.reload();
+        } else {
+            showAlert("error", response.message);
+        }
+    }
 
     //add the event listeners
 
@@ -236,23 +372,38 @@ document.addEventListener('DOMContentLoaded', function(){
         prints[i].addEventListener("click", createPrints)
     }
 
+    deletes = document.getElementsByClassName('deleteSubjectButton');
+    for (i = 0; i < deletes.length; i ++) {
+        deletes[i].addEventListener("click", deleteSubject)
+    }
+
     document.forms["configUpload"]["upload"].addEventListener("click", handleUpload);
 
     document.forms["configUpload"]["cancel"].addEventListener("click", closeConfigModal);
 
     document.getElementById("manageConfigs").addEventListener("click", openConfigModal);
 
-    document.getElementById("registerAdmin").addEventListener("click",openRegisterAdminModel);
+    document.getElementById("registerAdmin").addEventListener("click",openRegisterAdminModal);
 
-    document.forms["registerAdmin"]["cancel"].addEventListener("click", closeRegisterAdminModel);
+    document.forms["registerAdmin"]["cancel"].addEventListener("click", closeRegisterAdminModal);
 
-    document.getElementById("changePassword").addEventListener("click",openChangePasswordModel);
+    document.forms["registerAdmin"]["signUp"].addEventListener("click",registerAdmin);
 
-    document.forms["changePassword"]["cancel"].addEventListener("click", closeChangePasswordModel);
+    document.getElementById("changePassword").addEventListener("click",openChangePasswordModal);
+
+    document.forms["changePassword"]["cancel"].addEventListener("click", closeChangePasswordModal);
+
+    document.forms["changePassword"]["submit"].addEventListener("click",changePassword);
 
     document.getElementById("endGame").addEventListener("click", endGame);
 
     document.getElementById("logout").addEventListener("click", logout);
 
     document.getElementById("cancelQuestionsModal").addEventListener("click", closeQuestionsModal);
+
+    //document.getElementsByClassName('deleteSubjectButton').addEventListener("click", deleteSubject);
+
+    setInterval(function(){ fetchNotifications(); }, 5000);
+
+    fetchNotifications();
 }, false);

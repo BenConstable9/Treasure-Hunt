@@ -8,33 +8,52 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
     <script src="{{ url_for('static',filename='JS/instascan.js') }}"></script>
-    <script src="{{ url_for('static',filename='JS/ajax.js') }}"></script>
     <script src="{{ url_for('static',filename='JS/common.js') }}"></script>
+    <script src="{{ url_for('static',filename='JS/ajax.js') }}"></script>
     <script src="{{ url_for('static',filename='JS/dashboard.js') }}"></script>
     <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
     <link href="{{ url_for('static',filename='CSS/dashboard.css') }}" rel='stylesheet' type='text/css'/>
+
+    <link rel="shortcut icon" href="{{url_for('static',filename='Images/favicon.ico')}}" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="{{url_for('static',filename='Images/apple-touch-icon-iphone-60x60.png')}}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{url_for('static',filename='Images/apple-touch-icon-ipad-76x76.png')}}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{url_for('static',filename='Images/apple-touch-icon-iphone-retina-120x120.png')}}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{url_for('static',filename='Images/apple-touch-icon-ipad-retina-152x152.png')}}">
 </head>
 <body>
     <div class="topnav" id = "myTopnav">
         <a class = "active"> Home</a>
         <a href="/dashboard/map">Map</a>
-        <a href="">Leaderboard</a>
+        <a href="/dashboard/leaderboard">Leaderboard</a>
         <a href="/dashboard/faqs">FAQ's</a>
-        <a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+        <a href="/dashboard/privacypolicy">Privacy Policy</a>
+        <a id="logout" href="#">Logout</a>
+        <image id="logo" src="{{url_for('static',filename='Images/UniLogo.png')}}"></image>
         <a class="icon" onclick="showResponsiveMenu()">&#9776;</a>
     </div>
 
     <div id="success" class="alert success">Success: <span></span></div>
     <div id="error" class="alert error">Error: <span></span></div>
 
-    <h2>Building:</h2>
-    <ul id = "building" style="display:inline;">
-    </ul>
+    <div id="loadingContainer">
+        <div id="loadingWheel"></div>
+        <p id="loadingText">Loading...</p>
+    </div>
 
-    <h3> Room: </h3>
-    <p id = "roomNum" style="text-align: center;">___</p>
-    <ul class="Locations" id = "Locations">
-    </ul>
+    <h2>Final Building Anagram:</h2>
+    <center><div id="building" style="display:inline;"></div></center>
+
+    <div id="locationsBox" class="boxed">
+        <p>Visit each of the locations on the list below. At each location scan the QR using the camera button below and answer the question; for each question you answer, a letter will be revealed.
+        <br>Once you have answered them all, the final location can be decoded from the anagram above.</p>
+        <hr>
+        <h4>Final Room:</h4>
+        <p id = "roomNum" style="text-align: center;">___</p>
+        <hr>
+        <h4>Locations To Visit:</h4>
+        <ol class="Locations" id = "Locations">
+        </ol>
+    </div>
 
     <div id="questionAnswerModal" class="modal">
         <div class="modalHeader">
@@ -42,7 +61,7 @@
         </div>
         <div class="modalBody">
             <div id="questionAnswerModalError" class="alert error">Error: <span></span></div>
-            <div>Your Challenge! Answer the following: <span id="questionText"></span></div>
+            <div>Answer the following: <span id="questionText"></span></div>
         </div>
         <div class="modalFooter">
             <form action="/dashboard/question" method="post" name="questionAnswer">
@@ -59,10 +78,17 @@
             <h2>Scan QR Code</h2>
         </div>
         <div class="modalBody">
-            <video id="preview"></video>
+            <center>
+                <video id="preview"></video>
+            </center>
+        </div>
+        <div class="modalFooter">
+            <button id="closeScanModal" class="cancel">Cancel</button>
         </div>
     </div>
 
     <image id="flipScanModel" src="{{ url_for('static',filename='Images/camera.png') }}"></image>
+
+    <span id="help">Help!</span>
 </body>
 </html>

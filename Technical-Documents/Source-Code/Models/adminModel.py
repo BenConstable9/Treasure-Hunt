@@ -17,13 +17,12 @@ class AdminModel():
     :param: password2 - the repeated password
 
     :return: A JSON array with the status. """
-    def adminRegister(self, name, username, password, password2):
+    def adminRegister(self, name, username, password1, password2):
         # Try the SQL
         try:
             # Open the database
             with sql.connect("Models/treasure.sqlite") as con:
                 cur = con.cursor()
-
                 # See if the username exists
                 cur.execute("SELECT * FROM Keepers WHERE Username=?", (username,))
 
@@ -31,8 +30,7 @@ class AdminModel():
 
                 #now check the username is not already taken
                 if (len(otherKeepers) == 0):
-
-                    if password != password2:
+                    if password1 != password2:
                         response = {'status':'0', 'message':'Game Keeper Registration Unsuccessful - Password Do Not Match', 'ID': '0'}
                     else:
                         salt = os.urandom(32) #Generates the salt
@@ -40,7 +38,7 @@ class AdminModel():
                         # Hash the password
                         storedPassword = hashlib.pbkdf2_hmac(
                             'sha256',
-                            password.encode('utf-8'),
+                            password1.encode('utf-8'),
                             salt,
                             100000,
                             dklen=128
@@ -104,7 +102,7 @@ class AdminModel():
                     response = {'status':'1', 'message':'Game Keeper Logged In Successfully', 'ID': keeper["KeeperID"], 'Name':keeper["Name"]}
 
                 else:
-                    response = {'status':'0', 'message':'Game Keeper Logging In Unsuccessfull - Invalid Username or Password', 'ID': '0'}
+                    response = {'status':'0', 'message':'Game Keeper Logging In Unsuccessful - Invalid Username or Password', 'ID': '0'}
 
         except:
             response = {'status':'0', 'message':'Game Keeper Logging In Unsuccessful', 'ID': '0'}
@@ -124,22 +122,24 @@ class AdminModel():
     :param: ID - the ID of the keeper trying to change their password.
 
     :return: A JSON array with the status. """
-    def adminChangePassword(self, password, password2, ID):
+    def adminChangePassword(self, password1, password2, ID):
         # Try the SQL
         try:
             # Open the database
             with sql.connect("Models/treasure.sqlite") as con:
                 cur = con.cursor()
 
-                if password != password2:
-                    response = {'status':'0', 'message':'Game Keeper Password Change Unsuccessful - Password Do Not Match', 'ID': '0'}
+                if password1 != password2:
+                    response = {'status':'0', 'message':'Game Keeper Password Change Unsuccessful - Password Do Not Match'}
+                elif len(password1 or password2) == 0:
+                    response = {'status':'0', 'message':'Game Keeper Password Change Unsuccessful - Empty password input'}
                 else:
                     salt = os.urandom(32) #Generates the salt
 
                     # Hash the password
                     storedPassword = hashlib.pbkdf2_hmac(
                         'sha256',
-                        password.encode('utf-8'),
+                        password1.encode('utf-8'),
                         salt,
                         100000,
                         dklen=128
@@ -158,7 +158,7 @@ class AdminModel():
 
             con.rollback()
 
-            response = {'status':'0', 'message':'Game Keeper Password Change Unsuccessful', 'ID': '0'}
+            response = {'status':'0', 'message':'Game Keeper Password Change Unsuccessful'}
 
         finally:
             return response
@@ -168,7 +168,7 @@ class AdminModel():
 
     """Handing the logging out of an admin"""
     def adminLogout(self):
-        session.clear()
+        session.clear() #Clears the session
         response = {'status':'1', 'message':'Logged Out Successfully'}
         return response
 

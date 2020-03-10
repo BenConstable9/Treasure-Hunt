@@ -1,0 +1,2 @@
+There are lots of changes in these screenshots from the previous because we have chosen to remove all of the cards which we know we will not be completing.
+These include a number of "could have" cards.

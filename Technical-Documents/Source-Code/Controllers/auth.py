@@ -4,10 +4,11 @@ from Models.subjectModel import subjectModel
 from Models.teamModel import teamModel
 from Models.tutorModel import tutorModel
 from Helpers.utility import escapeInput
+from Models.gameModel import gameModel
 
 # Author - Ben Constable
 # Modified By - Ravi Gohel
-# MVC Controller for handling user sign up
+# MVC Controller for handling team sign up and logging in
 class AuthController():
 
     def __init__(self):
@@ -23,7 +24,7 @@ class AuthController():
         else:
             return redirect("/dashboard", code=302)
 
-    """Handle the form for the registering
+    """Handle the form for the registering a team
 
     :return: A redirect or a template. """
     def registerTeam(self):
@@ -33,7 +34,7 @@ class AuthController():
         tutorID = request.form.get('TutorID')
 
         # Get the response from the model
-        response = teamModel.registerTeam(escapeInput(teamName), escapeInput(gamePin), escapeInput(tutorID)) 
+        response = teamModel.registerTeam(escapeInput(teamName), escapeInput(gamePin), escapeInput(tutorID))
 
         if response["status"] == "1":
             # Set the session variables
@@ -42,13 +43,15 @@ class AuthController():
             session["gamePin"] = response["gamePin"]
             session["subject"] = response["subject"]
             session["tutor"] = response["tutor"]
+
+            gameModel.logAction(gamePin, response["ID"], "registered for the game")
             # Redirect
             return redirect("/dashboard", code=302)
         else:
             # Should output the error on the home template
             return render_template('home.html', status=response["status"], message=response["message"])
 
-    """Handle the form for the logging on
+    """Handle the form for the team logging in
 
     :return: A redirect or a template. """
     def loginTeam(self):
@@ -66,6 +69,9 @@ class AuthController():
             session["gamePin"] = response["gamePin"]
             session["subject"] = response["subject"]
 
+            #log the action
+            gameModel.logAction(gamePin, response["ID"], "logged back into the game")
+
             # Redirect
             return redirect("/dashboard", code=302)
         else:
@@ -75,7 +81,7 @@ class AuthController():
 
     """Handle the form for checking the gamepin
 
-    :return: A redirect or a template. """
+    :return: tutors or a response"""
     def verifyPin(self):
         # Get the values from the request
         gamePin = request.args.get('GamePin')
@@ -87,16 +93,11 @@ class AuthController():
             # Set the session varaibles
             session["gamePin"] = response["gamePin"]
 
+            # Obtain the tutors
             tutors = tutorModel.obtainTutors(escapeInput(response["subjectID"]))
-
-            # Redirect
-            # return redirect("/admin", code=302)
             return tutors
         else:
-            #should output the error
             return response
-
-
 
 
 authController=AuthController()

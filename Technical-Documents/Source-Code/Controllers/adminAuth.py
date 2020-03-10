@@ -4,6 +4,7 @@ from Models.adminModel import adminModel
 from Helpers.utility import escapeInput
 
 # Author - Ben Constable
+# Modified By - Ravi Gohel
 # MVC Controller for handling admin login/signup
 class AdminAuthController():
 
@@ -49,29 +50,30 @@ class AdminAuthController():
     :return: A redirect or a template. """
     def adminRegister(self):
         # Get the values from the form
-        name = request.form.get('Name')
-        username = request.form.get('Username')
-        givenPassword = request.form.get('Password')
-        repeatedPassword = request.form.get('Password2')
+        name = request.form.get('name')
+        username = request.form.get('username')
+        givenPassword = request.form.get('password1')
+        repeatedPassword = request.form.get('password2')
 
         # Get the response from the model
         response = adminModel.adminRegister(escapeInput(name),escapeInput(username), escapeInput(givenPassword), escapeInput(repeatedPassword))
 
         if response["status"] == "1":
             # Redirect
-            return redirect("/admin/game", code=302)
+            message = response["message"]
         else:
             #should output the error
-            return render_template('admin.html', status=response["status"], message=response["message"])
+            response = {}
+        return response
 
 
     """Handle the form for the changing the password of an Admin
 
-    :return: A redirect or a template. """
+    :return: The response"""
     def adminChangePassword(self):
         # Get the values from the form
-        givenPassword = request.form.get('Password')
-        repeatedPassword = request.form.get('Password2')
+        givenPassword = request.form.get('password1')
+        repeatedPassword = request.form.get('password2')
         ID = request.form.get('ID')
 
         # Get the response from the model
@@ -79,12 +81,15 @@ class AdminAuthController():
 
         if response["status"] == "1":
             # Redirect
-            return redirect("/admin/game", code=302)
+            message = response["message"]
         else:
             #should output the error
-            return render_template('admin.html', status=response["status"], message=response["message"])
+            response = {}
+        return response
 
-    """Allow the gamekeeper to Logout """
+    """Allow the gamekeeper to Logout
+
+    :return: The response"""
     def adminLogout(self):
         response = adminModel.adminLogout()
         return response

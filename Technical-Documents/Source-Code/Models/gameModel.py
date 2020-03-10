@@ -4,6 +4,7 @@ import json
 import hashlib
 import random
 import pyqrcode
+import datetime
 from Models.subjectModel import subjectModel
 from Models.tutorModel import tutorModel
 from Models.questionModel import questionModel
@@ -15,6 +16,63 @@ from Helpers.utility import escapeInput, makeRowDictionary
 class GameModel():
     def __init__(self):
         pass
+
+    """Log an action for the admin to see.
+
+    :param gamePin: The game you are currently playing.
+
+    :param teamID: The team which is logging the action.
+
+    :param action: A string describing the action they have just done. """
+    def logAction(self, gamePin, teamID, action):
+        # Try the SQL
+        try:
+            # Open the DB
+            with sql.connect("Models/treasure.sqlite") as con:
+                cur = con.cursor()
+
+                # Insert the action
+                cur.execute("INSERT INTO Notifications (GamePin,TeamID,Time,Action) VALUES (?,?,?,?)",(gamePin,teamID,datetime.datetime.now(),action))
+
+                con.commit()
+
+        except Exception as e:
+            print(e)
+
+        finally:
+
+            con.close()
+
+    """Get the latest actions for the admin.
+
+    :param gamePin: The game pin of the game they are monitoring.
+
+    :return: A dictionary of data to be returned via ajax. """
+    def getNotifications(self, gamePin):
+        try:
+            # Open the DB
+            with sql.connect("Models/treasure.sqlite") as con:
+                #map the column names to the values returned
+                con.row_factory = makeRowDictionary
+                cur = con.cursor()
+
+                #Get all of the notifications
+                cur.execute("SELECT * FROM Notifications INNER JOIN Teams ON Notifications.TeamID = Teams.TeamID WHERE Notifications.GamePin=? ORDER BY Time DESC LIMIT 10", (gamePin,))
+
+                results = cur.fetchall()
+
+                response = {'status':'1', 'data':results}
+
+        except Exception as e:
+            print(e)
+            response = {'status':'0', 'message':'BAD - Unsuccessful'}
+
+        finally:
+
+            # Return the result
+            return response
+
+            con.close()
 
     """Handle creating of a game.
 
@@ -105,7 +163,7 @@ class GameModel():
 
     :param subjectID: The subject to generate the QR codes for.
 
-    :return: The list of QR codes. """
+    :return: A json response with details of the success. """
     def genQRCodes(self, subjectID):
         try:
             #Open the DB
@@ -125,6 +183,39 @@ class GameModel():
                 response = {'status':'1', 'message':'QR Codes Created'}
 
         except Exception as e:
+            print(e)
+            response = {'status':'0', 'message':'BAD - Unsuccessful'}
+
+        finally:
+
+            # Return the result
+            return response
+
+            con.close()
+
+    """Handle the deletion of a subject
+
+    :param subjectID: The subject to be deleted.
+
+    :return: A json response with details of the success."""
+    def deleteSubject(self, subjectID):
+        try:
+            #Open the DB
+            with sql.connect("Models/treasure.sqlite") as con:
+                cur = con.cursor()
+
+                #Delete the subject from the table
+                cur.execute("DELETE FROM Questions WHERE SubjectID=?", (subjectID,))
+                cur.execute("DELETE FROM Subjects WHERE SubjectID=?", (subjectID,))
+                cur.execute("DELETE FROM Tutors WHERE SubjectID=?", (subjectID,))
+                cur.execute("DELETE FROM Games WHERE SubjectID=?", (subjectID,))
+
+                con.commit();
+
+                response = {'status':'1', 'message':'Subject deleted successfully', 'subjectID':subjectID}
+
+        except Exception as e:
+            #Incorrect Repsonse
             print(e)
             response = {'status':'0', 'message':'BAD - Unsuccessful'}
 
@@ -204,6 +295,7 @@ class GameModel():
 
                         self.genQRCodes(subjectID)
                     else:
+                        #Incorrect Repsonse
                         response = {'status':'0', 'message':'Game not added successfully - length of locations is not the same as the final building.', 'ID': '0'}
 
                 else:

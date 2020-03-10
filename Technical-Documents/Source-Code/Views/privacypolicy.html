@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- Author - Adam Bannister -->
+<!-- Display the Privacy Policy -->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Privacy Policy</title>
+        <script src="{{ url_for('static',filename='JS/common.js') }}"></script>
+        <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
+
+        <link rel="shortcut icon" href="{{url_for('static',filename='Images/favicon.ico')}}" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="{{url_for('static',filename='Images/apple-touch-icon-iphone-60x60.png')}}">
+        <link rel="apple-touch-icon" sizes="60x60" href="{{url_for('static',filename='Images/apple-touch-icon-ipad-76x76.png')}}">
+        <link rel="apple-touch-icon" sizes="114x114" href="{{url_for('static',filename='Images/apple-touch-icon-iphone-retina-120x120.png')}}">
+        <link rel="apple-touch-icon" sizes="144x144" href="{{url_for('static',filename='Images/apple-touch-icon-ipad-retina-152x152.png')}}">
+
+    </head>
+    <body>
+        <div class="topnav" id = "myTopnav">
+            <a href="/dashboard">Home</a>
+            <a href="/dashboard/map">Map</a>
+            <a href="/dashboard/faqs">FAQ's</a>
+            <a class="active">Privacy Policy</a>
+            <image id="logo" src="{{url_for('static',filename='Images/UniLogo.png')}}"></image>
+            <a class="icon" onclick="showResponsiveMenu()">&#9776;
+        </div>
+
+        <div class="boxed" style="margin: 16px;">
+            <h1>General Data Protection Regulation (GDPR) Privacy Policy</h1>
+            This document explains how we use the personal data that we collect when you use our app.
+            <hr>
+            <h4>What data do we collect?</h4>
+            Below is a list of the data which we are collecting as part of our project, for both the students using it and relevant data for the application itself.
+            <ul>
+            <li>Student (User) Information</li>
+            <li>Team name for each team of students participating</li>
+            <li>Location via the use of placed QR codes and the students scanning them</li>
+            </ul>
+            <hr>
+            <h4>How do we collect your data?</h4>
+            We collect and process data directly from you when you:
+            <ul>
+            <li>Register a team with a team name</li>
+            <li>Scan a QR code at a question location</li>
+            </ul>
+            <hr>
+            <h4>How will we use your data?</h4>
+            For our project, we are collecting the data so that we can:
+            <ul>
+            <li>Register a team of students in order to take part in the game as a group with that distinctive name</li>
+            <li>Work out where the student is when they scan a QR code to check it off the list of places to visit</li>
+            </ul>
+            The collected data is not shared with any third parties.
+            <hr>
+            <h4>How do we store your data?</h4>
+            For our project, all data is being stored in a serialized database with SQLite with default security measures.
+            <hr>
+            <h4>What other data have we collected?</h4>
+            For the project, we also collect other data in order to enable additional functionality to the project. For this, we collected:
+            <ul>
+            <li>Lecturer and other university staff information</li>
+            <li>Area of study and subject</li>
+            <li>Full Name</li>
+            <li>Job Title</li>
+            <li>University Email address</li>
+            <li>Office location</li>
+            <li>Profile picture</li>
+            <li>Game Keeper (Admin) information</li>
+            <li>Full Name</li>
+            <li>Chosen username</li>
+            <li>Chosen password</li>
+            </ul>
+            <hr>
+            <h4>How did we collect this data?</h4>
+            We collected all lecturer and university data either from the public domain, or by contacting the lecturer or member of staff which the data was relevant to and asking them to provide the data themselves.
+            The game keeper information will be inputted by the chosen game keeper when they sign up as an admin. This is then stored for future logins by this admin.
+            <hr>
+            <h4>How will we use this data?</h4>
+            We collected information on lecturers at the university in order to allow an additional level of help and information for the freshers to access on their chosen course and university in general. The data we collected will be displayed on a web page for the user to scroll through and read.
+            The game keeper information will be used to differentiate and identify the game keepers, as well as enabling them to log back in securely.
+          </div>
+      </body>
+</html>

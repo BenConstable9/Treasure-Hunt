@@ -1,4 +1,3 @@
-
 <!--Author: Ravi Gohel
     Description: Computer Science Lecturers Details Page-->
 <!--Edited by: Freddie Woods
@@ -7,16 +6,29 @@
 <html>
     <head>
         <title>Computer Science Lecturers Information</title>
-        <link href="../Static/CSS/common.css" rel='stylesheet' type='text/css'/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="{{ url_for('static',filename='JS/common.js') }}"></script>
+        <link href="{{ url_for('static',filename='CSS/common.css') }}" rel='stylesheet' type='text/css'/>
+
+        <link rel="shortcut icon" href="{{url_for('static',filename='Images/favicon.ico')}}" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="{{url_for('static',filename='Images/apple-touch-icon-iphone-60x60.png')}}">
+        <link rel="apple-touch-icon" sizes="60x60" href="{{url_for('static',filename='Images/apple-touch-icon-ipad-76x76.png')}}">
+        <link rel="apple-touch-icon" sizes="114x114" href="{{url_for('static',filename='Images/apple-touch-icon-iphone-retina-120x120.png')}}">
+        <link rel="apple-touch-icon" sizes="144x144" href="{{url_for('static',filename='Images/apple-touch-icon-ipad-retina-152x152.png')}}">
     </head>
 
 <body>
-<div class="topnav">
-<a href="/">Home</a>
-<a href="building" >Buildings</a>
-<a class="active">Lecturers</a>
-<a href="faqs">FAQs</a>
-<a id ="logo"><image src="{{url_for('static',filename='Images/UniLogo.png')}}"></image></a>
+<div class="topnav" id="myTopnav">
+    <a href="/">Home</a>
+    <a href="building" >Buildings</a>
+    <a class="active">Lecturers</a>
+    <a href="faqs">FAQs</a>
+    <a href="privacypolicy">Privacy Policy</a>
+    <image id="logo" src="{{url_for('static',filename='Images/UniLogo.png')}}"></image>
+
+    <a class="icon" onclick="showResponsiveMenu()">&#9776;</a>
 </div>
 <h2>Lecturers</h2>
 

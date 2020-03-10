@@ -8,7 +8,7 @@ function showAlert(type, text) {
     alertBox.style.display = "block";
     setTimeout(function(){
         alertBox.style.display = "none";
-    }, 5000);
+    }, 10000);
 }
 
 function showResponsiveMenu()

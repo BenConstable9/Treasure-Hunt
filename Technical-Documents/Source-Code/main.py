@@ -14,4 +14,4 @@ app.register_blueprint(admin)
 app.config["SECRET_KEY"] = secrets.token_urlsafe(16)
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(debug = False)

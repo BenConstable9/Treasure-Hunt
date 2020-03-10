@@ -8,27 +8,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Leaderboard</title>
+    <script src="{{ url_for('static',filename='JS/ajax.js') }}"></script>
+    <script src="{{ url_for('static',filename='JS/common.js') }}"></script>
+    <script src="{{ url_for('static',filename='JS/leaderboard.js') }}"></script>
 
-    <style>
-      table{
-        width: 100%;
-      }
-
-    </style>
-
+    <link rel="shortcut icon" href="{{url_for('static',filename='Images/favicon.ico')}}" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="{{url_for('static',filename='Images/apple-touch-icon-iphone-60x60.png')}}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{url_for('static',filename='Images/apple-touch-icon-ipad-76x76.png')}}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{url_for('static',filename='Images/apple-touch-icon-iphone-retina-120x120.png')}}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{url_for('static',filename='Images/apple-touch-icon-ipad-retina-152x152.png')}}">
 </head>
 
 
 <body>
-  <button type = "button" onclick = "home.html" name = "backFromLeaderboard">Back</button>
+<div class="topnav" id = "myTopnav">
+    <a href="/dashboard"> Home</a>
+    <a href="/dashboard/map">Map</a>
+    <a class = "active">Leaderboard</a>
+    <a href="/dashboard/faqs">FAQ's</a>
+    <a href="/dashboard/privacypolicy">Privacy Policy</a>
+    <image id="logo" src="{{url_for('static',filename='Images/UniLogo.png')}}"></image>
+    <a class="icon" onclick="showResponsiveMenu()">&#9776;</a>
+</div>
 
-  <h1>Leaderboard</h1>
-
-  <table id="leaderboardTable" align="center">
-    <tr id = "titleRow">
-      <th>Rank</th>
-      <th>Team Name</th>
-      <th>Number of Letters Collected</th>
-    </tr>
-  </table>
+    <div id="leaderboard" class="boxed">
+        <h4>Leaderboard</h4>
+        <div id="scoresError" class="alert error">No Scores</div>
+        <ul id="scores"></ul>
+    </div>
   </body>
