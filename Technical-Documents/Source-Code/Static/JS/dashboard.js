@@ -173,16 +173,18 @@ document.addEventListener('DOMContentLoaded', function(){
             document.getElementById("scanModal").style.display = "block";
             /* Handles the QR code scanning */
             Instascan.Camera.getCameras().then(function (cameras) {
-            if (cameras.length == 1) {
-                //always start the first camera
-                scanner.start(cameras[0]);
-            } else if (cameras.length > 1) {
-                //always start the second camera
-                scanner.start(cameras[1]);
-            } else {
-                //give them an error
-                showAlert("error", "No Camera Installed - Check Your Settings");
-            }
+                var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                if (cameras.length == 1 || iOS) {
+                    //always start the first camera
+                    //ios is weird so start 0
+                    scanner.start(cameras[0]);
+                } else if (cameras.length > 1) {
+                    //always start the second camera
+                    scanner.start(cameras[1]);
+                } else {
+                    //give them an error
+                    showAlert("error", "No Camera Installed - Check Your Settings");
+                }
             }).catch(function (e) {
                 document.getElementById("loadingContainer").style.display = "none";
                 showAlert("error", e);
