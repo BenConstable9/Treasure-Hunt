@@ -138,16 +138,13 @@ class DashboardController():
         answer = request.form.get('answer')
         questionId = request.form.get("questionID")
         response = questionModel.checkAnswer(escapeInput(answer),escapeInput(questionId),escapeInput(teamID) )
-        print(response)
         if response["status"] == "1":
 
             #leaderboardModel.addLetter(escapeInput(teamID),escapeInput(gamePin))
             data = response["data"]
             gameModel.logAction(gamePin, teamID, "answered question " + questionId + " successfully")
 
-            #ajax call to say passed
         else:
-            print("status was not 1")
             gameModel.logAction(gamePin, teamID, "attempted to answer question " + questionId)
             #ajax call to say failed
 
@@ -169,12 +166,10 @@ class DashboardController():
         #Get the data from the session for the model
         subject = session.get('subject')
         response = questionModel.getQuestions(escapeInput(subject))
-        print("test")
         if response["status"] == "1":
             #Shuffle the data
             data = response["data"]
             random.shuffle(data)
-            print(data)
             return response
         else:
             data = {"status" == "0"}

@@ -55,7 +55,6 @@ class leaderboardModel():
                 cur.execute("SELECT t.TeamName, r.StartTime, r.FinishTime, r.Letters, t.GamePin FROM Teams t INNER JOIN Results r ON t.TeamID = r.TeamID WHERE t.Gamepin=? ORDER BY r.Letters DESC, (r.StartTime - r.FinishTime) ASC", (gamePin,))
                 results = cur.fetchall()
 
-                print(results)
                 response = {'status':'1', 'data':results}
 
         except Exception as e:
@@ -63,7 +62,6 @@ class leaderboardModel():
             response = {'status':'0', 'message':'BAD - Unsuccessful'}
 
         finally:
-            print(response)
 
             # Return the result
             return response

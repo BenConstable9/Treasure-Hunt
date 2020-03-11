@@ -83,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function(){
             }
             //Check if the game is completed
             if (response.status == 2){
-              console.log("THE GAME IS DONE")
               document.getElementById("roomNum").innerHTML = response.room;
             }
         }
@@ -107,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function(){
         }
         //Checks if the game is completed
         if (response.status == 2){
-          console.log("THE GAME IS DONE")
           document.getElementById("roomNum").innerHTML = response.room;
         }
     }

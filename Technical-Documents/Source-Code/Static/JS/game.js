@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function(){
             var passwordForm = document.forms["changePassword"];
             passwordForm.reset();
             document.getElementById("changePasswordModal").style.display = "none";
-            console.log(response);
           }
     }
 
